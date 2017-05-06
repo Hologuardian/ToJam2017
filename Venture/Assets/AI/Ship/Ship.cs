@@ -80,7 +80,6 @@ void FixedUpdate () {
             {
                 if (rigidbody.velocity.z < 0.5) {
                     Forward();
-                    print(dist);
                 }
                 else
                 {
