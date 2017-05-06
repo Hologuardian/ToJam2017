@@ -264,8 +264,8 @@ public class Inventory
         new Resource() {
             Name = Consts.Ferrotitanium,
             Value = 0.0f,
-            MolarMass = 47.9f,
-            Density = 4507.0f },
+            MolarMass = 151.579f,
+            Density = 2850f },
         new Resource() {
             Name = Consts.Magnesia,
             Value = 0.0f,
@@ -693,23 +693,6 @@ public class Inventory
             Name = "Galena Reprocess"
         },
         #endregion
-        #region Ilmenite Reprocess
-        new Recipe() {
-            ingredients = new List<Resource>()
-            {
-            new Resource(GetResource(Consts.Ilmenite)) { Volume = 100.0f }
-            },
-            products = new List<Resource>()
-            {
-            new Resource(GetResource(Consts.Titanium)).PercentMass(new Resource(GetResource(Consts.Ilmenite)) { Volume = 100.0f }.Mass, 31.56f),
-            new Resource(GetResource(Consts.Iron)).PercentMass(new Resource(GetResource(Consts.Ilmenite)) { Volume = 100.0f }.Mass, 36.81f),
-            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Ilmenite)) { Volume = 100.0f }.Mass, 31.63f)
-            },
-            time = 85,
-            type = Recipe.RecipeType.Reprocess,
-            Name = "Rhodochrosite Reprocess"
-        },
-        #endregion
         #region Magnetite Reprocess
         new Recipe() {
             ingredients = new List<Resource>()
@@ -939,19 +922,37 @@ public class Inventory
         new Recipe() {
             ingredients = new List<Resource>()
             {
-            new Resource(GetResource(Consts.Hydrogen)).Mols(2000000),
-            new Resource(GetResource(Consts.Oxygen)).Mols(1000000),
+            new Resource(GetResource(Consts.Water)).Mols(1000000),
             new Resource(GetResource(Consts.Pentlandite)).Mols(1000000)
             },
             products = new List<Resource>()
             {
-            new Resource(GetResource(Consts.Water)).Mols(1000000),
+            new Resource(GetResource(Consts.Hydrogen)).Mols(2000000),
+            new Resource(GetResource(Consts.Oxygen)).Mols(1000000),
             new Resource(GetResource(Consts.Pentlandite)).Mols(1000000)
             },
             time = 12,
-            powerCost = 2000.0f,
+            powerCost = 200.0f,
             type = Recipe.RecipeType.Reaction,
             Name = "Hydrogen Oxygen Electolysis Reaction"
+        },
+        #endregion
+        #region Hydrogen Oxygen Combustion Reaction
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Hydrogen)).Mols(2000000),
+            new Resource(GetResource(Consts.Oxygen)).Mols(2000000)
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Water)).Mols(2000000),
+            new Resource(GetResource(Consts.Oxygen)).Mols(1000000)
+            },
+            time = 12,
+            powerCost = -200.0f,
+            type = Recipe.RecipeType.Reaction,
+            Name = "Hydrogen Oxygen Combustion Reaction"
         },
         #endregion
         #region Ammonia Reaction
@@ -1010,15 +1011,106 @@ public class Inventory
         #endregion
         #endregion
         #region Manufacturing
+        #region Tungsten Carbide Synthesis
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Tungsten)).Mols(1000000),
+            new Resource(GetResource(Consts.Carbon)).Mols(1000000),
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Tungsten_Carbide)).Mols(1000000)
+            },
+            time = 1,
+            powerCost = 250.0f,
+            type = Recipe.RecipeType.Factory,
+            Name = "Tungsten Carbide Synthesis"
+        },
+        #endregion
+        #region Titanium Tetrachloride Synthesis
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Ilmenite)).Mols(1000000),
+            new Resource(GetResource(Consts.Chlorine)).Mols(4000000),
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Titanium_Tetrachloride)).Mols(1000000),
+            new Resource(GetResource(Consts.Iron)).PercentMass(new Resource(GetResource(Consts.Ilmenite)).Mols(1000000).Mass, 36.81f),
+            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Ilmenite)).Mols(1000000).Mass, 31.63f)
+            },
+            time = 1,
+            powerCost = 0.0f,
+            type = Recipe.RecipeType.Factory,
+            Name = "Titanium Tetrachloride Synthesis"
+        },
+        #endregion
+        #region Titanium Tetrachloride Processing
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Titanium_Tetrachloride)).Mols(1000000),
+            new Resource(GetResource(Consts.Magnesium)).Mols(2000000)
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Titanium)).Mols(1000000),
+            new Resource(GetResource(Consts.Magnisum_Chloride)).Mols(2000000)
+            },
+            time = 1,
+            powerCost = 0.0f,
+            type = Recipe.RecipeType.Factory,
+            Name = "Titanium Tetrachloride Processing"
+        },
+        #endregion
+        #region Ferrotitanium Synthesis
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Iron)).Mols(200000),
+            new Resource(GetResource(Consts.Titanium)).Mols(750000),
+            new Resource(GetResource(Consts.Carbon)).Mols(50000)
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Ferrotitanium)).Mols(1000000)
+            },
+            time = 1,
+            powerCost = 0.0f,
+            type = Recipe.RecipeType.Factory,
+            Name = "Ferrotitanium Synthesis"
+        },
+        #endregion
         #endregion
         #region Farming
-
+        #region Food
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Seeds)) { Volume = 100 },
+            new Resource(GetResource(Consts.Ammonium_Nitrate)) { Volume = 5 }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Food)) { Volume = 100 }
+            },
+            time = 300,
+            type = Recipe.RecipeType.Reaction,
+            Name = "Farm Food"
+        },
+        #endregion
         #endregion
     };
 
 
 
     private List<Resource> inventory = new List<Resource>();
+
+    private float totalMass = 0;
+    private float totalVolume = 0;
+    public float maxVolume = 0;
 
     public void Start()
     {
@@ -1027,6 +1119,40 @@ public class Inventory
     public static Resource GetResource(string name)
     {
         return Resources.First(x => x.Name == name);
+    }
+
+    public bool AddItem(Resource item)
+    {
+        if(totalVolume + item.Volume <= maxVolume)
+        {
+            int index = inventory.FindIndex(x => x.Name == item.Name);
+            if (index >= 0)
+                inventory[index].Volume += item.Volume;
+            inventory[index] = item;
+            return true;
+        }
+        return false;
+    }
+
+    public Resource RemoveItem(Resource item)
+    {
+        int index = inventory.FindIndex(x => x.Name == item.Name);
+
+        if (index >= 0)
+        {
+            if (inventory[index].Volume >= item.Volume)
+            {
+                inventory[index].Volume -= item.Volume;
+                return item;
+            }
+            else
+            {
+                Resource res = inventory[index];
+                inventory[index].Volume = 0;
+                return res;
+            }
+        }
+        return null;
     }
 
     public void Add(int key, Resource stat)
