@@ -15,7 +15,16 @@ public class Recipe
         Farming
     }
 
-    public Recipe(List<Resource> ingredients, List<Resource> products, int time)
+    public Recipe()
+    {
+        ingredients = new List<Resource>();
+        products = new List<Resource>();
+        time = 1;
+        powerCost = 0;
+        type = RecipeType.None;
+    }
+
+    public Recipe(List<Resource> ingredients, List<Resource> products, int time, float powerCost, RecipeType type)
     {
         if (ingredients == null)
             ingredients = new List<Resource>();
@@ -25,9 +34,13 @@ public class Recipe
         this.ingredients = ingredients;
         this.products = products;
         this.time = time;
+        this.powerCost = powerCost;
+        this.type = type;
     }
 
     public List<Resource> ingredients;
     public List<Resource> products;
     public int time;
+    public float powerCost;
+    public RecipeType type;
 }
