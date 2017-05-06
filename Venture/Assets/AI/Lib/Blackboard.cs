@@ -52,4 +52,9 @@ public class Blackboard
             }
         }
     }
+
+    public int Length()
+    {
+        return values.Count;
+    }
 }
