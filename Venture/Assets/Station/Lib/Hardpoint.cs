@@ -10,7 +10,7 @@ public class Hardpoint : MonoBehaviour
     public Color colourSelectable = Color.blue;
     public Color colourFocused = Color.red;
 
-    public SpriteRenderer gizmo;
+    public UnityEngine.UI.Image gizmo;
 
     public StationModule self;
     public StationModule attachment;

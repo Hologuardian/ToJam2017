@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+public enum Size { Tiny, Small, Medium, Large, Huge };
     
 public static class Consts
 {
@@ -144,4 +145,11 @@ public static class Consts
             Hunger = "Hunger",
             Happynes = "Happynes",
             HappynesGoal = "HappynesGoal";
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //      GLOBALS
+    public static class Globals
+    {
+        public const string UIInterface = "UIInterface";
+    }
 }
