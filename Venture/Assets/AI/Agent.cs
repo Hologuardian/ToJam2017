@@ -13,15 +13,7 @@ public enum Specialisations
     Trading = 4
 }
 
-public class Agent : MonoBehaviour
-{
-    public static class Literals
-    {
-        const string Employees = "Employees",
-                    CostPerMonth = "CostPerMonth";
-
-    }
-
+public class Agent : MonoBehaviour {
 
     public Blackboard general = new Blackboard();
 
@@ -33,21 +25,18 @@ public class Agent : MonoBehaviour
 
     public static Agent Factory()
     {
-        Specialisations Specialisation = new Specialisations();
-        Specialisation = (Specialisations)UnityEngine.Random.Range(0, Enum.GetNames(typeof(Specialisations)).Length);
-
-        Agent agent = new Agent();
-        agent.general.Add("Name", new BlackboardValue() { Name = "Name", Value = "Agent Name" });
         List<Employee> Employees = new List<Employee>();
-        int randomNumEmployees = UnityEngine.Random.Range(1, 100);
-
-        //setting valuse for ui
-        float EmployeesEfficiencyMax = 0, EmployeesEfficiencyMin = 3, EmployeesEfficiencyMean = 0, EmployeesEfficiencyMedian = 0, EmployeesEfficiencyMode = 0;
         Dictionary<string, float> ModeNumbers = new Dictionary<string, float>();
+        Specialisations Specialisation = new Specialisations();
+        float EmployeesEfficiencyMax = 0, EmployeesEfficiencyMin = 3, EmployeesEfficiencyMean = 0, EmployeesEfficiencyMedian = 0, EmployeesEfficiencyMode = 0;
+        int randomNumEmployees = UnityEngine.Random.Range(1, 100);
+        Agent agent = new Agent();
+
+        Specialisation = (Specialisations) UnityEngine.Random.Range(0, Enum.GetNames(typeof(Specialisations)).Length);
+        //setting valuse for ui
         for (int i = 0; i < randomNumEmployees; i++)
         {
             Employees.Add(new Employee());
-            Employees[i].Birth(Specialisation, agent);
             EmployeesEfficiencyMean += (float)Employees[i].EmployeeInfo["Efficiency"].Value;
             EmployeesEfficiencyMax = ((float)Employees[i].EmployeeInfo["Efficiency"].Value > EmployeesEfficiencyMax) ? (float)Employees[i].EmployeeInfo["Efficiency"].Value : EmployeesEfficiencyMax;
             EmployeesEfficiencyMin = ((float)Employees[i].EmployeeInfo["Efficiency"].Value < EmployeesEfficiencyMin) ? (float)Employees[i].EmployeeInfo["Efficiency"].Value : EmployeesEfficiencyMin;
@@ -71,9 +60,20 @@ public class Agent : MonoBehaviour
                 EmployeesEfficiencyMode = pair.Value;
             }
         }
-
-        agent.general.Add("Employees", new BlackboardValue() { Name = "Employees", Value = Employees });
-        agent.general.Add("CostPerMonth", new BlackboardValue() { Name = "CostPerMonth", Value = Employees.Count * UnityEngine.Random.Range(4000, 6000) });
+        //blackboard
+        agent.general.Add(Consts.Name, new BlackboardValue() { Name = "Name", Value = "Agent Name" });
+        agent.general.Add(Consts.Specialisation, new BlackboardValue() { Name = "Specialisation", Value = Specialisation });
+        agent.general.Add(Consts.Employees, new BlackboardValue() { Name = "Employees", Value = Employees });
+        agent.general.Add(Consts.EmployeesEfficiencyMin, new BlackboardValue() { Name = "EmployeesEfficiencyMin", Value = EmployeesEfficiencyMin });
+        agent.general.Add(Consts.EmployeesEfficiencyMax, new BlackboardValue() { Name = "EmployeesEfficiencyMax", Value = EmployeesEfficiencyMax });
+        agent.general.Add(Consts.EmployeesEfficiencyMean, new BlackboardValue() { Name = "EmployeesEfficiencyMean", Value = EmployeesEfficiencyMean });
+        agent.general.Add(Consts.EmployeesEfficiencyMedian, new BlackboardValue() { Name = "EmployeesEfficiencyMedian", Value = EmployeesEfficiencyMedian });
+        agent.general.Add(Consts.EmployeesEfficiencyMode, new BlackboardValue() { Name = "EmployeesEfficiencyMode", Value = EmployeesEfficiencyMode });
+        agent.general.Add(Consts.CostPerMonth, new BlackboardValue() { Name = "CostPerMonth", Value = Employees.Count * UnityEngine.Random.Range(4000,6000)});
+       
+        foreach (Employee employee in (agent.general[Consts.Employees].Value as List<Employee>)) {
+            employee.Birth(Specialisation, agent);
+        }
         return agent;
     }
 
