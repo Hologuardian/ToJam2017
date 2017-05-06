@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ReactorCore : MonoBehaviour
+public class ReactorModule : MonoBehaviour
 {
     public StationModule module;
 

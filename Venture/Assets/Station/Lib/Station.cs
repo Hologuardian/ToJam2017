@@ -15,10 +15,12 @@ public class Station : MonoBehaviour
     public Inventory inventory = new Inventory();
 
     public List<StationModule> modulesAll = new List<StationModule>();
-    public List<DockingBay> dockingBays = new List<DockingBay>();
-    public List<ReactorCore>
+    public List<DockingModule> dockingBays = new List<DockingModule>();
+    public List<ReactorModule> reactorCores = new List<ReactorModule>();
 
     public float credits;
+
+    public bool hardpointSelected = false;
 
     // Use this for initialization
     void Start()

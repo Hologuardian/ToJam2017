@@ -120,4 +120,28 @@ public static class Consts
     public const string Thorianite = "Thorianite";
     public const string Uraninite = "Uraninite";
     public const string Wolframite = "Wolframite";
+
+    //Agent
+    public const string
+            Name = "Name",
+            Specialisation = "Specialisation",
+            CostPerMonth = "CostPerMonth",
+            Employees = "Employees",
+            EmployeesEfficiencyMax = "EmployeesEfficiencyMax",
+            EmployeesEfficiencyMin = "EmployeesEfficiencyMin",
+            EmployeesEfficiencyMean = "EmployeesEfficiencyMean",
+            EmployeesEfficiencyMedian = "EmployeesEfficiencyMedian",
+            EmployeesEfficiencyMode = "EmployeesEfficiencyMode";
+    //Employee
+    public const string
+            ParentAgent = "ParentAgent",
+            LastName = "Last Name",
+            Age = "Age",
+            Gender = "Gender",
+            Height = "Height",
+            Efficiency = "Efficiency",
+            HungerMax = "HungerMax",
+            Hunger = "Hunger",
+            Happynes = "Happynes",
+            HappynesGoal = "HappynesGoal";
 }
