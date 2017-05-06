@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StationModule : MonoBehaviour
 {
-    public Transform hardpoints;
-    public Inventory statistics;
+    public Transform[] hardpoints;
+    public Inventory inventory;
 
     // Use this for initialization
     void Start()
