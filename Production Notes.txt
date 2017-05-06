@@ -1,0 +1,102 @@
+Bauxite + Sodium Hydroxide = Aluminum + 5-60% iron(3) oxide, 5-30% alumia, 0.3-15% titania, 2-14% calcia, 3-50% silica ~0.1% Gallium
+Silica => Silicon + CO2
+Silica used in sand casting -> part of glass industry
+Food additive
+Steel + CO2/CO = Iron + calcia or dolomite + Oxygen
+Concrete = aluminum 0.05%-0.08% + Aggragate + Calcium Hydroxide
+Calcia is an Aggragate
+Iron oxide => pigment
+Titania => pigment
+
+Alumia => filler
+Alumia => glass industry
+Alumia => purification -- water from gas streams
+Alumia => Abrasive/Abrasion Protection
+
+Beryl => gem
+
+Bornite => 11.13% Iron + 63.31% Copper + 25.56% Sulfur
+
+Cassiterite => 78.77% Tin + 21.23% Oxygen
+
+Chalcolite => 66% copper + 33% sulfur
+
+Chalcopyrite => 30.43% Iron + 34.63% Copper + 34.93% Sulfur
+
+Chromite 50-80% + iron 20-50% => Ferrochrome
+Ferrochrome 13-26% + steel => stainless steel
+
+Chromium => Chrome plating
+
+Cinnabar => 86.22% Mercury + 17.78% Sulfur
+
+Cobaltite => 35.52% Cobalt + 45.16% Arsenic + 19.33% Sulfur
+
+Coltan 1.6e-9m3 => Tantalum Capacitor Anode
+
+
+Dolomite - Host rock for lead zinc copper ores
+Dolomite => Magnesia 30%
+Dolomite => Aggragate
+
+Silicon + Magnesia = Silica + Magnesium
+
+Rhodochrosite => Manganese Carbonate + 41.76% Oxygen
+Manganese Carbonate + Nitric Acid = Manganese Nitrate + Water + CO2
+Manganese nitrate 1.6e-9m3 => Tantalum Capacitor Cathode
+
+Tantalum Capacitor = Tantalum Capacitor Anode + Tantalum Capacitor Cathode
+
+Galena + O2 => Lead + Sulfur Dioxide + O2 + 2% silver
+Galena => 86.60 % Lead + 13.40% Sulfur
+
+Hematite == Iron 3 Oxide
+
+Ilmenite is a flux
+Ferrotitanium => 10-20% iron 45-75% Titanium
+Ferrotitanium == flux
+
+Imlentite => 31.56% Titanium + 36.81% Iron + 31.63% Oxygen
+Ilmenite + Chlorine = Titanium Tetrachloride
+Titanium Tetrachloride + Magnesium = Magnisum Chloride + Titanium
+
+Magnisum Chloride - De-icing
+
+Magnetite => 72.36% Iron 27.64% Oxygen
+Magnetite is used in ammonia production as a catalyst
+
+Malachite => Valuable, no real uses
+		  => 57.48% Copper + 0.91% Hydrogen + 5.43% Carbon + 36.18% Oxygen
+
+Molybdenite + Water = Molybdate
+Molybdenite is a Semiconductor
+
+Molybdate => Supercapacitor
+Molybdate is used in small amounts in fertilizer.
+
+Pentlandite => ELECTROLYTIC CATALYST OF HYDROGEN FROM Water
+
+Pyrolusite + power => 63.19% Manganese + 36.81% Oxygen
+
+Pyrolusite + molten glass => clear glass
+
+Scheelite - Tungsten ore, used to be diamond substitute, unknown how to get tungsten out
+
+Sperrylite => 44.44% Arsenic + 56.56% Platinum
+Cooperite => 3.14% Nickel + 17.08% Plladium + 62.62% Platinum + 17.16% Sulfur
+Laurite => 61.18% Ruthenium + 38.82% Sulfur
+Merenskyite => 10.81% Bismuth + 59.38% Tellurium + 24.76% Palladium + 5.04% Platinum
+Sudburyite => 6.79% Nickel + 56.30% Antimony + 36.91% Palladium
+Omeiite => 47.16% Arsenic + 44.89% Osmium + 7.95% Ruthenium
+Niggliite => 37.83% Tin + 62.17% Platinum
+
+Sphalerite => 64.06% Zinc + 2.88% Iron + 32.06% Sulfur + ~0.1% Gallium + 0.3% Germanium
+Sphalerite => Gemstone
+
+Thorianite => 46.5% - 87.88% Thorium + up to 8% Cerium + ?% Uranium, Lathanum, Praseodymium, Neodymium + 12.12% Oxygen
+
+Uraninite/Pitchblende => 88.15% Uranium + Decay + 11.85% Oxygen
+
+Wolframite => 9.06% Manganese + 9.21% Iron + 60.63% Tungsten + 21.10% Oxygen
+
+Tungsten Carbide => Tungsten + Carbon
