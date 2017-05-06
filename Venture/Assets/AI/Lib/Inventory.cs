@@ -7,43 +7,43 @@ using UnityEngine;
 [Serializable]
 public class Inventory
 {
-    public ResourceSerialisable[] stats_editor = {
-        new ResourceSerialisable() { name = "Hydrogen", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Helium", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Oxygen", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Nitrogen", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Water", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Ammonia", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Nitric Acid", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Ammonium Nitrate", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Soil", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Seeds", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Food", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Carbon", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Silica", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Silicon", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Carbonaceous Ore", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Silacious Ore", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Metallic Ore", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Iron", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Nickle", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Cobalt", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Precious Metal", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Ruthenium", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Rhodium", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Palladium", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Osmium", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Iridium", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
-        new ResourceSerialisable() { name = "Platinum", valueFloat = 0.0f, type = BlackboardValue.ValueType.Float },
+    public Resource[] stats_editor = {
+        new Resource() { Name = "Hydrogen", Value = 1.0f, Density = 0.1077f }, //5000bar
+        new Resource() { Name = "Helium", Value = 2.0f, Density = 0.1771f }, //2000bar
+        new Resource() { Name = "Oxygen", Value = 0.1f, Density = 0.5736f }, // 500bar
+        new Resource() { Name = "Nitrogen", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Water", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Ammonia", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Nitric Acid", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Ammonium Nitrate", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Soil", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Seeds", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Food", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Carbon", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Silica", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Silicon", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Carbonaceous Ore", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Silacious Ore", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Metallic Ore", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Iron", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Nickle", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Cobalt", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Precious Metal", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Ruthenium", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Rhodium", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Palladium", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Osmium", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Iridium", Value = 0.0f, Density = 0 },
+        new Resource() { Name = "Platinum", Value = 0.0f, Density = 0 },
     };
 
-    private Blackboard inventory = new Blackboard();
+    private Dictionary<string, Resource> inventory = new Dictionary<string, Resource>();
 
     public void Start()
     {
-        foreach(ResourceSerialisable stat in stats_editor)
+        foreach(Resource stat in stats_editor)
         {
-            inventory.Add(stat.name, stat.Dump());
+            inventory.Add(stat.Name, stat);
         }
     }
 
@@ -52,7 +52,7 @@ public class Inventory
         return inventory.ContainsKey(key);
     }
 
-    public void Add(string key, BlackboardValue stat)
+    public void Add(string key, Resource stat)
     {
         inventory.Add(key, stat);
     }
@@ -62,13 +62,13 @@ public class Inventory
         return inventory.Remove(key);
     }
 
-    public BlackboardValue this[string key]
+    public Resource this[string key]
     {
         get
         {
             if (inventory.ContainsKey(key))
             {
-                return inventory[key] as BlackboardValue;
+                return inventory[key];
             }
             else
             {
@@ -79,7 +79,7 @@ public class Inventory
         {
             if (inventory.ContainsKey(key))
             {
-                inventory[key].Value = value;
+                inventory[key] = value;
             }
             else
             {
@@ -87,4 +87,9 @@ public class Inventory
             }
         }
     }
+    public int Length()
+    {
+        return inventory.Keys.Count;
+    }
 }
+
