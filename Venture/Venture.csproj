@@ -80,8 +80,9 @@
   <ItemGroup>
     <Compile Include="Assets\AI\Library\Blackboard.cs" />
     <Compile Include="Assets\AI\Library\BlackboardValue.cs" />
-    <Compile Include="Assets\AI\Library\BlackboardValueSerialisable.cs" />
-    <Compile Include="Assets\AI\Library\Statistics.cs" />
+    <Compile Include="Assets\AI\Library\Inventory.cs" />
+    <Compile Include="Assets\AI\Library\Resource.cs" />
+    <Compile Include="Assets\AI\Library\ResourceSerialisable.cs" />
     <Compile Include="Assets\Station\Library\Station.cs" />
     <Compile Include="Assets\Station\Library\StationModule.cs" />
   </ItemGroup>
