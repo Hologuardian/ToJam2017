@@ -9,35 +9,35 @@ public class Resource
     public Resource()
     {
         this.Name = "";
-        this.amount = 0;
+        this.volume = 0;
         this.density = 0;
         this.value = 0;
     }
-    public Resource(string Name, float Amount, float Mass, float Density, float Value)
+    public Resource(string Name, float Volume, float Mass, float Density, float Value)
     {
         this.Name = Name;
-        this.amount = Amount;
+        this.volume = Volume;
         this.density = Density;
         this.value = Value;
     }
     public Resource(Resource resource)
     {
         this.Name = resource.Name;
-        this.amount = resource.Amount;
+        this.volume = resource.Volume;
         this.density = resource.Density;
         this.value = resource.Value;
     }
 
     public string Name;
 
-    public float Amount
+    public float Volume
     {
-        get { return amount; }
-        set { this.amount = value; }
+        get { return volume; }
+        set { this.volume = value; }
     }
     public float Mass
     {
-        get { return Amount * Density; }
+        get { return Volume * Density; }
     }
     public float Density
     {
@@ -51,10 +51,10 @@ public class Resource
     }
     public float GrossValue
     {
-        get { return value * Amount; }
+        get { return value * Volume; }
     }
 
-    private float amount;
+    private float volume;
     private float density;
     private float value;
 }
