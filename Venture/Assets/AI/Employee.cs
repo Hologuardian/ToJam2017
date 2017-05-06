@@ -5,29 +5,23 @@ using UnityEngine;
 public class Employee
 {
     public Blackboard EmployeeInfo;
-    const string ParentAgent = "ParentAgent", Name = "Name", LastName = "Last Name";
     public void Birth(Specialisations Role, Agent _ParentAgent)
     {
-        EmployeeInfo.Add("ParentAgent", new BlackboardValue() { Name = "ParentAgent", Value = _ParentAgent });
-        EmployeeInfo.Add("Name", new BlackboardValue() { Name = "Name", Value = Getname() });
-        EmployeeInfo.Add("Last Name", new BlackboardValue() { Name = "Last Name", Value = Getlastname() });
-        EmployeeInfo.Add("Age", new BlackboardValue() { Name = "Age", Value = Random.Range(1, 1000) });
-        EmployeeInfo.Add("Gender", new BlackboardValue() { Name = "Gender", Value = Getgender() });
-        EmployeeInfo.Add("Height", new BlackboardValue() { Name = "Height", Value = Random.Range(1, 9) });
-        EmployeeInfo.Add("Specialisation", new BlackboardValue() { Name = "Specialisation", Value = Role });
+        EmployeeInfo.Add(Consts.ParentAgent, new BlackboardValue() { Name = "ParentAgent", Value = _ParentAgent });
+        EmployeeInfo.Add(Consts.Name, new BlackboardValue() { Name = "Name", Value = Getname() });
+        EmployeeInfo.Add(Consts.LastName, new BlackboardValue() { Name = "Last Name", Value = Getlastname() });
+        EmployeeInfo.Add(Consts.Age, new BlackboardValue() { Name = "Age", Value = Random.Range(1, 1000) });
+        EmployeeInfo.Add(Consts.Gender, new BlackboardValue() { Name = "Gender", Value = Getgender() });
+        EmployeeInfo.Add(Consts.Height, new BlackboardValue() { Name = "Height", Value = Random.Range(1, 9) });
+        EmployeeInfo.Add(Consts.Specialisation, new BlackboardValue() { Name = "Specialisation", Value = Role });
         float tempEfficiency = Random.Range(0.0f, 1.0f) + Random.Range(0.0f, 1.0f);
-        EmployeeInfo.Add("Efficiency", new BlackboardValue() { Name = "Efficiency", Value = (tempEfficiency >= 1) ? tempEfficiency : Mathf.Lerp(0.5f, 1, tempEfficiency) });
+        EmployeeInfo.Add(Consts.Efficiency, new BlackboardValue() { Name = "Efficiency", Value = (tempEfficiency >= 1) ? tempEfficiency : Mathf.Lerp(0.5f, 1, tempEfficiency) });
         //thanks hal
-        EmployeeInfo.Add("HungerMax", new BlackboardValue() { Name = "HungerMax", Value = Random.Range(168, 168 * 2) });
-        EmployeeInfo.Add("Hunger", new BlackboardValue() { Name = "Hunger", Value = 0 });
-        EmployeeInfo.Add("Happynes", new BlackboardValue() { Name = "Happynes", Value = Random.Range(-10, 10) });
+        EmployeeInfo.Add(Consts.HungerMax, new BlackboardValue() { Name = "HungerMax", Value = Random.Range(168, 168 * 2) });
+        EmployeeInfo.Add(Consts.Hunger, new BlackboardValue() { Name = "Hunger", Value = 0 });
+        EmployeeInfo.Add(Consts.Happynes, new BlackboardValue() { Name = "Happynes", Value = Random.Range(-10, 10) });
         float HappynesGoalTemp = Random.Range(0.0f, 1.0f) + Random.Range(0.0f, 1.0f);
-<<<<<<< HEAD
-        EmployeeInfo.Add("HappynesGoal", new BlackboardValue() { Name = "HappynesGoal", Value = (HappynesGoalTemp >= 1) ? HappynesGoalTemp : Mathf.Lerp(0.5f, 1, HappynesGoalTemp)});
-        
-=======
-        EmployeeInfo.Add("HappynesGoal", new BlackboardValue() { Name = "HappynesGoal", Value = (HappynesGoalTemp >= 1) ? HappynesGoalTemp : Mathf.Lerp(0.5f, 1, HappynesGoalTemp) });
->>>>>>> origin/master
+        EmployeeInfo.Add(Consts.HappynesGoal, new BlackboardValue() { Name = "HappynesGoal", Value = (HappynesGoalTemp >= 1) ? HappynesGoalTemp : Mathf.Lerp(0.5f, 1, HappynesGoalTemp) });
         //string Name = (string)EmployeeInfo["Name"].Value;
     }
     string Getname()
