@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+    public Size size;
     struct Mineral
     {
         public Vector3 pos;
