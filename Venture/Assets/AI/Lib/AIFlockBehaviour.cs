@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class AIFlockBehaviour : MonoBehaviour
 {
+    
+
     [Header("Alignment")]
     public float alignmentDistance = 5.0f;
     public float alignmentFactor = 0.01f;
@@ -34,11 +36,11 @@ public class AIFlockBehaviour : MonoBehaviour
 
     public string tagCriteria;
 
-    //public Controller controller;
+    public Ship controller;
 
     public void Start()
     {
-        //gameObject.GetComponent<Controller>();
+        controller = gameObject.GetComponent<Ship>();
     }
 
     public void FixedUpdate()
