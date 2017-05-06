@@ -8,10 +8,15 @@ public class Ship : MonoBehaviour {
 
     public Thruster[] backThrusters, frontThrusters, upThrusters, downThrusters;
 
+
     public Rigidbody rigidbody;
 
     public Vector3 goal, target;
     public float fuel, currentVel , desiredVel;
+
+    void start() {
+        general.Add(, new BlackboardValue() { Name = "ParentAgent", Value = _ParentAgent });
+    }
     
     // Use this for initialization
     public void Launch(Station station, Specialisations specialisation, Inventory inventory) {

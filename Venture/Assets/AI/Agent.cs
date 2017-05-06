@@ -37,21 +37,21 @@ public class Agent : MonoBehaviour {
         for (int i = 0; i < randomNumEmployees; i++)
         {
             Employees.Add(new Employee());
-            EmployeesEfficiencyMean += (float)Employees[i].EmployeeInfo["Efficiency"].Value;
-            EmployeesEfficiencyMax = ((float)Employees[i].EmployeeInfo["Efficiency"].Value > EmployeesEfficiencyMax) ? (float)Employees[i].EmployeeInfo["Efficiency"].Value : EmployeesEfficiencyMax;
-            EmployeesEfficiencyMin = ((float)Employees[i].EmployeeInfo["Efficiency"].Value < EmployeesEfficiencyMin) ? (float)Employees[i].EmployeeInfo["Efficiency"].Value : EmployeesEfficiencyMin;
+            EmployeesEfficiencyMean += (float)Employees[i].general["Efficiency"].Value;
+            EmployeesEfficiencyMax = ((float)Employees[i].general["Efficiency"].Value > EmployeesEfficiencyMax) ? (float)Employees[i].general["Efficiency"].Value : EmployeesEfficiencyMax;
+            EmployeesEfficiencyMin = ((float)Employees[i].general["Efficiency"].Value < EmployeesEfficiencyMin) ? (float)Employees[i].general["Efficiency"].Value : EmployeesEfficiencyMin;
 
-            if (ModeNumbers.ContainsKey((string)Employees[i].EmployeeInfo["Efficiency"].Value))
+            if (ModeNumbers.ContainsKey((string)Employees[i].general["Efficiency"].Value))
             {
-                ModeNumbers[(string)Employees[i].EmployeeInfo["Efficiency"].Value]++;
+                ModeNumbers[(string)Employees[i].general["Efficiency"].Value]++;
             }
             else
             {
-                ModeNumbers.Add((string)Employees[i].EmployeeInfo["Efficiency"].Value, 1);
+                ModeNumbers.Add((string)Employees[i].general["Efficiency"].Value, 1);
             }
         }
         EmployeesEfficiencyMean /= Employees.Count;
-        EmployeesEfficiencyMedian = (float)Employees[Employees.Count / 2].EmployeeInfo["Efficiency"].Value;
+        EmployeesEfficiencyMedian = (float)Employees[Employees.Count / 2].general["Efficiency"].Value;
         float ModeNumbersTemp = 0;
         foreach (KeyValuePair<string, float> pair in ModeNumbers)
         {
@@ -61,17 +61,17 @@ public class Agent : MonoBehaviour {
             }
         }
         //blackboard
-        agent.general.Add(Consts.Name, new BlackboardValue() { Name = "Name", Value = "Agent Name" });
-        agent.general.Add(Consts.Specialisation, new BlackboardValue() { Name = "Specialisation", Value = Specialisation });
-        agent.general.Add(Consts.Employees, new BlackboardValue() { Name = "Employees", Value = Employees });
-        agent.general.Add(Consts.EmployeesEfficiencyMin, new BlackboardValue() { Name = "EmployeesEfficiencyMin", Value = EmployeesEfficiencyMin });
-        agent.general.Add(Consts.EmployeesEfficiencyMax, new BlackboardValue() { Name = "EmployeesEfficiencyMax", Value = EmployeesEfficiencyMax });
-        agent.general.Add(Consts.EmployeesEfficiencyMean, new BlackboardValue() { Name = "EmployeesEfficiencyMean", Value = EmployeesEfficiencyMean });
-        agent.general.Add(Consts.EmployeesEfficiencyMedian, new BlackboardValue() { Name = "EmployeesEfficiencyMedian", Value = EmployeesEfficiencyMedian });
-        agent.general.Add(Consts.EmployeesEfficiencyMode, new BlackboardValue() { Name = "EmployeesEfficiencyMode", Value = EmployeesEfficiencyMode });
-        agent.general.Add(Consts.CostPerMonth, new BlackboardValue() { Name = "CostPerMonth", Value = Employees.Count * UnityEngine.Random.Range(4000,6000)});
+        agent.general.Add(Consts.Agent.Name, new BlackboardValue() { Name = "Name", Value = "Agent Name" });
+        agent.general.Add(Consts.Agent.Specialisation, new BlackboardValue() { Name = "Specialisation", Value = Specialisation });
+        agent.general.Add(Consts.Agent.Employees, new BlackboardValue() { Name = "Employees", Value = Employees });
+        agent.general.Add(Consts.Agent.EmployeesEfficiencyMin, new BlackboardValue() { Name = "EmployeesEfficiencyMin", Value = EmployeesEfficiencyMin });
+        agent.general.Add(Consts.Agent.EmployeesEfficiencyMax, new BlackboardValue() { Name = "EmployeesEfficiencyMax", Value = EmployeesEfficiencyMax });
+        agent.general.Add(Consts.Agent.EmployeesEfficiencyMean, new BlackboardValue() { Name = "EmployeesEfficiencyMean", Value = EmployeesEfficiencyMean });
+        agent.general.Add(Consts.Agent.EmployeesEfficiencyMedian, new BlackboardValue() { Name = "EmployeesEfficiencyMedian", Value = EmployeesEfficiencyMedian });
+        agent.general.Add(Consts.Agent.EmployeesEfficiencyMode, new BlackboardValue() { Name = "EmployeesEfficiencyMode", Value = EmployeesEfficiencyMode });
+        agent.general.Add(Consts.Agent.CostPerMonth, new BlackboardValue() { Name = "CostPerMonth", Value = Employees.Count * UnityEngine.Random.Range(4000,6000)});
        
-        foreach (Employee employee in (agent.general[Consts.Employees].Value as List<Employee>)) {
+        foreach (Employee employee in (agent.general[Consts.Agent.Employees].Value as List<Employee>)) {
             employee.Birth(Specialisation, agent);
         }
         return agent;
