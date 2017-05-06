@@ -7,7 +7,8 @@ public class AsteroidBelt : MonoBehaviour
         for(int i = 0; i < 100; i++)
         {
             GameObject obj = new GameObject();
-            obj.transform.position = Random.insideUnitSphere * 20.0f;
+            obj.transform.rotation = Random.rotation;
+            obj.transform.position = Random.insideUnitSphere * 50.0f;
             obj.AddComponent<Asteroid>();
         }
     }
