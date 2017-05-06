@@ -6,6 +6,7 @@ public class AsteroidBelt : MonoBehaviour
 {
     public Material asteroidMaterial;
     public List<GameObject> roids = new List<GameObject>();
+    private int total = 0;
 
     private void Start()
     {
@@ -53,7 +54,7 @@ public class AsteroidBelt : MonoBehaviour
             AutoMoveAndRotate rot = obj.AddComponent<AutoMoveAndRotate>();
             rot.rotateDegreesPerSecond = new AutoMoveAndRotate.Vector3andSpace() { value = Random.insideUnitSphere * 50.0f * Random.value * Random.value * Random.value, space = Space.Self};
             rot.moveUnitsPerSecond = new AutoMoveAndRotate.Vector3andSpace() { value = Vector3.zero, space = Space.Self };
-
+            obj.name = "roid" + total++;
             roids.Add(obj);
         }
     }
