@@ -89,8 +89,12 @@
     <Compile Include="Assets\AI\Lib\Resource.cs" />
     <Compile Include="Assets\AI\Lib\ResourceList.cs" />
     <Compile Include="Assets\AI\Ship.cs" />
+    <Compile Include="Assets\Asteroids\Asteroid.cs" />
+    <Compile Include="Assets\Asteroids\AsteroidBelt.cs" />
     <Compile Include="Assets\Consts.cs" />
+    <Compile Include="Assets\Station\Lib\DockingBay.cs" />
     <Compile Include="Assets\Station\Lib\Hardpoint.cs" />
+    <Compile Include="Assets\Station\Lib\ReactorCore.cs" />
     <Compile Include="Assets\Station\Lib\Station.cs" />
     <Compile Include="Assets\Station\Lib\StationModule.cs" />
   </ItemGroup>
