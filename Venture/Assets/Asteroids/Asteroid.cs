@@ -15,6 +15,11 @@ public class Asteroid : MonoBehaviour
     
     List<Mineral> cloud = new List<Mineral>();
 
+    public bool Mine(Inventory inventory, float Efficiency)
+    {
+        return false;
+    }
+
     private void Start()
     {
         float sizeVal = (int)size * 30.0f;
