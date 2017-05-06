@@ -35,7 +35,7 @@ public class Employee {
             lastname = file.ReadLine();
         }
         if (lastname.Length < 4) {
-            string lastnameB;
+            string lastnameB="";
             getline = Random.Range(0, 923);
             for (int i = 0; i < getline; i++)
             {
