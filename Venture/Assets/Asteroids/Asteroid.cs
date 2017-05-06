@@ -7,7 +7,6 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     public Size size;
-    public MeshCollider coll;
     struct Mineral
     {
         public Vector3 pos;
@@ -18,10 +17,10 @@ public class Asteroid : MonoBehaviour
 
     private void Start()
     {
-        float sizeVal = (int)size * 20.0f;
+        float sizeVal = (int)size * 30.0f;
         Color c;
-        c = Random.ColorHSV(0, 1, 0.5f, 0.75f);
-        for (int i = 0; i < Random.Range(7, 30); i++)
+        c = Random.ColorHSV(0, 0.1f, 0.1f, 0.25f);
+        for (int i = 0; i < Random.Range(45, 100); i++)
         {
             Vector3 sphere = Random.insideUnitSphere + Random.insideUnitSphere;
             float dims = 0.2f * sizeVal ;
@@ -37,37 +36,11 @@ public class Asteroid : MonoBehaviour
             Vector3 vec = new Vector3(x, y, z);
 
             vec += Random.insideUnitSphere + Random.insideUnitSphere + Random.insideUnitSphere;
-            cloud.Add(new Mineral() { pos = vec * 0.4f + transform.position, col = c + Random.ColorHSV(0, 1.0f, 0.0f, 0.2f) });
+            cloud.Add(new Mineral() { pos = vec * 0.4f, col = c + Random.ColorHSV(0, 0.1f, 0.0f, 0.2f) });
         }
-
-        List<Vector3> positions = new List<Vector3>();
-        List<Color> colors = new List<Color>();
-        List<int> indicies = new List<int>();
-        
-
-        for(int n = 2; n < cloud.Count; n++)
-        {
-            int m = (n - 2) * 3;
-            positions.Add(cloud[n].pos);
-            colors.Add(cloud[n].col);
-            indicies.Add(m);
-            positions.Add(cloud[n - 1].pos);
-            colors.Add(cloud[n].col);
-            indicies.Add(m + 1);
-            positions.Add(cloud[n - 2].pos);
-            colors.Add(cloud[n - 2].col);
-            indicies.Add(m + 2);
-        }
-
-        Mesh mesh = new Mesh();
-        mesh.SetVertices(positions);
-        mesh.SetColors(colors);
-        mesh.SetTriangles(indicies, 0);
-        coll = transform.gameObject.AddComponent<MeshCollider>();
-        coll.convex = true;
-        coll.sharedMesh = mesh;
         first = true;
     }
+
     bool first = false;
     private void Update()
     {
@@ -79,6 +52,10 @@ public class Asteroid : MonoBehaviour
             Mesh m = CreateMesh(cloud);
             m.colors.ToList().ForEach(x => x = cloud[(i++) % cloud.Count].col);
             filter.sharedMesh = m;
+            MeshCollider collider = transform.gameObject.AddComponent<MeshCollider>();
+            collider.sharedMesh = m;
+            collider.convex = true;
+            DynamicGI.UpdateEnvironment();
         }
     }
 
@@ -102,7 +79,18 @@ public class Asteroid : MonoBehaviour
 
         var result = MIConvexHull.ConvexHull.Create(vertices);
         m.vertices = result.Points.Select(x => x.ToVec()).ToArray();
+        int i = 0;
+        m.colors = result.Points.Select(x => colors[i++]).ToArray();
         var xxx = result.Points.ToList();
+
+        Vector3 CoM = Vector3.zero;
+
+        xxx.ForEach(p => CoM += p.ToVec());
+
+        CoM /= xxx.Count;
+
+        List<Vector3> normals = new List<Vector3>();
+        xxx.ForEach(p => normals.Add((p.ToVec() - CoM).normalized));
 
         foreach (var face in result.Faces)
         {
@@ -113,7 +101,7 @@ public class Asteroid : MonoBehaviour
 
         m.triangles = triangles.ToArray();
 
-        m.RecalculateNormals();
+        m.SetNormals(normals);
         return m;
     }
 }
