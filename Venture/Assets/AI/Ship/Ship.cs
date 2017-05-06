@@ -5,7 +5,8 @@ using UnityEngine;
 public class Ship : MonoBehaviour {
     public Blackboard general = new Blackboard();
     public Inventory inventory = new Inventory();
-
+    Specialisations shipsSpecialisation = new Specialisations();
+    public bool arrived= false;
     public Thruster[] thrusters;
     public List<int>
         backThrusters, frontThrusters, upThrusters, downThrusters, leftThrusters, rightThrusters,
@@ -16,12 +17,13 @@ public class Ship : MonoBehaviour {
 
     Vector3 start;
     public Transform goal, target;
-    public float fuel, currentVel , desiredVel;
+    public float fuel, currentVel, desiredVel, stoppingDistance, dist; 
 
     void Start() {
         start = transform.position;
         target = goal;
         target.position = new Vector3(target.position.x, target.position.y, target.position.z - (target.localScale.z*2));
+
 
         for (int i = 0; i < thrusters.Length; i++) {
             if (thrusters[i].isABackThruster) {
@@ -59,25 +61,41 @@ public class Ship : MonoBehaviour {
     }
     
     // Use this for initialization
-    public void Launch(Station station, Specialisations specialisation, Inventory inventory) {
+    public void Launch(Specialisations specialisation) {
+        
     }
-	// Update is called once per frame
-	void FixedUpdate () {
+
+// Update is called once per frame
+void FixedUpdate () {
         transform.LookAt(target);
-        if (Vector3.Distance(transform.position, target.position) > 0.5)
+        dist = Vector3.Distance(transform.position, target.position);
+        currentVel = rigidbody.velocity.z;
+        if (dist > 3 && !arrived)
         {
-            if (Vector3.Distance(target.position,transform.position) > Vector3.Distance((target.position / 2),target.position))
+            if (dist > Vector3.Distance((target.position / 2), target.position))
             {
                 Forward();
             }
-            else if (Vector3.Distance(transform.position, target.position) < (Vector3.Distance(start, target.position) / 2))
+            else if (dist < (Vector3.Distance(start, target.position) / 2))
             {
-                print("Back");
-                Back();
+                if (rigidbody.velocity.z < 0.5) {
+                    Forward();
+                    print(dist);
+                }
+                else
+                {
+                    Back();
+                }
+            }
+            if (dist < 4) {
+                rigidbody.velocity = Vector3.zero;
+                arrived = true;
             }
         }
+        if (arrived) {
+            rigidbody.velocity = Vector3.zero;
+        }
 	}
-
     void Forward() {
         for (int i = 0; i < backThrusters.Count; i++)
         {
@@ -85,6 +103,7 @@ public class Ship : MonoBehaviour {
         }
     }
     void Back() {
+        
         for (int i = 0; i < frontThrusters.Count; i++)
         {
             thrusters[frontThrusters[i]].Thrust();
