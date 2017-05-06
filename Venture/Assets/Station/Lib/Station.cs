@@ -4,12 +4,29 @@ using UnityEngine;
 
 public class Station : MonoBehaviour
 {
-    public Inventory inventory;
+    public static class Literals
+    {
+        public const string Inventory = "Inventory";
+        public const string Modules = "Modules";
+        public const string DockingBays = "DockingBays";
+    }
+
+    public Blackboard general = new Blackboard();
+    public Inventory inventory = new Inventory();
+
+    public List<StationModule> modulesAll = new List<StationModule>();
+    public List<DockingBay> dockingBays = new List<DockingBay>();
+    public List<ReactorCore>
+
+    public float credits;
 
     // Use this for initialization
     void Start()
     {
+        general.Add(Literals.Inventory, new BlackboardValue() { Name = Literals.Inventory, Value = inventory });
         inventory.Start();
+
+        general.Add(Literals.Modules, new BlackboardValue() { Name = Literals.Modules, Value = modulesAll});
     }
 
     // Update is called once per frame
@@ -18,21 +35,9 @@ public class Station : MonoBehaviour
 
     }
 
-    public Resource GetMostDesiredResource()
+    void Tick()
     {
-        int index = 0;
-        float value = 0;
 
-        for (int i = 0; i < inventory.Length(); i++)
-        {
-            if (inventory[i].Volume < value)
-            {
-                index = i;
-                value = inventory[i].Volume;
-            }
-        }
-
-        return inventory[index];
     }
 
     public List<Resource> GetDesiredResources()
@@ -44,6 +49,8 @@ public class Station : MonoBehaviour
             if (inventory[i].Volume < 0)
                 resources.Add(inventory[i]);
         }
+
+
 
         return resources;
     }
