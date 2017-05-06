@@ -6,6 +6,15 @@ using System.Text;
 [Serializable]
 public class Recipe
 {
+    public enum RecipeType
+    {
+        None,
+        Reaction,
+        Factory,
+        Reprocess,
+        Farming
+    }
+
     public Recipe(List<Resource> ingredients, List<Resource> products, int time)
     {
         if (ingredients == null)

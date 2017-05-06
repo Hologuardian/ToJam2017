@@ -30,25 +30,41 @@ public class Resource
 
     public string Name;
 
+    /// <summary>
+    /// How much of a thing we have
+    /// </summary>
     public float Volume
     {
         get { return volume; }
         set { this.volume = value; }
     }
+
+    /// <summary>
+    /// How much this stack weighs
+    /// </summary>
     public float Mass
     {
         get { return Volume * Density; }
     }
+    /// <summary>
+    /// How dense this item is
+    /// </summary>
     public float Density
     {
         get { return value; }
         set { this.value = value; }
     }
+    /// <summary>
+    /// How much each m3 of this item is worth
+    /// </summary>
     public float Value
     {
         get { return value; }
         set { this.value = value; }
     }
+    /// <summary>
+    /// How much this stack is worth
+    /// </summary>
     public float GrossValue
     {
         get { return value * Volume; }

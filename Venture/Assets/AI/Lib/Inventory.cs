@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public class Inventory
 {
-    public Resource[] stats_editor = {
+    public Resource[] BaseResources = {
         new Resource() {
             Name = "Hydrogen",
             Value = 1.0f,
@@ -56,110 +56,6 @@ public class Inventory
             Value = 2.75f,
             Density = 2260 },
         new Resource() {
-            Name = "Acanthite Ore", //Silver Sulfide
-            Value = 0.0f,
-            Density = 7234.0f },
-        new Resource() {
-            Name = "Barite Ore",
-            Value = 4500.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Bauxite Ore",
-            Value = 1281.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Beryl Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Bornite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Cassiterite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Chalcopyrite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Chromite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Cinnabar Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Cobaltite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Coltan Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Dolomite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Galena Ore",
-            Value = 0.0f,
-            Density = 7500.0f },
-        new Resource() {
-            Name = "Native Gold Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Hematite Ore",
-            Value = 0.0f,
-            Density = 5150.0f },
-        new Resource() {
-            Name = "Ilmenite Ore",
-            Value = 0.0f,
-            Density = 2307.0f },
-        new Resource() {
-            Name = "Magnetite Ore",
-            Value = 0.0f,
-            Density = 4000.0f },
-        new Resource() {
-            Name = "Malachite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Molybdenite Ore",
-            Value = 0.0f,
-            Density = 1600.0f },
-        new Resource() {
-            Name = "Pentlandite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Pyrolusite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Scheelite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Sperrylite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Sphalerite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Uraninite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
-            Name = "Wolframite Ore",
-            Value = 0.0f,
-            Density = 0 },
-        new Resource() {
             Name = "Silica",
             Value = 0.0f,
             Density = 0 },
@@ -203,6 +99,115 @@ public class Inventory
             Name = "Platinum",
             Value = 0.0f,
             Density = 0 },
+        /*
+         * ORES
+         */new Resource() {
+            Name = "Acanthite Ore",
+            Value = 0.0f,
+            Density = 7234.0f },
+        new Resource() {
+            Name = "Barite Ore",
+            Value = 0,
+            Density = 4500.0f },
+        new Resource() {
+            Name = "Bauxite Ore",
+            Value = 0,
+            Density = 1281.0f },
+        new Resource() {
+            Name = "Beryl Ore",
+            Value = 0.0f,
+            Density = 2765.0f },
+        new Resource() {
+            Name = "Bornite Ore",
+            Value = 0.0f,
+            Density = 5100.0f },
+        new Resource() {
+            Name = "Cassiterite Ore",
+            Value = 0.0f,
+            Density = 6900.0f },
+        new Resource() {
+            Name = "Chalcopyrite Ore",
+            Value = 0.0f,
+            Density = 4200.0f },
+        new Resource() {
+            Name = "Chromite Ore",
+            Value = 0.0f,
+            Density = 4795.0f },
+        new Resource() {
+            Name = "Cinnabar Ore",
+            Value = 0.0f,
+            Density = 8100.0f },
+        new Resource() {
+            Name = "Cobaltite Ore",
+            Value = 0.0f,
+            Density = 6330.0f },
+        new Resource() {
+            Name = "Coltan Ore",
+            Value = 0.0f,
+            Density = 6700.0f },
+        new Resource() {
+            Name = "Dolomite Ore",
+            Value = 0.0f,
+            Density = 2850.0f },
+        new Resource() {
+            Name = "Galena Ore",
+            Value = 0.0f,
+            Density = 7500.0f },
+        new Resource() {
+            Name = "Native Gold Ore",
+            Value = 0.0f,
+            Density = 19320.0f },
+        new Resource() {
+            Name = "Hematite Ore",
+            Value = 0.0f,
+            Density = 5150.0f },
+        new Resource() {
+            Name = "Ilmenite Ore",
+            Value = 0.0f,
+            Density = 2307.0f },
+        new Resource() {
+            Name = "Magnetite Ore",
+            Value = 0.0f,
+            Density = 5175.0f },
+        new Resource() {
+            Name = "Malachite Ore",
+            Value = 0.0f,
+            Density = 4000.0f },
+        new Resource() {
+            Name = "Molybdenite Ore",
+            Value = 0.0f,
+            Density = 1600.0f },
+        new Resource() {
+            Name = "Pentlandite Ore",
+            Value = 0.0f,
+            Density = 4800.0f },
+        new Resource() {
+            Name = "Pyrolusite Ore",
+            Value = 0.0f,
+            Density = 4730.0f },
+        new Resource() {
+            Name = "Scheelite Ore",
+            Value = 0.0f,
+            Density = 6010.0f },
+        new Resource() {
+            Name = "Sperrylite Ore",
+            Value = 0.0f,
+            Density = 10580.0f },
+        new Resource() {
+            Name = "Sphalerite Ore",
+            Value = 0.0f,
+            Density = 4050.0f },
+        new Resource() {
+            Name = "Uraninite Ore",
+            Value = 0.0f,
+            Density = 8725.0f },
+        new Resource() {
+            Name = "Wolframite Ore",
+            Value = 0.0f,
+            Density = 7300.0f }
+    };
+
+    public Resource[] OreResources = {
     };
 
     private List<Resource> inventory = new List<Resource>();
