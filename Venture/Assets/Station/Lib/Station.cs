@@ -18,13 +18,30 @@ public class Station : MonoBehaviour
 
     }
 
+    public Resource GetMostDesiredResource()
+    {
+        int index = 0;
+        float value = 0;
+
+        for (int i = 0; i < inventory.Length(); i++)
+        {
+            if (inventory[i].Volume < value)
+            {
+                index = i;
+                value = inventory[i].Volume;
+            }
+        }
+
+        return inventory[index];
+    }
+
     public List<Resource> GetDesiredResources()
     {
         List<Resource> resources = new List<Resource>();
 
         for (int i = 0; i < inventory.Length(); i++)
         {
-            if (inventory[i].Amount < 0)
+            if (inventory[i].Volume < 0)
                 resources.Add(inventory[i]);
         }
 
@@ -37,7 +54,7 @@ public class Station : MonoBehaviour
 
         for (int i = 0; i < inventory.Length(); i++)
         {
-            if (inventory[i].Amount > 0)
+            if (inventory[i].Volume > 0)
                 resources.Add(inventory[i]);
         }
 
