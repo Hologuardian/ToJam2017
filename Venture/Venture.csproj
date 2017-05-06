@@ -84,7 +84,8 @@
     <Compile Include="Assets\AI\Lib\Blackboard.cs" />
     <Compile Include="Assets\AI\Lib\BlackboardValue.cs" />
     <Compile Include="Assets\AI\Lib\Inventory.cs" />
-    <Compile Include="Assets\AI\Ship.cs" />
+    <Compile Include="Assets\AI\Ship\Ship.cs" />
+    <Compile Include="Assets\AI\Ship\Thruster.cs" />
     <Compile Include="Assets\Asteroids\Asteroid.cs" />
     <Compile Include="Assets\Asteroids\AsteroidBelt.cs" />
     <Compile Include="Assets\Asteroids\Lib\Constants.cs" />

@@ -123,7 +123,9 @@ public static class Consts
     public const string Wolframite = "Wolframite";
 
     //Agent
-    public const string
+    public static class Agent
+    {
+        public const string
             Name = "Name",
             Specialisation = "Specialisation",
             CostPerMonth = "CostPerMonth",
@@ -133,10 +135,15 @@ public static class Consts
             EmployeesEfficiencyMean = "EmployeesEfficiencyMean",
             EmployeesEfficiencyMedian = "EmployeesEfficiencyMedian",
             EmployeesEfficiencyMode = "EmployeesEfficiencyMode";
+    }
     //Employee
-    public const string
-            ParentAgent = "ParentAgent",
+    public static class Employee
+    {
+        public const string
+            Name = "Name",
             LastName = "Last Name",
+            ParentAgent = "ParentAgent",
+            Specialisation = "Specialisation",
             Age = "Age",
             Gender = "Gender",
             Height = "Height",
@@ -145,6 +152,7 @@ public static class Consts
             Hunger = "Hunger",
             Happynes = "Happynes",
             HappynesGoal = "HappynesGoal";
+    }
 
     ///////////////////////////////////////////////////////////////////////////////
     //      GLOBALS
