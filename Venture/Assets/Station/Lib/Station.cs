@@ -20,7 +20,7 @@ public class Station : MonoBehaviour
 
     public float credits;
 
-    public bool hardpointSelected = false;
+    public Hardpoint hardpointSelected = null;
 
     // Use this for initialization
     void Start()

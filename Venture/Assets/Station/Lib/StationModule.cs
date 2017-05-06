@@ -30,7 +30,7 @@ public class StationModule : MonoBehaviour
         //inventory.
         general.Add(Literals.Hardpoints, new BlackboardValue() { Name = Literals.Hardpoints, Value = hardpoints });
 
-        Select();
+        //Select();
     }
 
     // Update is called once per frame
@@ -54,10 +54,10 @@ public class StationModule : MonoBehaviour
     {
         isSelected = true;
 
-        foreach(Hardpoint hardpoint in hardpoints)
-        {
-            hardpoint.isFocused = true;
-        }
+        //foreach(Hardpoint hardpoint in hardpoints)
+        //{
+        //    hardpoint.isFocused = true;
+        //}
     }
 
     public void Deselect()
