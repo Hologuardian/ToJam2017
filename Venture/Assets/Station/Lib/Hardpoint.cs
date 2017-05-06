@@ -10,7 +10,7 @@ public class Hardpoint : MonoBehaviour
 
     private void Start()
     {
-        Attach();
+        //Attach();
     }
 
     private void Update()
