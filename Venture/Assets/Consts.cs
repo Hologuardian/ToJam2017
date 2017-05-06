@@ -13,7 +13,7 @@ public static class Consts
     public const string Carbon = "Carbon";
     public const string Silicon = "Silicon";
     public const string Iron = "Iron";
-    public const string Nickle = "Nickle";
+    public const string Nickel = "Nickel";
     public const string Cobalt = "Cobalt";
     public const string Ruthenium = "Ruthenium";
     public const string Rhodium = "Rhodium";
@@ -44,6 +44,8 @@ public static class Consts
     public const string Mercury = "Mercury";
     public const string Gallium = "Gallium";
     public const string Germanium = "Germanium";
+    public const string Titanium = "Titanium";
+    public const string Zinc = "Zinc";
 
     public const string Nitric_Acid = "Nitric Acid";
     public const string Sodium_Hydroxide = "Sodium Hydroxide";

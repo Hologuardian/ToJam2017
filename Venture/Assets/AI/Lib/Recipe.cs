@@ -22,6 +22,7 @@ public class Recipe
         time = 1;
         powerCost = 0;
         type = RecipeType.None;
+        Name = "";
     }
 
     public Recipe(List<Resource> ingredients, List<Resource> products, int time, float powerCost, RecipeType type)
@@ -36,8 +37,10 @@ public class Recipe
         this.time = time;
         this.powerCost = powerCost;
         this.type = type;
+        Name = "";
     }
 
+    public string Name;
     public List<Resource> ingredients;
     public List<Resource> products;
     public int time;

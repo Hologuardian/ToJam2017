@@ -44,7 +44,7 @@ public class Inventory
             MolarMass = 55.85f,
             Density = 7874.0f },
         new Resource() {
-            Name = Consts.Nickle,
+            Name = Consts.Nickel,
             Value = 0.0f,
             MolarMass = 58.69f,
             Density = 8908.0f },
@@ -197,6 +197,16 @@ public class Inventory
             Value = 0.0f,
             MolarMass = 4.003f,
             Density = 72.63f },
+        new Resource() {
+            Name = Consts.Titanium,
+            Value = 0.0f,
+            MolarMass = 47.9f,
+            Density = 4507.0f },
+        new Resource() {
+            Name = Consts.Zinc,
+            Value = 0.0f,
+            MolarMass = 65.39f,
+            Density = 7140.0f },
         #endregion
         #region Acids
         new Resource() {
@@ -542,7 +552,7 @@ public class Inventory
         #endregion
     };
 
-    public static Recipe[] RecipeList = {
+    public Recipe[] RecipeList = {
         #region Ore Reprocessing
         #region Bauxite Reprocess
         new Recipe() {
@@ -563,7 +573,8 @@ public class Inventory
             new Resource(GetResource(Consts.Sodium_Hydroxide)) { Volume = 200.0f }
             },
             time = 85,
-            type = Recipe.RecipeType.Reprocess
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Bauxite Reprocess"
         },
         #endregion
         #region Bornite Reprocess
@@ -576,10 +587,11 @@ public class Inventory
             {
             new Resource(GetResource(Consts.Iron)).PercentMass(new Resource(GetResource(Consts.Bornite)) { Volume = 100.0f }.Mass, 11.13f),
             new Resource(GetResource(Consts.Copper)).PercentMass(new Resource(GetResource(Consts.Bornite)) { Volume = 100.0f }.Mass, 63.31f),
-            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Bornite)) { Volume = 100.0f }.Mass, 25.56f),
+            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Bornite)) { Volume = 100.0f }.Mass, 25.56f)
             },
             time = 85,
-            type = Recipe.RecipeType.Reprocess
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Bornite Reprocess"
         },
         #endregion
         #region Cassiterite Reprocess
@@ -591,10 +603,11 @@ public class Inventory
             products = new List<Resource>()
             {
             new Resource(GetResource(Consts.Tin)).PercentMass(new Resource(GetResource(Consts.Cassiterite)) { Volume = 100.0f }.Mass, 78.77f),
-            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Cassiterite)) { Volume = 100.0f }.Mass, 21.23f),
+            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Cassiterite)) { Volume = 100.0f }.Mass, 21.23f)
             },
             time = 85,
-            type = Recipe.RecipeType.Reprocess
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Cassiterite Reprocess"
         },
         #endregion
         #region Chalcopyrite Reprocess
@@ -606,10 +619,301 @@ public class Inventory
             products = new List<Resource>()
             {
             new Resource(GetResource(Consts.Copper)).PercentMass(new Resource(GetResource(Consts.Chalcopyrite)) { Volume = 100.0f }.Mass, 66.66f),
-            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Chalcopyrite)) { Volume = 100.0f }.Mass, 33.33f),
+            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Chalcopyrite)) { Volume = 100.0f }.Mass, 33.33f)
             },
             time = 85,
-            type = Recipe.RecipeType.Reprocess
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Chalcopyrite Reprocess"
+        },
+        #endregion
+        #region Cinnabar Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Cinnabar)) { Volume = 100.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Mercury)).PercentMass(new Resource(GetResource(Consts.Cinnabar)) { Volume = 100.0f }.Mass, 86.22f),
+            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Cinnabar)) { Volume = 100.0f }.Mass, 17.78f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Cinnabar Reprocess"
+        },
+        #endregion
+        #region Cobaltite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Cobaltite)) { Volume = 100.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Cobalt)).PercentMass(new Resource(GetResource(Consts.Cobaltite)) { Volume = 100.0f }.Mass, 35.52f),
+            new Resource(GetResource(Consts.Arsenic)).PercentMass(new Resource(GetResource(Consts.Cobaltite)) { Volume = 100.0f }.Mass, 45.16f),
+            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Cobaltite)) { Volume = 100.0f }.Mass, 19.33f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Cobaltite Reprocess"
+        },
+        #endregion
+        #region Rhodochrosite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Rhodochrosite)) { Volume = 100.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Manganese_Carbonate)).PercentMass(new Resource(GetResource(Consts.Rhodochrosite)) { Volume = 100.0f }.Mass, 58.24f),
+            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Rhodochrosite)) { Volume = 100.0f }.Mass, 41.76f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Rhodochrosite Reprocess"
+        },
+        #endregion
+        #region Galena Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Galena)).Mols(1000000),
+            new Resource(GetResource(Consts.Oxygen)).Mols(1000000)
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Lead)).Mols(1000000),
+            new Resource(GetResource(Consts.Oxygen)).Mols(1000000),
+            new Resource(GetResource(Consts.Sulfur_Dioxide)).Mols(1000000)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Galena Reprocess"
+        },
+        #endregion
+        #region Ilmenite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Ilmenite)) { Volume = 100.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Titanium)).PercentMass(new Resource(GetResource(Consts.Ilmenite)) { Volume = 100.0f }.Mass, 31.56f),
+            new Resource(GetResource(Consts.Iron)).PercentMass(new Resource(GetResource(Consts.Ilmenite)) { Volume = 100.0f }.Mass, 36.81f),
+            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Ilmenite)) { Volume = 100.0f }.Mass, 31.63f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Rhodochrosite Reprocess"
+        },
+        #endregion
+        #region Magnetite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Magnetite)) { Volume = 100.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Iron)).PercentMass(new Resource(GetResource(Consts.Magnetite)) { Volume = 100.0f }.Mass, 72.36f),
+            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Magnetite)) { Volume = 100.0f }.Mass, 27.64f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Magnetite Reprocess"
+        },
+        #endregion
+        #region Malachite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Malachite)) { Volume = 100.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Copper)).PercentMass(new Resource(GetResource(Consts.Malachite)) { Volume = 100.0f }.Mass, 57.48f),
+            new Resource(GetResource(Consts.Hydrogen)).PercentMass(new Resource(GetResource(Consts.Malachite)) { Volume = 100.0f }.Mass, 0.91f),
+            new Resource(GetResource(Consts.Carbon)).PercentMass(new Resource(GetResource(Consts.Malachite)) { Volume = 100.0f }.Mass, 5.43f),
+            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Malachite)) { Volume = 100.0f }.Mass, 36.18f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Malachite Reprocess"
+        },
+        #endregion
+        #region Pyrolusite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Pyrolusite)) { Volume = 100.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Copper)).PercentMass(new Resource(GetResource(Consts.Pyrolusite)) { Volume = 100.0f }.Mass, 63.19f),
+            new Resource(GetResource(Consts.Hydrogen)).PercentMass(new Resource(GetResource(Consts.Pyrolusite)) { Volume = 100.0f }.Mass, 36.81f)
+            },
+            time = 85,
+            powerCost = 500.0f,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Pyrolusite Reprocess"
+        },
+        #endregion
+        #region Sperrylite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Sperrylite)) { Volume = 1.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Arsenic)).PercentMass(new Resource(GetResource(Consts.Sperrylite)) { Volume = 1.0f }.Mass, 44.44f),
+            new Resource(GetResource(Consts.Platinum)).PercentMass(new Resource(GetResource(Consts.Sperrylite)) { Volume = 1.0f }.Mass, 56.56f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Sperrylite Reprocess"
+        },
+        #endregion
+        #region Cooperite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Cooperite)) { Volume = 1.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Nickel)).PercentMass(new Resource(GetResource(Consts.Cooperite)) { Volume = 1.0f }.Mass, 3.14f),
+            new Resource(GetResource(Consts.Palladium)).PercentMass(new Resource(GetResource(Consts.Cooperite)) { Volume = 1.0f }.Mass, 17.08f),
+            new Resource(GetResource(Consts.Platinum)).PercentMass(new Resource(GetResource(Consts.Cooperite)) { Volume = 1.0f }.Mass, 62.62f),
+            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Cooperite)) { Volume = 1.0f }.Mass, 17.16f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Cooperite Reprocess"
+        },
+        #endregion
+        #region Laurite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Laurite)) { Volume = 1.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Ruthenium)).PercentMass(new Resource(GetResource(Consts.Laurite)) { Volume = 1.0f }.Mass, 61.18f),
+            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Laurite)) { Volume = 1.0f }.Mass, 38.82f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Laurite Reprocess"
+        },
+        #endregion
+        #region Merenskyite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Merenskyite)) { Volume = 1.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Bismuth)).PercentMass(new Resource(GetResource(Consts.Merenskyite)) { Volume = 1.0f }.Mass, 10.81f),
+            new Resource(GetResource(Consts.Tellurium)).PercentMass(new Resource(GetResource(Consts.Merenskyite)) { Volume = 1.0f }.Mass, 59.38f),
+            new Resource(GetResource(Consts.Palladium)).PercentMass(new Resource(GetResource(Consts.Merenskyite)) { Volume = 1.0f }.Mass, 24.76f),
+            new Resource(GetResource(Consts.Platinum)).PercentMass(new Resource(GetResource(Consts.Merenskyite)) { Volume = 1.0f }.Mass, 5.04f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Merenskyite Reprocess"
+        },
+        #endregion
+        #region Sudburyite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Sudburyite)) { Volume = 1.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Nickel)).PercentMass(new Resource(GetResource(Consts.Sudburyite)) { Volume = 1.0f }.Mass, 6.79f),
+            new Resource(GetResource(Consts.Antimony)).PercentMass(new Resource(GetResource(Consts.Sudburyite)) { Volume = 1.0f }.Mass, 56.30f),
+            new Resource(GetResource(Consts.Palladium)).PercentMass(new Resource(GetResource(Consts.Sudburyite)) { Volume = 1.0f }.Mass, 36.91f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Sudburyite Reprocess"
+        },
+        #endregion
+        #region Omeiite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Omeiite)) { Volume = 1.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Arsenic)).PercentMass(new Resource(GetResource(Consts.Omeiite)) { Volume = 1.0f }.Mass, 47.16f),
+            new Resource(GetResource(Consts.Osmium)).PercentMass(new Resource(GetResource(Consts.Omeiite)) { Volume = 1.0f }.Mass, 44.89f),
+            new Resource(GetResource(Consts.Ruthenium)).PercentMass(new Resource(GetResource(Consts.Omeiite)) { Volume = 1.0f }.Mass, 7.95f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Omeiite Reprocess"
+        },
+        #endregion
+        #region Niggliite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Niggliite)) { Volume = 1.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Tin)).PercentMass(new Resource(GetResource(Consts.Niggliite)) { Volume = 1.0f }.Mass, 37.83f),
+            new Resource(GetResource(Consts.Platinum)).PercentMass(new Resource(GetResource(Consts.Niggliite)) { Volume = 1.0f }.Mass, 62.17f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Niggliite Reprocess"
+        },
+        #endregion
+        #region Sphalerite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Sphalerite)) { Volume = 1.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Zinc)).PercentMass(new Resource(GetResource(Consts.Sphalerite)) { Volume = 1.0f }.Mass, 64.06f),
+            new Resource(GetResource(Consts.Iron)).PercentMass(new Resource(GetResource(Consts.Sphalerite)) { Volume = 1.0f }.Mass, 2.88f),
+            new Resource(GetResource(Consts.Sulfur)).PercentMass(new Resource(GetResource(Consts.Sphalerite)) { Volume = 1.0f }.Mass, 32.06f),
+            new Resource(GetResource(Consts.Gallium)).PercentMass(new Resource(GetResource(Consts.Sphalerite)) { Volume = 1.0f }.Mass, 0.1f),
+            new Resource(GetResource(Consts.Germanium)).PercentMass(new Resource(GetResource(Consts.Sphalerite)) { Volume = 1.0f }.Mass, 0.3f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Sphalerite Reprocess"
+        },
+        #endregion
+        #region Wolframite Reprocess
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Wolframite)) { Volume = 100.0f }
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Manganese)).PercentMass(new Resource(GetResource(Consts.Wolframite)) { Volume = 100.0f }.Mass, 9.06f),
+            new Resource(GetResource(Consts.Iron)).PercentMass(new Resource(GetResource(Consts.Wolframite)) { Volume = 100.0f }.Mass, 9.21f),
+            new Resource(GetResource(Consts.Tungsten)).PercentMass(new Resource(GetResource(Consts.Wolframite)) { Volume = 100.0f }.Mass, 60.63f),
+            new Resource(GetResource(Consts.Oxygen)).PercentMass(new Resource(GetResource(Consts.Wolframite)) { Volume = 100.0f }.Mass, 21.10f)
+            },
+            time = 85,
+            type = Recipe.RecipeType.Reprocess,
+            Name = "Wolframite Reprocess"
         },
         #endregion
         #endregion
@@ -618,53 +922,97 @@ public class Inventory
         new Recipe() {
             ingredients = new List<Resource>()
             {
-            new Resource(GetResource(Consts.Hydrogen)) { Volume = 1.0f }
+            new Resource(GetResource(Consts.Hydrogen)).Mols(600)
             },
             products = new List<Resource>()
             {
-            new Resource(GetResource(Consts.Helium)) { Volume = 0.5f}
+            new Resource(GetResource(Consts.Helium)).Mols(100),
+            new Resource(GetResource(Consts.Hydrogen)).Mols(200)
             },
             time = 1,
             powerCost = -25000.0f,
-            type = Recipe.RecipeType.Reaction
+            type = Recipe.RecipeType.Reaction,
+            Name = "Hydrogen Fusion Reaction"
         },
         #endregion
-        #region Hydrogen Electolysis Reaction
+        #region Hydrogen Oxygen Electolysis Reaction
         new Recipe() {
             ingredients = new List<Resource>()
             {
-            new Resource(GetResource(Consts.Hydrogen)).Mols(2),
-            new Resource(GetResource(Consts.Oxygen)).Mols(1),
-            new Resource(GetResource(Consts.Pentlandite)).Mols(1)
+            new Resource(GetResource(Consts.Hydrogen)).Mols(2000000),
+            new Resource(GetResource(Consts.Oxygen)).Mols(1000000),
+            new Resource(GetResource(Consts.Pentlandite)).Mols(1000000)
             },
             products = new List<Resource>()
             {
-            new Resource(GetResource(Consts.Water)).Mols(1),
-            new Resource(GetResource(Consts.Pentlandite)).Mols(1)
+            new Resource(GetResource(Consts.Water)).Mols(1000000),
+            new Resource(GetResource(Consts.Pentlandite)).Mols(1000000)
             },
             time = 12,
-            powerCost = 0.0f,
-            type = Recipe.RecipeType.Reaction
+            powerCost = 2000.0f,
+            type = Recipe.RecipeType.Reaction,
+            Name = "Hydrogen Oxygen Electolysis Reaction"
         },
         #endregion
         #region Ammonia Reaction
         new Recipe() {
             ingredients = new List<Resource>()
             {
-            new Resource(GetResource(Consts.Nitrogen)).Mols(1),
-            new Resource(GetResource(Consts.Hydrogen)).Mols(3),
-            new Resource(GetResource(Consts.Magnetite)).Mols(1)
+            new Resource(GetResource(Consts.Nitrogen)).Mols(1000000),
+            new Resource(GetResource(Consts.Hydrogen)).Mols(3000000),
+            new Resource(GetResource(Consts.Magnetite)).Mols(1000000)
             },
             products = new List<Resource>()
             {
-            new Resource(GetResource(Consts.Ammonia)).Mols(1),
-            new Resource(GetResource(Consts.Magnetite)).Mols(1)
+            new Resource(GetResource(Consts.Ammonia)).Mols(1000000),
+            new Resource(GetResource(Consts.Magnetite)).Mols(1000000)
             },
-            time = 12,
-            powerCost = 500.0f,
-            type = Recipe.RecipeType.Reaction
+            time = 1,
+            powerCost = 0.0f,
+            type = Recipe.RecipeType.Reaction,
+            Name = "Ammonia Reaction"
         },
         #endregion
+        #region Nitric Acid Reaction
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Nitrogen)).Mols(1000000),
+            new Resource(GetResource(Consts.Hydrogen)).Mols(1000000),
+            new Resource(GetResource(Consts.Oxygen)).Mols(3000000)
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Nitric_Acid)).Mols(1000000),
+            },
+            time = 3,
+            powerCost = 0.0f,
+            type = Recipe.RecipeType.Reaction,
+            Name = "Nitric Acid Reaction"
+        },
+        #endregion
+        #region Ammonium Nitrate Reaction
+        new Recipe() {
+            ingredients = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Ammonia)).Mols(1000000),
+            new Resource(GetResource(Consts.Nitric_Acid)).Mols(1000000),
+            },
+            products = new List<Resource>()
+            {
+            new Resource(GetResource(Consts.Ammonium_Nitrate)).Mols(1000000)
+            },
+            time = 1,
+            powerCost = 0.0f,
+            type = Recipe.RecipeType.Reaction,
+            Name = "Ammonium Nitrate Reaction"
+        },
+        #endregion
+        #endregion
+        #region Manufacturing
+        #endregion
+        #region Farming
+
         #endregion
     };
 
