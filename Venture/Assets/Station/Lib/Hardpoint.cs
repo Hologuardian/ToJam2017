@@ -5,8 +5,18 @@ using UnityEngine;
 [System.Serializable]
 public class Hardpoint : MonoBehaviour
 {
+    public Color colourDefault = Color.clear;
+    public Color colourSelected = Color.green;
+    public Color colourSelectable = Color.blue;
+    public Color colourFocused = Color.red;
+
+    public SpriteRenderer gizmo;
+
     public StationModule self;
     public StationModule attachment;
+
+    public bool isSelected = false;
+    public bool isFocused = false;
 
     private void Start()
     {
@@ -15,7 +25,22 @@ public class Hardpoint : MonoBehaviour
 
     private void Update()
     {
-
+        if (isSelected)
+        {
+            gizmo.color = colourSelected;
+        }
+        else if (self.station.hardpointSelected)
+        {
+            gizmo.color = colourSelectable;
+        }
+        else if (isFocused)
+        {
+            gizmo.color = colourFocused;
+        }
+        else
+        {
+            gizmo.color = colourDefault;
+        }
     }
 
     /// <summary>
@@ -34,5 +59,19 @@ public class Hardpoint : MonoBehaviour
     public bool HasAttachment()
     {
         return attachment;
+    }
+
+    public void Select()
+    {
+        if (!self.station.hardpointSelected)
+        {
+            self.Select();
+            isSelected = true;
+            self.station.hardpointSelected = true;
+        }
+        else
+        {
+
+        }
     }
 }
