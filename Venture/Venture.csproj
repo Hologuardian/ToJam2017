@@ -18,11 +18,7 @@
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.0f3</UnityVersion>
     <RootNamespace></RootNamespace>
-<<<<<<< HEAD
-    <LangVersion>4</LangVersion>
-=======
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
->>>>>>> origin/master
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -94,16 +90,10 @@
     <Compile Include="Assets\AI\Ship.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Consts.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\Station\Lib\DockingModule.cs" />
     <Compile Include="Assets\Station\Lib\FabricationModule.cs" />
     <Compile Include="Assets\Station\Lib\Hardpoint.cs" />
     <Compile Include="Assets\Station\Lib\ReactorModule.cs" />
-=======
-    <Compile Include="Assets\Station\Lib\DockingBay.cs" />
-    <Compile Include="Assets\Station\Lib\Hardpoint.cs" />
-    <Compile Include="Assets\Station\Lib\ReactorCore.cs" />
->>>>>>> origin/master
     <Compile Include="Assets\Station\Lib\Station.cs" />
     <Compile Include="Assets\Station\Lib\StationModule.cs" />
   </ItemGroup>
