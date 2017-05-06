@@ -14,8 +14,15 @@ public enum Specialisations {
 
 public class Agent : MonoBehaviour {
     public static class Literals{
-        const string Employees = "Employees", 
-                    CostPerMonth = "CostPerMonth";
+        public const string 
+            Name = "Name", 
+            CostPerMonth = "CostPerMonth",
+            Employees = "Employees",
+            EmployeesEfficiencyMax = "EmployeesEfficiencyMax",
+            EmployeesEfficiencyMin = "EmployeesEfficiencyMin", 
+            EmployeesEfficiencyMean = "EmployeesEfficiencyMean", 
+            EmployeesEfficiencyMedian = "EmployeesEfficiencyMedian", 
+            EmployeesEfficiencyMode = "EmployeesEfficiencyMode";
 
     }
 
@@ -30,9 +37,8 @@ public class Agent : MonoBehaviour {
     public static Agent Factory() {
         Specialisations Specialisation = new Specialisations();
         Specialisation = (Specialisations) UnityEngine.Random.Range(0, Enum.GetNames(typeof(Specialisations)).Length);
-
         Agent agent = new Agent();
-        agent.general.Add("Name", new BlackboardValue() { Name = "Name", Value = "Agent Name" });
+        agent.general.Add(Literals.Name, new BlackboardValue() { Name = "Name", Value = "Agent Name" });
         List<Employee> Employees = new List<Employee>();
         int randomNumEmployees = UnityEngine.Random.Range(1, 100);
 
@@ -62,7 +68,13 @@ public class Agent : MonoBehaviour {
             }
         }
 
-        agent.general.Add("Employees", new BlackboardValue() { Name = "Employees", Value = Employees });
+        agent.general.Add(Literals.Employees, new BlackboardValue() { Name = "Employees", Value = Employees });
+        agent.general.Add("EmployeesEfficiencyMin", new BlackboardValue() { Name = "EmployeesEfficiencyMin", Value = EmployeesEfficiencyMin });
+        agent.general.Add("EmployeesEfficiencyMax", new BlackboardValue() { Name = "EmployeesEfficiencyMax", Value = EmployeesEfficiencyMax });
+        agent.general.Add("EmployeesEfficiencyMean", new BlackboardValue() { Name = "EmployeesEfficiencyMean", Value = EmployeesEfficiencyMean });
+        agent.general.Add("EmployeesEfficiencyMedian", new BlackboardValue() { Name = "EmployeesEfficiencyMedian", Value = EmployeesEfficiencyMedian });
+        agent.general.Add("EmployeesEfficiencyMode", new BlackboardValue() { Name = "EmployeesEfficiencyMode", Value = EmployeesEfficiencyMode });
+
         agent.general.Add("CostPerMonth", new BlackboardValue() { Name = "CostPerMonth", Value = Employees.Count * UnityEngine.Random.Range(4000,6000)});
         return agent;
     }

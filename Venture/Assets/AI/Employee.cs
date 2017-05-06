@@ -21,6 +21,7 @@ public class Employee {
         EmployeeInfo.Add("Happynes", new BlackboardValue() { Name = "Happynes", Value = Random.Range(-10,10)});
         float HappynesGoalTemp = Random.Range(0.0f, 1.0f) + Random.Range(0.0f, 1.0f);
         EmployeeInfo.Add("HappynesGoal", new BlackboardValue() { Name = "HappynesGoal", Value = (HappynesGoalTemp >= 1) ? HappynesGoalTemp : Mathf.Lerp(0.5f, 1, HappynesGoalTemp)});
+        
         //string Name = (string)EmployeeInfo["Name"].Value;
     }
     string Getname() {
