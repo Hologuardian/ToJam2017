@@ -160,4 +160,18 @@ public static class Consts
     {
         public const string UIInterface = "UIInterface";
     }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //      STATION
+    public static class Station
+    {
+        public const string Hardpoints = "Hardpoints";
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
+    //      GENERAL
+    public static class General
+    {
+        public const string Rigidbody = "Rigidbody";
+    }
 }

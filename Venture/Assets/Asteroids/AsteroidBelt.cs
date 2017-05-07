@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 using UnityStandardAssets.Utility;
 
+[ExecuteInEditMode]
 public class AsteroidBelt : MonoBehaviour
 {
     public Material asteroidMaterial;
@@ -61,4 +62,12 @@ public class AsteroidBelt : MonoBehaviour
             //roids[roids.Count - 1].GetComponent<NavMeshObstacle>().size = obj.GetComponent<MeshRenderer>().bounds.size;
         }
     }
+
+    //~AsteroidBelt()
+    //{
+    //    foreach(GameObject roid in roids)
+    //    {
+    //        Destroy(roid);
+    //    }
+    //}
 }

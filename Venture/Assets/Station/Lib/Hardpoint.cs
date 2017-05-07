@@ -17,6 +17,9 @@ public class Hardpoint : MonoBehaviour
     public StationModule self;
     public StationModule attachment;
 
+    [Range (0,10000)]
+    public float detachForce = 1000;
+
     public bool isSelected = false;
     public bool isFocused = false;
 
@@ -83,6 +86,14 @@ public class Hardpoint : MonoBehaviour
         attach.self.transform.rotation = Quaternion.FromToRotation(attach.self.transform.forward, (transform.position - attach.self.transform.position));
     }
 
+    public void Detach(Hardpoint detach)
+    {
+        detach.attachment = null;
+        attachment = null;
+
+        (detach.self.general[Consts.General.Rigidbody].Value as Rigidbody).AddForce(transform.forward * detachForce);
+    }
+
     public bool HasAttachment()
     {
         return attachment;
@@ -104,7 +115,8 @@ public class Hardpoint : MonoBehaviour
         {
             if (self.station.hardpointSelected.self != self)
             {
-                Attach(self.station.hardpointSelected);
+                self.Move(self.station.hardpointSelected, this);
+                //Attach(self.station.hardpointSelected);
             }
         }
     }
@@ -159,6 +171,26 @@ public class Hardpoint : MonoBehaviour
         else
         {
             Deselect();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // We have collided with a hardpoint
+        if (other.gameObject.tag == Consts.Station.Hardpoints)
+        {
+            self.Couple(this, other.gameObject.GetComponent<Hardpoint>());
+            //Attach(other.gameObject.GetComponent<Hardpoint>());
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // We have stopped colliding with a hardpoint, decouple
+        if (other.gameObject.tag == Consts.Station.Hardpoints)
+        {
+            self.Decouple(this, other.gameObject.GetComponent<Hardpoint>());
+            //Detach(other.gameObject.GetComponent<Hardpoint>());
         }
     }
 }
