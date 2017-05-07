@@ -1185,5 +1185,47 @@ public class Inventory
     {
         return inventory.Count;
     }
+
+    public bool IsFull() {
+        totalVolume = 0;
+        for (int i = 0; i < inventory.Count; i++) {
+            if (inventory[i].Volume > 0)
+            {
+                totalMass += inventory[i].Mass;
+                totalVolume += inventory[i].Volume;
+            }
+        }
+        if (totalVolume > maxVolume)
+        {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public bool IsEmpty() {
+        if (inventory.Count <= 0)
+        {
+            return true;
+        }
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].Volume > 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool DoesContain(Resource item) {
+        return (inventory.Contains(item));
+    }
+
+    public int FindItem(Resource item) {
+        if (DoesContain) {
+            return inventory.FindIndex(item);
+        }
+        return -1;
+    }
 }
 
