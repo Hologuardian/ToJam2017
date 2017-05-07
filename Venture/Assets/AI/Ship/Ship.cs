@@ -8,6 +8,7 @@ public class Ship : MonoBehaviour
     public Blackboard general = new Blackboard();
     public Inventory inventory = new Inventory();
     public GameObject Model;
+    public Station station;
     public AsteroidBelt asteroidBelt;
     public Transform rawgoal, goal;
     bool isInitialize = false;
@@ -23,9 +24,6 @@ public class Ship : MonoBehaviour
     {
         isInitialize = true;
         rawgoal = goal = asteroidBelt.roids[Random.Range(0, asteroidBelt.roids.Count - 1)].transform;
-        if (Vector3.Distance(transform.position, goal.position) < 1) {
-            goal.GetComponent<AsteroidPrefab>().Mine(inventory);
-        }
     }
 
     // Use this for initialization
@@ -34,10 +32,20 @@ public class Ship : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
+    void Tick() {
 
+        if (Vector3.Distance(transform.position, goal.position) < 1)
+        {
+            switch (goal.GetComponent<AsteroidPrefab>().Mine(inventory)) {
+                case 1:
+                    rawgoal = goal = asteroidBelt.roids[Random.Range(0, asteroidBelt.roids.Count - 1)].transform;
+                    break;
+                case 2:
+                    rawgoal.position = goal.position = (transform.position - station.transform.position).normalized * station.dockingPerimeter;
+                    break;
+
+            }
+        }
     }
     void Update()
     {

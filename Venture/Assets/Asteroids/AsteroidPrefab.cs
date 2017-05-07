@@ -44,8 +44,30 @@ public class AsteroidPrefab : MonoBehaviour {
 		
 	}
 
-    public void Mine(Inventory inventory) {
-
+    public int Mine(Inventory inventory) {
+        while (!inventory.IsFull()&& !this.inventory.IsEmpty())
+        {
+            Resource tempResource = this.inventory[Random.Range(0, this.inventory.Length())];
+            if (tempResource.Mass > Inventory.GetResource(tempResource.Name).Mass) {
+                tempResource.Mass -= tempResource.Mass;
+            }
+            if (inventory.DoesContain(tempResource))
+            {
+                inventory[tempResource.Name].Mass += tempResource.Mass;
+            }
+            else
+            {
+                inventory.AddItem(tempResource);
+            }
+        }
+        if (this.inventory.IsEmpty() && !inventory.IsFull())
+        {
+            return 1;
+        }
+        else if (inventory.IsFull()) {
+            return 2;
+        }
+        return 0;
     }
 
 }
