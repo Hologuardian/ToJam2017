@@ -15,6 +15,11 @@ public class Asteroid : MonoBehaviour
     
     List<Mineral> cloud = new List<Mineral>();
 
+    public bool Mine(Inventory inventory, float Efficiency)
+    {
+        return false;
+    }
+
     private void Start()
     {
         float sizeVal = (int)size * 30.0f;
@@ -90,15 +95,19 @@ public class Asteroid : MonoBehaviour
         CoM /= xxx.Count;
 
         List<Vector3> normals = new List<Vector3>();
-        xxx.ForEach(p => normals.Add((p.ToVec() - CoM).normalized));
+        xxx.ForEach(p => normals.Add(Vector3.zero));
+
 
         foreach (var face in result.Faces)
         {
             triangles.Add(xxx.IndexOf(face.Vertices[0]));
+            normals[xxx.IndexOf(face.Vertices[0])] = (face.Vertices[0].ToVec() - CoM).normalized;
             triangles.Add(xxx.IndexOf(face.Vertices[1]));
+            normals[xxx.IndexOf(face.Vertices[1])] = (face.Vertices[1].ToVec() - CoM).normalized;
             triangles.Add(xxx.IndexOf(face.Vertices[2]));
+            normals[xxx.IndexOf(face.Vertices[2])] = (face.Vertices[2].ToVec() - CoM).normalized;
         }
-
+        m.MarkDynamic();
         m.triangles = triangles.ToArray();
 
         m.SetNormals(normals);

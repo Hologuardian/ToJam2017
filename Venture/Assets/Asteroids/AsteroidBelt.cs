@@ -6,6 +6,7 @@ public class AsteroidBelt : MonoBehaviour
 {
     public Material asteroidMaterial;
     public List<GameObject> roids = new List<GameObject>();
+    private int total = 0;
 
     private void Start()
     {
@@ -38,21 +39,22 @@ public class AsteroidBelt : MonoBehaviour
         {
             GameObject obj = new GameObject();
             obj.transform.rotation = Random.rotation;
-            Vector3 pos = Random.insideUnitSphere * 80.0f;
+            Vector3 pos = Random.insideUnitSphere * 140.0f;
             pos.y *= 0.05f;
+            pos += pos.normalized * 300.0f;
             obj.transform.position = pos;
             Asteroid roid = obj.AddComponent<Asteroid>();
             roid.size = (Size)(int)((((Random.value * Random.value)) * 5.0f) + 1.0f);
 
             MeshRenderer rend = obj.AddComponent<MeshRenderer>();
             rend.material = asteroidMaterial;
-            Rigidbody body = obj.AddComponent<Rigidbody>();
-            body.useGravity = false;
+            //Rigidbody body = obj.AddComponent<Rigidbody>();
+            //body.useGravity = false;
 
             AutoMoveAndRotate rot = obj.AddComponent<AutoMoveAndRotate>();
-            rot.rotateDegreesPerSecond = new AutoMoveAndRotate.Vector3andSpace() { value = Random.insideUnitSphere * 50.0f, space = Space.Self};
+            rot.rotateDegreesPerSecond = new AutoMoveAndRotate.Vector3andSpace() { value = Random.insideUnitSphere * 50.0f * Random.value * Random.value * Random.value, space = Space.Self};
             rot.moveUnitsPerSecond = new AutoMoveAndRotate.Vector3andSpace() { value = Vector3.zero, space = Space.Self };
-
+            obj.name = "roid" + total++;
             roids.Add(obj);
         }
     }
