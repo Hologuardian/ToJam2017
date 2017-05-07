@@ -27,6 +27,11 @@ public class Station : MonoBehaviour
     public Hardpoint hardpointSelected = null;
     public Hardpoint hardpointHover = null;
 
+    /// <summary>
+    /// This is the distance from the origin of the station that being within is considered 'docked'
+    /// </summary>
+    public float dockingPerimeter = 10;
+
     private float timeToTick = 0;
     private int tickCallbacksPerFrame = 0;
     private List<OnTick> tickCallbacks = new List<OnTick>();
@@ -106,9 +111,8 @@ public class Station : MonoBehaviour
         return resources;
     }
 
-    public Vector3 GetPointOnDockingPerimeter()
+    public void Dock(Ship ship)
     {
-        Vector2 v2 = Random.insideUnitCircle.normalized;
-        return new Vector3(v2.x, 0, v2.y) * 10;
+
     }
 }
