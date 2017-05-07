@@ -141,18 +141,36 @@ public class StationModule : MonoBehaviour
             }
         }
 
-        List<float> desiredDistributionVolumes = new List<float>();
-
-        foreach(Inventory desiredDistribution in cloneInventories)
+        if (cloneInventories.Length > 0)
         {
-            float desiredDistributionVolume = 0;
-
-            for (int i = 0; i < desiredDistribution.Length(); i++)
+            List<float> desiredDistributionVolumes = new List<float>();
+            // First lets get all the desired distribution volumes in total that would like to be in transit from this module this tick
+            foreach (Inventory desiredDistribution in cloneInventories)
             {
-                if (desiredDistribution[i].Volume > 0)
+                float desiredDistributionVolume = 0;
+
+                for (int i = 0; i < desiredDistribution.Length(); i++)
                 {
-                    desiredDistributionVolume += desiredDistribution[i].Volume;
+                    if (desiredDistribution[i].Volume > 0)
+                    {
+                        desiredDistributionVolume += desiredDistribution[i].Volume;
+                    }
                 }
+
+                desiredDistributionVolumes.Add(desiredDistributionVolume);
+            }
+
+            // Next we need to evenly distribute the total transferVolume across all transfer inventories
+            // The easiest way of doing this is allowing the first transfer inventory to use its fraction of the transfer volume, or exhaust the transfer inventory first, 
+            // Then the left over transfer volume is left for the others to split
+            float transferPer = inventory.transferVolume / cloneInventories.Length;
+            float alotment = transferPer;
+            int index = 0;
+            while (alotment > 0 && !cloneInventories[index].IsEmpty())
+            {
+                // The logic I think will work here best is calculate the percent of the total desired transfer that this resource is, and if the current desired transfer volume is less than the
+                // Same percent of the alotment for transfering actual, then transfer it all, and only subtract that transfer amount from the alotment, leaving more for others.
+
             }
         }
     }
