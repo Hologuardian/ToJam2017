@@ -9,7 +9,7 @@ public class Ship : MonoBehaviour
     public Inventory inventory = new Inventory();
     public GameObject Model;
     public AsteroidBelt asteroidBelt;
-    public Vector3 rawgoal,goal;
+    public Transform rawgoal, goal;
     bool isInitialize = false;
 
     public NavMeshAgent navMeshAgent;
@@ -22,8 +22,7 @@ public class Ship : MonoBehaviour
     void Initialize()
     {
         isInitialize = true;
-        rawgoal = goal = asteroidBelt.roids[Random.Range(0, asteroidBelt.roids.Count - 1)].transform.position;
-        goal.y = 0;
+        rawgoal = goal = asteroidBelt.roids[Random.Range(0, asteroidBelt.roids.Count - 1)].transform;
     }
 
     // Use this for initialization
@@ -44,10 +43,7 @@ public class Ship : MonoBehaviour
         {
             Initialize();
         }
-        navMeshAgent.destination = goal;
-        Model.transform.position = new Vector3(transform.position.x,
-            Mathf.Lerp(Model.transform.position.y, rawgoal.y,Vector3.Distance(Model.transform.position.normalized,rawgoal.normalized)), 
-            transform.position.z);
+        navMeshAgent.destination = goal.position;
 
     }
 

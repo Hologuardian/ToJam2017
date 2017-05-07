@@ -50,6 +50,8 @@ public class Asteroid : MonoBehaviour
     bool first = false;
     private void Update()
     {
+        
+
         if(first)
         {
             first = false;

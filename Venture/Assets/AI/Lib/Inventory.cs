@@ -1115,6 +1115,10 @@ public class Inventory
 
     public void Start()
     {
+        for (int i = 0; i < Inventory.Resources.Length; i++)
+        {
+            inventory.Add(Resources[i]);
+        }
     }
 
     public static Resource GetResource(string name)
