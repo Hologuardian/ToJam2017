@@ -19,19 +19,11 @@ public class Nav : MonoBehaviour {
         RaycastHit rayHit = new RaycastHit();
         if (Physics.Raycast(new Vector3(transform.position.x + (transform.localScale.x/2), transform.position.y, transform.position.z), transform.forward, out rayHit, 100))
         {
-            FindEdge();
-        }
-        else if (Physics.Raycast(transform.position, transform.forward, out rayHit, 100))
-        {
-            FindEdge();
-        }
-        else if (Physics.Raycast(new Vector3(transform.position.x - (transform.localScale.x / 2), transform.position.y, transform.position.z), transform.forward, out rayHit, 100))
-        {
-            FindEdge();
+            FindEdge(rayHit.collider.gameObject);
         }
 
     }
-    void FindEdge() {
-        transform.Rotate(new Vector3(0, 1, 0), 45 * Mathf.Deg2Rad);
+    void FindEdge(GameObject obj) {
+        //transform.LookAt(new Vector3(obj.transform.position.x + obj.transform.localScale.x / 2));
     }
 }

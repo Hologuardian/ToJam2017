@@ -7,6 +7,7 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
     public Size size;
+    public float sizeVal;
     struct Mineral
     {
         public Vector3 pos;
@@ -22,7 +23,7 @@ public class Asteroid : MonoBehaviour
 
     private void Start()
     {
-        float sizeVal = (int)size * 30.0f;
+        sizeVal = (int)size * 30.0f;
         Color c;
         c = Random.ColorHSV(0, 0.1f, 0.1f, 0.25f);
         for (int i = 0; i < Random.Range(45, 100); i++)
