@@ -45,10 +45,12 @@ public class AIFlockBehaviour : MonoBehaviour
 
     public void FixedUpdate()
     {
+
         if (checkCooldownCurrent > 0)
             checkCooldownCurrent -= Time.deltaTime;
         else
         {
+
             flock = new List<Transform>();
             flockA = new List<Transform>();
             flockC = new List<Transform>();
@@ -127,7 +129,7 @@ public class AIFlockBehaviour : MonoBehaviour
                 }
                 flockAlignment /= flockA.Count + 1;
 
-                controller.rigidbody.MoveRotation(Quaternion.LookRotation(Vector3.Lerp(transform.forward, flockAlignment, alignmentFactor)));
+                controller.GetComponent<Rigidbody>().MoveRotation(Quaternion.LookRotation(Vector3.Lerp(transform.forward, flockAlignment, alignmentFactor)));
 
                 Debug.DrawRay(transform.position, transform.forward, new Color(1, 1, 1));
                 Debug.DrawRay(transform.position, flockAlignment, new Color(0, 0, 1));
@@ -148,7 +150,7 @@ public class AIFlockBehaviour : MonoBehaviour
                 com /= flockC.Count + 1;
 
                 Vector3 cohesiveForce = (com - transform.position).normalized * cohesionForce;
-                controller.rigidbody.AddForce(cohesiveForce, cohesionForceMode);
+                controller.GetComponent<Rigidbody>().AddForce(cohesiveForce, cohesionForceMode);
                 Debug.DrawRay(transform.position, cohesiveForce, new Color(0, 1, 0));
             }
 
@@ -160,7 +162,7 @@ public class AIFlockBehaviour : MonoBehaviour
                 foreach (Transform member in flockS)
                 {
                     Vector3 seperativeForce = (transform.position - member.position).normalized * seperationForce;
-                    controller.rigidbody.AddForce(seperativeForce, seperationForceMode);
+                    controller.GetComponent<Rigidbody>().AddForce(seperativeForce, seperationForceMode);
                     Debug.DrawRay(transform.position, seperativeForce, new Color(0, 1, 0));
                 }
             }

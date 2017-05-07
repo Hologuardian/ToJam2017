@@ -10,6 +10,6 @@ public class Thruster : MonoBehaviour {
         isATurnLeftThruster, isATurnRightThruster, isATurnUpThruster, isATurnDownThruster;
     public void Thrust()
     {
-           ship.rigidbody.AddForceAtPosition(transform.forward * thrust, transform.position);
+           ship.GetComponent<Rigidbody>().AddForceAtPosition(transform.forward * thrust, transform.position);
     }
 }
