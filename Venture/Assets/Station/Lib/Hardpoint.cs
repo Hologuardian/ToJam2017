@@ -77,8 +77,8 @@ public class Hardpoint : MonoBehaviour
     /// </summary>
     public void Attach(Hardpoint attach)
     {
-        attach.attachment = self;
-        attachment = attach.self;
+        //attach.attachment = self;
+        //attachment = attach.self;
 
         // The attachment hardpoint module needs to be put offset from this hardpoint by the distance to the hardpoint we are attaching
         attach.self.transform.position = transform.position + (transform.position - self.transform.position);
@@ -168,10 +168,8 @@ public class Hardpoint : MonoBehaviour
                 Deselect();
             }
         }
-        else
-        {
-            Deselect();
-        }
+
+        Deselect();
     }
 
     private void OnTriggerEnter(Collider other)

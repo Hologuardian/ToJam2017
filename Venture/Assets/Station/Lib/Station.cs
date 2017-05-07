@@ -105,4 +105,10 @@ public class Station : MonoBehaviour
 
         return resources;
     }
+
+    public Vector3 GetPointOnDockingPerimeter()
+    {
+        Vector2 v2 = Random.insideUnitCircle.normalized;
+        return new Vector3(v2.x, 0, v2.y) * 10;
+    }
 }

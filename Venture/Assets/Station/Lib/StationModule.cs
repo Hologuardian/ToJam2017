@@ -151,9 +151,11 @@ public class StationModule : MonoBehaviour
 
                 for (int i = 0; i < desiredDistribution.Length(); i++)
                 {
-                    if (desiredDistribution[i].Volume > 0)
+                    Resource res = desiredDistribution[i];
+
+                    if (res.Volume > 0)
                     {
-                        desiredDistributionVolume += desiredDistribution[i].Volume;
+                        desiredDistributionVolume += desiredDistribution[res.Name].Volume;
                     }
                 }
 
