@@ -162,7 +162,7 @@ public class Hardpoint : MonoBehaviour
 
         if (self.station.hardpointSelected && self.station.hardpointHover)
         {
-            if (self.station.hardpointSelected.self != self.station.hardpointHover)
+            if (self.station.hardpointSelected.self != self.station.hardpointHover.self)
             {
                 self.station.hardpointHover.Attach(self.station.hardpointSelected);
                 Deselect();

@@ -1104,9 +1104,7 @@ public class Inventory
         #endregion
     };
 
-
-
-    private List<Resource> inventory = new List<Resource>();
+    private Dictionary<string, Resource> inventory = new Dictionary<string, Resource>();
 
     private float totalMass = 0;
     private float totalVolume = 0;
@@ -1117,7 +1115,7 @@ public class Inventory
     {
         for (int i = 0; i < Inventory.Resources.Length; i++)
         {
-            inventory.Add(Resources[i]);
+            inventory.Add(Resources[i].Name, new Resource() { Name = Resources[i].Name, Density = Resources[i].Density, Mass = Resources[i].Mass, MolarMass = Resources[i].MolarMass, Value = Resources[i].Value, Volume = 0.0f });
         }
     }
 
@@ -1128,49 +1126,37 @@ public class Inventory
 
     public bool AddItem(Resource item)
     {
-        if(totalVolume + item.Volume <= maxVolume)
+        if (totalVolume + item.Volume <= maxVolume)
         {
-            int index = inventory.FindIndex(x => x.Name == item.Name);
-            if (index >= 0)
-                inventory[index].Volume += item.Volume;
-            inventory[index] = item;
+            if (inventory.ContainsKey(item.Name))
+                inventory[item.Name].Volume += item.Volume;
+            else
+                inventory.Add(item.Name, item);
+
             return true;
         }
         return false;
     }
 
-    public Resource RemoveItem(Resource item)
+    public void RemoveItem(Resource item)
     {
-        int index = inventory.FindIndex(x => x.Name == item.Name);
+        if (inventory.ContainsKey(item.Name))
+            inventory[item.Name].Volume -= item.Volume;
+    }
 
-        if (index >= 0)
+    public Resource this[int index]
+    {
+        get
         {
-            if (inventory[index].Volume >= item.Volume)
-            {
-                inventory[index].Volume -= item.Volume;
-                return item;
-            }
-            else
-            {
-                Resource res = inventory[index];
-                inventory[index].Volume = 0;
-                return res;
-            }
+            return inventory[inventory.Keys.ElementAt(index)];
         }
-        return null;
+        set
+        {
+            inventory[inventory.Keys.ElementAt(index)] = value;
+        }
     }
 
-    public void Add(int key, Resource stat)
-    {
-        inventory.Insert(key, stat);
-    }
-
-    public void Remove(int key)
-    {
-        inventory.RemoveAt(key);
-    }
-
-    public Resource this[int key]
+    public Resource this[string key]
     {
         get
         {
@@ -1181,51 +1167,58 @@ public class Inventory
             inventory[key] = value;
         }
     }
+
     public int Length()
     {
         return inventory.Count;
     }
 
-    public bool IsFull() {
+    public bool IsFull()
+    {
         totalVolume = 0;
-        for (int i = 0; i < inventory.Count; i++) {
-            if (inventory[i].Volume > 0)
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            Resource res = this[i];
+            if (res.Volume > 0)
             {
-                totalMass += inventory[i].Mass;
-                totalVolume += inventory[i].Volume;
+                totalMass += inventory[res.Name].Mass;
+                totalVolume += inventory[res.Name].Volume;
             }
         }
         if (totalVolume > maxVolume)
         {
             return true;
         }
-        else {
+        else
+        {
             return false;
         }
     }
-    public bool IsEmpty() {
+
+    public bool IsEmpty()
+    {
         if (inventory.Count <= 0)
         {
             return true;
         }
         for (int i = 0; i < inventory.Count; i++)
         {
-            if (inventory[i].Volume > 0)
+            if (this[i].Volume > 0)
             {
                 return true;
             }
         }
         return false;
     }
-    public bool DoesContain(Resource item) {
-        return (inventory.Contains(item));
-    }
 
-    public int FindItem(Resource item) {
-        if (DoesContain) {
-            return inventory.FindIndex(item);
+    public bool DoesContain(Resource item)
+    {
+        if (inventory.ContainsKey(item.Name))
+        {
+            return inventory[item.Name].Volume > 0;
         }
-        return -1;
+
+        return false;
     }
 }
 

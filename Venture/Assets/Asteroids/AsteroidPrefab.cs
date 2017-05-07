@@ -31,7 +31,7 @@ public class AsteroidPrefab : MonoBehaviour {
             Resource tempResource = Inventory.Resources[Random.Range(77, 109)];
             if (inventory.DoesContain(tempResource))
             {
-                inventory[inventory.FindItem(tempResource)].Mass += tempResource.Mass;
+                inventory[tempResource.Name].Mass += tempResource.Mass;
             }
             else {
                 inventory.AddItem(tempResource);
