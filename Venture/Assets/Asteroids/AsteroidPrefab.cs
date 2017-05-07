@@ -44,7 +44,7 @@ public class AsteroidPrefab : MonoBehaviour {
 		
 	}
 
-    void Mine(Inventory inventory) {
+    public void Mine(Inventory inventory) {
 
     }
 

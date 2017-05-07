@@ -23,6 +23,9 @@ public class Ship : MonoBehaviour
     {
         isInitialize = true;
         rawgoal = goal = asteroidBelt.roids[Random.Range(0, asteroidBelt.roids.Count - 1)].transform;
+        if (Vector3.Distance(transform.position, goal.position) < 1) {
+            goal.GetComponent<AsteroidPrefab>().Mine(inventory);
+        }
     }
 
     // Use this for initialization
