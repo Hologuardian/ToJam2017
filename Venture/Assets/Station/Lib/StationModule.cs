@@ -18,8 +18,6 @@ public class StationModule : MonoBehaviour
     public Station station;
     public Hardpoint[] hardpoints;
 
-    public float transferVolume = TransferVolume;
-
     public bool isSelected = false;
     private bool lastSelected = false;
 
@@ -45,6 +43,11 @@ public class StationModule : MonoBehaviour
 
             lastSelected = isSelected;
         }
+    }
+
+    public void Tick()
+    {
+
     }
 
     /// <summary>

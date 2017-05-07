@@ -24,7 +24,7 @@ public class Hardpoint : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     void Initialise()
@@ -80,7 +80,7 @@ public class Hardpoint : MonoBehaviour
         // The attachment hardpoint module needs to be put offset from this hardpoint by the distance to the hardpoint we are attaching
         attach.self.transform.position = transform.position + (transform.position - self.transform.position);
 
-        attach.self.transform.rotation = new Quaternion();
+        attach.self.transform.rotation = Quaternion.FromToRotation(attach.self.transform.forward, (transform.position - attach.self.transform.position));
     }
 
     public bool HasAttachment()
@@ -102,24 +102,36 @@ public class Hardpoint : MonoBehaviour
         // This hardpoint is the hardpoint the first selected one will now move to
         else
         {
-            Attach(self.station.hardpointSelected);
+            if (self.station.hardpointSelected.self != self)
+            {
+                Attach(self.station.hardpointSelected);
+            }
         }
     }
 
     public void Deselect()
     {
-
+        self.Deselect();
+        isSelected = false;
+        self.station.hardpointSelected = null;
     }
 
     // When the mouse enters a hardpoint collision zone
     void OnMouseEnter()
     {
         isFocused = true;
+        self.station.hardpointHover = this;
     }
 
     void OnMouseOver()
     {
+        
+    }
 
+    void OnMouseExit()
+    {
+        self.station.hardpointHover = null;
+        isFocused = false;
     }
 
     void OnMouseDown()
@@ -134,11 +146,19 @@ public class Hardpoint : MonoBehaviour
 
     void OnMouseUp()
     {
-        Deselect();
-    }
+        Debug.Log("Mouse released on: " + this.name);
 
-    void OnMouseExit()
-    {
-        isFocused = false;
+        if (self.station.hardpointSelected && self.station.hardpointHover)
+        {
+            if (self.station.hardpointSelected.self != self.station.hardpointHover)
+            {
+                self.station.hardpointHover.Attach(self.station.hardpointSelected);
+                Deselect();
+            }
+        }
+        else
+        {
+            Deselect();
+        }
     }
 }

@@ -1,21 +1,15 @@
 fileFormatVersion: 2
-guid: 53cffa390a20d2f40a444247902e60f6
-timeCreated: 1494101439
+guid: aa53244e0ff19974d9b02f1e8d23391c
+timeCreated: 1494117567
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Camera
-    100002: Lamp
-    100004: //RootNode
-    100006: reactor_medium
-    400000: Camera
-    400002: Lamp
-    400004: //RootNode
-    400006: reactor_medium
-    2300000: reactor_medium
-    3300000: reactor_medium
-    4300000: reactor_medium
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: reprocessor_medium
   materials:
     importMaterials: 1
     materialName: 0
