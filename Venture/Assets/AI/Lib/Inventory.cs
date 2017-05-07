@@ -1111,6 +1111,7 @@ public class Inventory
     private float totalMass = 0;
     private float totalVolume = 0;
     public float maxVolume = 0;
+    public float transferVolume = 100;
 
     public void Start()
     {
