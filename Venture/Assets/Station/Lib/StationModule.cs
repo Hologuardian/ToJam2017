@@ -29,14 +29,18 @@ public class StationModule : MonoBehaviour
     public Vector3 positionEnd = new Vector3();
 
     public bool isSelected = false;
-    private bool lastSelected = false;
+    private float deselectCooldown = 0;
+
+    public SphereCollider clickArea;
 
     // Use this for initialization
     void Start()
     {
+        clickArea = GetComponent<SphereCollider>();
         general.Add(Literals.Inventory, new BlackboardValue() { Name = Literals.Inventory, Value = inventory });
         //inventory.
         general.Add(Literals.Hardpoints, new BlackboardValue() { Name = Literals.Hardpoints, Value = hardpoints });
+        //general.Add(Consts.General.Rigidbody, new BlackboardValue() { Name = Consts.General.Rigidbody, Value = GetComponent<Rigidbody>() });
 
         //Select();
     }
@@ -44,15 +48,10 @@ public class StationModule : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lastSelected != isSelected)
-        {
-            if (isSelected)
-                Select();
-            else
-                Deselect();
-
-            lastSelected = isSelected;
-        }
+        if (station.moduleSelected)
+            clickArea.enabled = false;
+        else
+            clickArea.enabled = true;
 
         if (isTransitioning)
         {
@@ -170,9 +169,22 @@ public class StationModule : MonoBehaviour
             int index = 0;
             while (alotment > 0 && !cloneInventories[index].IsEmpty())
             {
-                // The logic I think will work here best is calculate the percent of the total desired transfer that this resource is, and if the current desired transfer volume is less than the
-                // Same percent of the alotment for transfering actual, then transfer it all, and only subtract that transfer amount from the alotment, leaving more for others.
-
+                for (int i = 0; i < Inventory.Resources.Length; i++)
+                {
+                    // The logic I think will work here best is calculate the percent of the total desired transfer that this resource is, and 
+                    float totalDesiredTransfer = cloneInventories[index][Inventory.Resources[i].Name].Volume / desiredDistributionVolumes[index];
+                    float currentDesiredTransfer = alotment * totalDesiredTransfer;
+                    if (cloneInventories[index][Inventory.Resources[i].Name].Volume < currentDesiredTransfer)
+                    {
+                        alotment -= cloneInventories[index][Inventory.Resources[i].Name].Volume;
+                        adjacentInventories[index][Inventory.Resources[i].Name].Volume += cloneInventories[index][Inventory.Resources[i].Name].Volume;
+                    }
+                    else
+                    {
+                        alotment -= currentDesiredTransfer;
+                        adjacentInventories[index][Inventory.Resources[i].Name].Volume += currentDesiredTransfer;
+                    }
+                }
             }
         }
     }
@@ -207,26 +219,95 @@ public class StationModule : MonoBehaviour
         isTransitioning = true;
     }
 
+    public void Focus()
+    {
+        Debug.Log("Focus: " + name);
+
+        foreach (Hardpoint hardpoint in hardpoints)
+        {
+            hardpoint.focusable = true;
+        }
+    }
+
+    public void Defocus()
+    {
+        Debug.Log("Defocus: " + name);
+
+        foreach (Hardpoint hardpoint in hardpoints)
+        {
+            hardpoint.focusable = false;
+        }
+    }
+
     /// <summary>
     /// Sets this module and all its hard points to the selected state, which makes all hardpoints enter isFocused state
     /// </summary>
     public void Select()
     {
+        Debug.Log("Select: " + name);
+
         isSelected = true;
 
-        //foreach(Hardpoint hardpoint in hardpoints)
-        //{
-        //    hardpoint.isFocused = true;
-        //}
+        clickArea.enabled = false;
+
+        if (station.moduleSelected)
+            if (station.moduleSelected != this)
+                station.moduleSelected.Deselect();
+
+        station.moduleSelected = this;
+
+        //deselectCooldown = Consts.Station.StationModuleDeselectCooldown;
     }
 
     public void Deselect()
     {
-        isSelected = false;
+        Debug.Log("Deselect: " + name);
 
-        foreach(Hardpoint hardpoint in hardpoints)
+        //if (deselectCooldown <= 0)
+        //{
+            isSelected = false;
+
+
+        clickArea.enabled = true;
+        station.moduleSelected = null;
+        //}
+    }
+
+    // When the mouse enters a hardpoint collision zone
+    void OnMouseEnter()
+    {
+        Focus();
+    }
+
+    void OnMouseOver()
+    {
+
+    }
+
+    void OnMouseExit()
+    {
+        Defocus();
+    }
+
+    void OnMouseDown()
+    {
+        if (station.moduleSelected != this)
         {
-            hardpoint.isFocused = false;
+            Select();
         }
+        else
+        {
+            Deselect();
+        }
+    }
+
+    void OnMouseDrag()
+    {
+
+    }
+
+    void OnMouseUp()
+    {
+        
     }
 }

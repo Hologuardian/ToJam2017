@@ -24,6 +24,8 @@ public class Station : MonoBehaviour
 
     public float credits;
 
+    public StationModule moduleSelected = null;
+    public StationModule moduleHover = null;
     public Hardpoint hardpointSelected = null;
     public Hardpoint hardpointHover = null;
 

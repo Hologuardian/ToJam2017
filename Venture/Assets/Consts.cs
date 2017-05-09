@@ -165,6 +165,7 @@ public static class Consts
     //      STATION
     public static class Station
     {
+        public const float StationModuleDeselectCooldown = 0.1f;
         public const string Hardpoints = "Hardpoints";
     }
 
