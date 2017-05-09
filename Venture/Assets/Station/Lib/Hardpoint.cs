@@ -16,9 +16,10 @@ public class Hardpoint : MonoBehaviour
     public UnityEngine.UI.Image gizmo;
 
     public StationModule self;
+    public Hardpoint attach;
     public StationModule attachment;
 
-    [Range (0,10000)]
+    [Range(0, 10000)]
     public float detachForce = 1000;
 
     public bool isSelected = false;
@@ -45,36 +46,37 @@ public class Hardpoint : MonoBehaviour
     {
         Initialise();
 
-        if (!attachment)
+        if (attachment)
         {
-            if (isSelected)
+            gizmo.color = colourDefault;
+        }
+        else if (isSelected)
+        {
+            gizmo.color = colourSelected;
+        }
+        else if (isFocused)
+        {
+            if (self.station.hardpointSelected)
             {
-                gizmo.color = colourSelected;
-            }
-            else if (isFocused)
-            {
-                if (self.station.hardpointSelected)
-                {
-                    if (self.station.hardpointSelected.self != self)
-                        gizmo.color = colourAttach;
-                    else
-                        gizmo.color = colourInvalid;
-                }
+                if (self.station.hardpointSelected.self != self)
+                    gizmo.color = colourAttach;
                 else
-                    gizmo.color = colourFocused;
-            }
-            else if (focusable || (self.station.moduleSelected && !attachment))
-            {
-                gizmo.color = colourFocusable;
-            }
-            else if (self.station.hardpointSelected)
-            {
-                gizmo.color = colourSelectable;
+                    gizmo.color = colourInvalid;
             }
             else
-            {
-                gizmo.color = colourDefault;
-            }
+                gizmo.color = colourFocused;
+        }
+        else if (focusable || (self.station.moduleSelected && !attachment))
+        {
+            gizmo.color = colourFocusable;
+        }
+        else if (self.station.hardpointSelected)
+        {
+            gizmo.color = colourSelectable;
+        }
+        else
+        {
+            gizmo.color = colourDefault;
         }
 
         if (Camera.current)
@@ -86,6 +88,8 @@ public class Hardpoint : MonoBehaviour
     /// </summary>
     public void Attach(Hardpoint attach)
     {
+        this.attach = attach;
+        attach.attach = this;
         attach.attachment = self;
         attachment = attach.self;
 
@@ -98,6 +102,8 @@ public class Hardpoint : MonoBehaviour
 
     public void Detach(Hardpoint detach)
     {
+        attach = null;
+        detach.attach = null;
         detach.attachment = null;
         attachment = null;
 
@@ -111,26 +117,30 @@ public class Hardpoint : MonoBehaviour
 
     public void Focus()
     {
-        if (focusable || self.station.moduleSelected)
+        if (!attachment)
         {
-            isFocused = true;
-            self.station.hardpointHover = this;
-        }
+            if (focusable || self.station.moduleSelected)
+            {
+                isFocused = true;
+                self.station.hardpointHover = this;
+            }
 
-        if (attachment == null)
             focusable = true;
+        }
     }
 
     public void Defocus()
     {
-        if (focusable || self.station.moduleSelected)
+        if (!attachment)
         {
-            self.station.hardpointHover = null;
-            isFocused = false;
-        }
+            if (focusable || self.station.moduleSelected)
+            {
+                self.station.hardpointHover = null;
+                isFocused = false;
+            }
 
-        if (attachment == null)
             focusable = false;
+        }
     }
 
     public void Select()
@@ -140,7 +150,7 @@ public class Hardpoint : MonoBehaviour
         // And as such it will be the module being detached and moved
         if (!self.station.hardpointSelected)
         {
-            //self.Select();
+            self.Select();
             isSelected = true;
             self.station.hardpointSelected = this;
         }
@@ -172,7 +182,7 @@ public class Hardpoint : MonoBehaviour
 
     void OnMouseOver()
     {
-        
+
     }
 
     void OnMouseExit()
@@ -202,45 +212,5 @@ public class Hardpoint : MonoBehaviour
         }
 
         Deselect();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // We have collided with a hardpoint
-        if (collision.collider.gameObject.tag == Consts.Station.Hardpoints)
-        {
-            self.Couple(this, collision.collider.gameObject.GetComponent<Hardpoint>());
-            //Attach(other.gameObject.GetComponent<Hardpoint>());
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        // We have stopped colliding with a hardpoint, decouple
-        if (collision.collider.gameObject.tag == Consts.Station.Hardpoints)
-        {
-            self.Decouple(this, collision.collider.gameObject.GetComponent<Hardpoint>());
-            //Detach(other.gameObject.GetComponent<Hardpoint>());
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // We have collided with a hardpoint
-        if (other.gameObject.tag == Consts.Station.Hardpoints)
-        {
-            self.Couple(this, other.gameObject.GetComponent<Hardpoint>());
-            //Attach(other.gameObject.GetComponent<Hardpoint>());
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        // We have stopped colliding with a hardpoint, decouple
-        if (other.gameObject.tag == Consts.Station.Hardpoints)
-        {
-            self.Decouple(this, other.gameObject.GetComponent<Hardpoint>());
-            //Detach(other.gameObject.GetComponent<Hardpoint>());
-        }
     }
 }

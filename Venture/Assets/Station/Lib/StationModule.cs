@@ -5,7 +5,7 @@ using UnityEngine;
 public class StationModule : MonoBehaviour
 {
     public static float TransferVolume = 100;
-    
+
     public static class Literals
     {
         public const string Inventory = "Inventory";
@@ -29,7 +29,6 @@ public class StationModule : MonoBehaviour
     public Vector3 positionEnd = new Vector3();
 
     public bool isSelected = false;
-    private float deselectCooldown = 0;
 
     public SphereCollider clickArea;
 
@@ -65,7 +64,7 @@ public class StationModule : MonoBehaviour
 
             if (delta.x == min)
             {
-                if (CanMoveAlongAxis(new Vector3(1,0,0)))
+                if (CanMoveAlongAxis(new Vector3(1, 0, 0)))
                 {
 
                 }
@@ -90,13 +89,13 @@ public class StationModule : MonoBehaviour
 
         Inventory[] cloneInventories = new Inventory[adjacentInventories.Length];
         // Iterate through the resources
-        for(int i = 0; i < inventory.Length(); i++)
+        for (int i = 0; i < inventory.Length(); i++)
         {
             // Determine if this module has a surplus, nothing, or a deficit
             if (inventory[i].Volume > 0)
             {
                 // If this module has a surplus it should immediately attempt to share this surplus with those around it, if they have less than it
-                for(int j = 0; j < adjacentInventories.Length; j++)
+                for (int j = 0; j < adjacentInventories.Length; j++)
                 {
                     // If the adjacent inventory has a surplus as well
                     if (adjacentInventories[j][i].Volume > 0)
@@ -192,7 +191,7 @@ public class StationModule : MonoBehaviour
     public Inventory[] GetAdjacentInventories()
     {
         List<Inventory> inv = new List<Inventory>();
-        foreach(Hardpoint hardpoint in hardpoints)
+        foreach (Hardpoint hardpoint in hardpoints)
         {
             if (hardpoint.attachment)
                 inv.Add(hardpoint.attachment.general[Literals.Inventory].Value as Inventory);
@@ -212,6 +211,11 @@ public class StationModule : MonoBehaviour
 
     public void Move(Hardpoint self, Hardpoint goal)
     {
+        foreach (Hardpoint hardpoint in hardpoints)
+        {
+            hardpoint.Detach(hardpoint.attach);
+        }
+
         positionStart = transform.position;
         rotationStart = transform.rotation;
         positionEnd = transform.position + (self.transform.position - transform.position);
@@ -255,22 +259,16 @@ public class StationModule : MonoBehaviour
                 station.moduleSelected.Deselect();
 
         station.moduleSelected = this;
-
-        //deselectCooldown = Consts.Station.StationModuleDeselectCooldown;
     }
 
     public void Deselect()
     {
         Debug.Log("Deselect: " + name);
 
-        //if (deselectCooldown <= 0)
-        //{
-            isSelected = false;
-
+        isSelected = false;
 
         clickArea.enabled = true;
         station.moduleSelected = null;
-        //}
     }
 
     // When the mouse enters a hardpoint collision zone
@@ -308,6 +306,6 @@ public class StationModule : MonoBehaviour
 
     void OnMouseUp()
     {
-        
+
     }
 }
