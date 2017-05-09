@@ -201,12 +201,21 @@ public class StationModule : MonoBehaviour
 
     public void Couple(Hardpoint self, Hardpoint other)
     {
-        self.Attach(other.gameObject.GetComponent<Hardpoint>());
+        //self.Attach(other.gameObject.GetComponent<Hardpoint>());
+
+        foreach(Hardpoint hardpoint in hardpoints)
+        {
+            hardpoint.Attach(hardpoint.QueryHardpoint());
+        }
     }
 
     public void Decouple(Hardpoint self, Hardpoint other)
     {
-        self.Detach(other.gameObject.GetComponent<Hardpoint>());
+        foreach (Hardpoint hardpoint in hardpoints)
+        {
+            hardpoint.Detach(hardpoint.attach);
+        }
+        //self.Detach(other.gameObject.GetComponent<Hardpoint>());
     }
 
     public void Move(Hardpoint self, Hardpoint goal)

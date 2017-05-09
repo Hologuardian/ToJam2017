@@ -83,6 +83,19 @@ public class Hardpoint : MonoBehaviour
             gizmo.rectTransform.position = Camera.current.WorldToScreenPoint(transform.position);
     }
 
+    public Hardpoint QueryHardpoint()
+    {
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, 0.1f, Vector3.zero, 0, LayerMask.GetMask(Consts.Station.Hardpoints));
+
+        foreach(RaycastHit hit in hits)
+        {
+            if (hit.collider.gameObject != gameObject)
+                return hit.collider.gameObject.GetComponent<Hardpoint>();
+        }
+
+        return null;
+    }
+
     /// <summary>
     /// Attaches the attachment hardpoint to this hardpoint
     /// </summary>

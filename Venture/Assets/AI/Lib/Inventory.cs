@@ -5,6 +5,13 @@ using System.Text;
 using UnityEngine;
 
 [Serializable]
+public class InventoryItem
+{
+    public string name;
+    public float volume;
+}
+
+[Serializable]
 public class Inventory
 {
     public static Resource[] Resources = {
@@ -1105,6 +1112,8 @@ public class Inventory
     };
 
     private Dictionary<string, Resource> inventory = new Dictionary<string, Resource>();
+
+    public InventoryItem[] inventoryDisplay;
 
     private float totalMass = 0;
     private float totalVolume = 0;
