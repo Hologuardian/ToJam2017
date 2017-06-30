@@ -7,7 +7,7 @@ using UnityEngine;
 [Serializable]
 public class InventoryItem
 {
-    public string name;
+    public Resource resource;
     public float volume;
 }
 
@@ -1122,7 +1122,7 @@ public class Inventory
 
     public void Start()
     {
-        for (int i = 0; i < Inventory.Resources.Length; i++)
+        for (int i = 0; i < Resources.Length; i++)
         {
             inventory.Add(Resources[i].Name, new Resource() { Name = Resources[i].Name, Density = Resources[i].Density, Mass = Resources[i].Mass, MolarMass = Resources[i].MolarMass, Value = Resources[i].Value, Volume = 0.0f });
         }
@@ -1194,7 +1194,8 @@ public class Inventory
                 totalVolume += inventory[res.Name].Volume;
             }
         }
-        if (totalVolume > maxVolume)
+
+        if (totalVolume >= maxVolume)
         {
             return true;
         }
@@ -1228,6 +1229,31 @@ public class Inventory
         }
 
         return false;
+    }
+    
+    public void UpdateDisplay()
+    {
+        int index = 0;
+
+        if (inventoryDisplay.Length < 1)
+        {
+            inventoryDisplay = new InventoryItem[inventory.Count];
+            index = 0;
+            foreach (KeyValuePair<string, Resource> pair in inventory)
+            {
+                inventoryDisplay[index] = new InventoryItem() { resource = pair.Value, volume = pair.Value.Volume };
+                index++;
+            }
+        }
+
+        index = 0;
+        foreach(KeyValuePair<string, Resource> pair in inventory)
+        {
+            if (inventoryDisplay[index].resource.Volume != inventoryDisplay[index].volume)
+                inventoryDisplay[index].resource.Volume = inventoryDisplay[index].volume;
+
+            index++;
+        }
     }
 }
 

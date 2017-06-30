@@ -36,6 +36,7 @@ public class StationModule : MonoBehaviour
     void Start()
     {
         clickArea = GetComponent<SphereCollider>();
+        inventory.Start();
         general.Add(Literals.Inventory, new BlackboardValue() { Name = Literals.Inventory, Value = inventory });
         //inventory.
         general.Add(Literals.Hardpoints, new BlackboardValue() { Name = Literals.Hardpoints, Value = hardpoints });
@@ -51,6 +52,8 @@ public class StationModule : MonoBehaviour
             clickArea.enabled = false;
         else
             clickArea.enabled = true;
+
+        inventory.UpdateDisplay();
 
         if (isTransitioning)
         {
