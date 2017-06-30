@@ -59,7 +59,7 @@ public class StationModule : MonoBehaviour
         {
             // This is the fun part
             // We want to isolate the axis that we are shortest on, and move on that one until we can't then move on the next shortest until we can't, then the final one.
-            // If at any stage we fail to be able to do any motion, the module defaults to moving aways from the core on the longest axis it can move on.
+            // If at any stage we fail to be able to do any motion, the module defaults to moving away from the core on the longest axis it can move on.
 
             Vector3 delta = positionEnd - positionStart;
 
