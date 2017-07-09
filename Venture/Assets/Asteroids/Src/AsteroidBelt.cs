@@ -3,7 +3,6 @@ using UnityEngine.AI;
 using System.Collections.Generic;
 using UnityStandardAssets.Utility;
 
-[ExecuteInEditMode]
 public class AsteroidBelt : MonoBehaviour
 {
     public Material asteroidMaterial;

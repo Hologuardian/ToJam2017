@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.6.2f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -76,6 +78,12 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Venture.Plugins.csproj">
@@ -84,11 +92,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AI\Agent.cs" />
-    <Compile Include="Assets\AI\Employee.cs" />
-    <Compile Include="Assets\AI\Ship\Nav.cs" />
-    <Compile Include="Assets\AI\Ship\Ship.cs" />
-    <Compile Include="Assets\AI\Ship\Thruster.cs" />
     <Compile Include="Assets\AI\Src\AIFlockBehaviour.cs" />
     <Compile Include="Assets\AI\Src\Blackboard.cs" />
     <Compile Include="Assets\AI\Src\BlackboardValue.cs" />
@@ -116,6 +119,8 @@
     <Compile Include="Assets\Asteroids\Src\Orbit.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Consts.cs" />
+    <Compile Include="Assets\Engine\BlockingPriorityQueue.cs" />
+    <Compile Include="Assets\Engine\TaskManager.cs" />
     <Compile Include="Assets\IHateYouMark.cs" />
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
     <Compile Include="Assets\Resources\Src\Resource.cs" />
@@ -129,8 +134,6 @@
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\AI\Genders.txt" />
-    <None Include="Assets\AI\Names.txt" />
     <None Include="Assets\Asteroids\StandardVertexColor.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
