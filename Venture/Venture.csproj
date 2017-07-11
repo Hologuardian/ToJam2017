@@ -113,6 +113,7 @@
     <Compile Include="Assets\Consts.cs" />
     <Compile Include="Assets\Engine\Lib\FastPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\FastPriorityQueueNode.cs" />
+    <Compile Include="Assets\Engine\Lib\GenericPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\GenericPriorityQueueNode.cs" />
     <Compile Include="Assets\Engine\Lib\IFixedSizePriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\IPriorityQueue.cs" />
