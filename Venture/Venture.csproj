@@ -17,18 +17,23 @@
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <UnityVersion>2017.1.0f3</UnityVersion>
     <RootNamespace></RootNamespace>
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 3bedb7a90c820b8e81f173e8451aadaef623c03f
     <UnityVersion>2017.1.0b1</UnityVersion>
     <RootNamespace></RootNamespace>
-=======
     <UnityVersion>5.6.2f1</UnityVersion>
     <RootNamespace>
     </RootNamespace>
+<<<<<<< HEAD
 >>>>>>> 6d5f3ee3d9f1a4fbc87018a430b3449a49042b1a
 >>>>>>> 3f48660fc86ea3db095ff6a3bee92f63e490c0a8
+=======
+>>>>>>> 3bedb7a90c820b8e81f173e8451aadaef623c03f
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -132,12 +137,10 @@
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
     <Compile Include="Assets\Asteroids\Lib\Triangulation.cs" />
     <Compile Include="Assets\Engine\Lib\StablePriorityQueue.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\AI\Src\AIFlockBehaviour.cs" />
     <Compile Include="Assets\Asteroids\Lib\Triangulation\VoronoiMesh.cs" />
     <Compile Include="Assets\Asteroids\Lib\IVertex.cs" />
     <Compile Include="Assets\Asteroids\Lib\ConvexHull\ConvexFace.cs" />
-=======
     <Compile Include="Assets\Engine\Lib\StablePriorityQueueNode.cs" />
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
@@ -145,7 +148,6 @@
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
     <Compile Include="Assets\Resources\Src\Resource.cs" />
     <Compile Include="Assets\Resources\Src\ResourceList.cs" />
->>>>>>> 6d5f3ee3d9f1a4fbc87018a430b3449a49042b1a
     <Compile Include="Assets\Station\Src\DockingModule.cs" />
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
     <Compile Include="Assets\Engine\Lib\IFixedSizePriorityQueue.cs" />
@@ -182,12 +184,16 @@
     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
   </ItemGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
   <ItemGroup />
 >>>>>>> 6d5f3ee3d9f1a4fbc87018a430b3449a49042b1a
 >>>>>>> 3f48660fc86ea3db095ff6a3bee92f63e490c0a8
+=======
+  <ItemGroup />
+>>>>>>> 3bedb7a90c820b8e81f173e8451aadaef623c03f
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
