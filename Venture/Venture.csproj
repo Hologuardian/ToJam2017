@@ -13,13 +13,16 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <UnityVersion>2017.1.0b1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <UnityVersion>5.6.2f1</UnityVersion>
     <RootNamespace>
     </RootNamespace>
@@ -149,7 +152,6 @@
     <Compile Include="Assets\Asteroids\Lib\ConvexHull\MathHelper.cs" />
     <Compile Include="Assets\Asteroids\Lib\ConvexHull\DataModel.cs" />
     <Compile Include="Assets\Asteroids\Lib\Triangulation\DelaunayTriangulation.cs" />
-    <Compile Include="Assets\IHateYouMark.cs" />
     <Compile Include="Assets\Station\Src\ReactorModule.cs" />
     <Compile Include="Assets\Station\Src\Station.cs" />
     <Compile Include="Assets\Asteroids\Lib\Triangulation\VoronoiEdge.cs" />
