@@ -126,7 +126,7 @@ namespace Priority_Queue
             _nodes[_numNodes] = node;
             node.QueueIndex = _numNodes;
             node.InsertionIndex = _numNodesEverEnqueued++;
-            CascadeUp(node);
+            CascadeDown(node);
         }
 
         //Performance appears to be slightly better when this is NOT inlined o_O

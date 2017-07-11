@@ -4,92 +4,163 @@ using UnityEngine;
 using System.Threading;
 using System.Diagnostics;
 
-public class TaskManager : MonoBehaviour
+namespace Assets.Engine.Src
 {
-    List<Thread> threadPool;
-    static BlockingPriorityQueue<TaskNode> taskList;
-    static BlockingPriorityQueue<TaskNode> unityTaskList;
-    static BlockingPriorityQueue<TaskNode> physicsTaskList;
-    static bool running = true;
-    public int allocatedTime = 16;
-    public int allocatedPhysicsTime = 16;
-
-    public void QueueUnityTask(Task t, float priority)
+    public struct TaskHeuristic
     {
-        unityTaskList.Add(new TaskNode(t), priority);
-    }
-
-    public void QueuePhysicsTask(Task t, float priority)
-    {
-        physicsTaskList.Add(new TaskNode(t), priority);
-    }
-
-    public void QueueTask(Task t, float priority)
-    {
-        taskList.Add(new TaskNode(t), priority);
-    }
-
-    [Range(1, 32)]
-    public int ThreadLimit = 4;
-    void Start()
-    {
-        threadPool = new List<Thread>();
-        taskList = new BlockingPriorityQueue<TaskNode>();
-        unityTaskList = new BlockingPriorityQueue<TaskNode>();
-        physicsTaskList = new BlockingPriorityQueue<TaskNode>();
-        for (int i = 0; i < ThreadLimit; i++)
+        public TaskHeuristic(List<float> times)
         {
-            Thread t = new Thread(Execute);
-            threadPool.Add(t);
-        }
-        StartCoroutine(ExecuteUnityTasks());
-        StartCoroutine(ExecutePhysicsTask());
-    }
-
-    private IEnumerator ExecuteUnityTasks()
-    {
-        while (running)
-        {
-            yield return new WaitForEndOfFrame();
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            stopwatch.Start();
-            while (stopwatch.ElapsedMilliseconds < allocatedTime)
+            timesRun = times.Count;
+            averageTime = 0;
+            foreach (float time in times)
             {
-                //TODO Frame check heuristic
-                unityTaskList.Pop().task.Invoke();
+                averageTime += time;
             }
-            stopwatch.Stop();
+            averageTime /= timesRun;
         }
+
+        public TaskHeuristic(float time)
+        {
+            timesRun = 1;
+            averageTime = time;
+        }
+
+        public void AddTime(float time)
+        {
+            averageTime *= timesRun;
+            averageTime += time;
+            timesRun++;
+            averageTime /= timesRun;
+        }
+
+        int timesRun;
+        public float averageTime;
     }
 
-    public IEnumerator ExecutePhysicsTask()
+    public class TaskManager : MonoBehaviour
     {
-        while (running)
+        List<Thread> threadPool;
+        static BlockingPriorityQueue<TaskNode> taskList;
+        static BlockingPriorityQueue<TaskNode> unityTaskList;
+        static BlockingPriorityQueue<TaskNode> physicsTaskList;
+        static bool running = true;
+        public int allocatedTime = 16;
+        public int allocatedPhysicsTime = 16;
+
+        Dictionary<string, TaskHeuristic> taskHeuristics = new Dictionary<string, TaskHeuristic>();
+
+        public void QueueUnityTask(TaskNode t, float priority)
         {
-            yield return new WaitForFixedUpdate();
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            stopwatch.Start();
-            while (stopwatch.ElapsedMilliseconds < allocatedPhysicsTime)
+            if(taskHeuristics.ContainsKey(t.name))
             {
-                //TODO Frame check heuristic
-                unityTaskList.Pop().task.Invoke();
+                priority += taskHeuristics[t.name].averageTime * 0.01f;
             }
-            stopwatch.Stop();
+            t.Priority = priority;
+            unityTaskList.Add(t);
         }
-    }
 
-    private void OnDestroy()
-    {
-        StopAllCoroutines();
-        running = false;
-    }
-
-    private static void Execute()
-    {
-        while(running)
+        public void QueuePhysicsTask(TaskNode t, float priority)
         {
-            Task t = taskList.Pop().task;
-            t.Invoke();
+            if (taskHeuristics.ContainsKey(t.name))
+            {
+                priority += taskHeuristics[t.name].averageTime * 0.01f;
+            }
+            t.Priority = priority;
+            physicsTaskList.Add(t);
+        }
+
+        public void QueueTask(TaskNode t, float priority)
+        {
+            if (taskHeuristics.ContainsKey(t.name))
+            {
+                priority += taskHeuristics[t.name].averageTime * 0.01f;
+            }
+            t.Priority = priority;
+            taskList.Add(t);
+        }
+
+        [Range(1, 32)]
+        public int ThreadLimit = 4;
+        void Start()
+        {
+            threadPool = new List<Thread>();
+            taskList = new BlockingPriorityQueue<TaskNode>();
+            unityTaskList = new BlockingPriorityQueue<TaskNode>();
+            physicsTaskList = new BlockingPriorityQueue<TaskNode>();
+            for (int i = 0; i < ThreadLimit; i++)
+            {
+                Thread t = new Thread(Execute);
+                threadPool.Add(t);
+            }
+            StartCoroutine(ExecuteUnityTasks());
+            StartCoroutine(ExecutePhysicsTask());
+        }
+
+        private IEnumerator ExecuteUnityTasks()
+        {
+            while (running)
+            {
+                yield return new WaitForEndOfFrame();
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                stopwatch.Start();
+                while (stopwatch.ElapsedMilliseconds < allocatedTime)
+                {
+                    Stopwatch taskTime = Stopwatch.StartNew();
+                    TaskNode node = unityTaskList.Pop();
+                    node.task.Invoke();
+                    if (taskHeuristics.ContainsKey(node.name))
+                    {
+                        taskHeuristics[node.name].AddTime(taskTime.ElapsedMilliseconds);
+                    }
+                    else
+                    {
+                        taskHeuristics.Add(node.name, new TaskHeuristic(taskTime.ElapsedMilliseconds));
+                    }
+                    taskTime.Stop();
+                }
+                stopwatch.Stop();
+            }
+        }
+
+        public IEnumerator ExecutePhysicsTask()
+        {
+            while (running)
+            {
+                yield return new WaitForFixedUpdate();
+                Stopwatch stopwatch = Stopwatch.StartNew();
+                stopwatch.Start();
+                while (stopwatch.ElapsedMilliseconds < allocatedPhysicsTime)
+                {
+                    Stopwatch taskTime = Stopwatch.StartNew();
+                    TaskNode node = physicsTaskList.Pop();
+                    node.task.Invoke();
+                    if(taskHeuristics.ContainsKey(node.name))
+                    {
+                        taskHeuristics[node.name].AddTime(taskTime.ElapsedMilliseconds);
+                    }
+                    else
+                    {
+                        taskHeuristics.Add(node.name, new TaskHeuristic(taskTime.ElapsedMilliseconds));
+                    }
+                    taskTime.Stop();
+                }
+                stopwatch.Stop();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
+            running = false;
+        }
+
+        private static void Execute()
+        {
+            while (running)
+            {
+                TaskNode node = taskList.Pop();
+                node.task.Invoke();
+            }
         }
     }
 }
