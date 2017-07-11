@@ -122,7 +122,7 @@ namespace Priority_Queue
             _numNodes++;
             _nodes[_numNodes] = node;
             node.QueueIndex = _numNodes;
-            CascadeUp(node);
+            CascadeDown(node);
         }
 
 #if NET_VERSION_4_5

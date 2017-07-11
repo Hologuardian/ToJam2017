@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
+using Priority_Queue;
 
-public class BlockingPriorityQueue<T>
+public class BlockingPriorityQueue<T> where T : FastPriorityQueueNode
 {
-    Queue<T> queue = new Queue<T>();
+    public static int MaxItems = 65536;
+    FastPriorityQueue<T> queue = new FastPriorityQueue<T>(MaxItems);
     Object LockObject;
-    public void Add(T task, int priority, int timeRequested)
+    public void Add(T task, float priority)
     {
         lock(LockObject)
         {
-            queue.Enqueue(task);
+            queue.Enqueue(task, priority);
         }
     }
 

@@ -4,26 +4,39 @@ using UnityEngine;
 using System.Threading;
 using System.Diagnostics;
 
-public delegate void Task();
-
 public class TaskManager : MonoBehaviour
 {
     List<Thread> threadPool;
-    static BlockingPriorityQueue<Task> taskList;
-    static BlockingPriorityQueue<Task> unityTaskList;
-    static BlockingPriorityQueue<Task> physicsTaskList;
+    static BlockingPriorityQueue<TaskNode> taskList;
+    static BlockingPriorityQueue<TaskNode> unityTaskList;
+    static BlockingPriorityQueue<TaskNode> physicsTaskList;
     static bool running = true;
     public int allocatedTime = 16;
     public int allocatedPhysicsTime = 16;
+
+    public void QueueUnityTask(Task t, float priority)
+    {
+        unityTaskList.Add(new TaskNode(t), priority);
+    }
+
+    public void QueuePhysicsTask(Task t, float priority)
+    {
+        physicsTaskList.Add(new TaskNode(t), priority);
+    }
+
+    public void QueueTask(Task t, float priority)
+    {
+        taskList.Add(new TaskNode(t), priority);
+    }
 
     [Range(1, 32)]
     public int ThreadLimit = 4;
     void Start()
     {
         threadPool = new List<Thread>();
-        taskList = new BlockingPriorityQueue<Task>();
-        unityTaskList = new BlockingPriorityQueue<Task>();
-        physicsTaskList = new BlockingPriorityQueue<Task>();
+        taskList = new BlockingPriorityQueue<TaskNode>();
+        unityTaskList = new BlockingPriorityQueue<TaskNode>();
+        physicsTaskList = new BlockingPriorityQueue<TaskNode>();
         for (int i = 0; i < ThreadLimit; i++)
         {
             Thread t = new Thread(Execute);
@@ -43,7 +56,7 @@ public class TaskManager : MonoBehaviour
             while (stopwatch.ElapsedMilliseconds < allocatedTime)
             {
                 //TODO Frame check heuristic
-                unityTaskList.Pop().Invoke();
+                unityTaskList.Pop().task.Invoke();
             }
             stopwatch.Stop();
         }
@@ -59,7 +72,7 @@ public class TaskManager : MonoBehaviour
             while (stopwatch.ElapsedMilliseconds < allocatedPhysicsTime)
             {
                 //TODO Frame check heuristic
-                unityTaskList.Pop().Invoke();
+                unityTaskList.Pop().task.Invoke();
             }
             stopwatch.Stop();
         }
@@ -75,7 +88,7 @@ public class TaskManager : MonoBehaviour
     {
         while(running)
         {
-            Task t = taskList.Pop();
+            Task t = taskList.Pop().task;
             t.Invoke();
         }
     }

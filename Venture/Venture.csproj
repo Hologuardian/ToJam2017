@@ -130,6 +130,7 @@
     <Compile Include="Assets\Engine\Lib\StablePriorityQueueNode.cs" />
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
+    <Compile Include="Assets\Engine\Src\TaskNode.cs" />
     <Compile Include="Assets\IHateYouMark.cs" />
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
     <Compile Include="Assets\Resources\Src\Resource.cs" />
