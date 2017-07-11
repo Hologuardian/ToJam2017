@@ -17,14 +17,11 @@
     </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
-<<<<<<< HEAD
     <UnityVersion>2017.1.0b1</UnityVersion>
     <RootNamespace></RootNamespace>
-=======
     <UnityVersion>5.6.2f1</UnityVersion>
     <RootNamespace>
     </RootNamespace>
->>>>>>> 6d5f3ee3d9f1a4fbc87018a430b3449a49042b1a
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -114,12 +111,10 @@
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
     <Compile Include="Assets\Asteroids\Lib\Triangulation.cs" />
     <Compile Include="Assets\Engine\Lib\StablePriorityQueue.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\AI\Src\AIFlockBehaviour.cs" />
     <Compile Include="Assets\Asteroids\Lib\Triangulation\VoronoiMesh.cs" />
     <Compile Include="Assets\Asteroids\Lib\IVertex.cs" />
     <Compile Include="Assets\Asteroids\Lib\ConvexHull\ConvexFace.cs" />
-=======
     <Compile Include="Assets\Engine\Lib\StablePriorityQueueNode.cs" />
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
@@ -127,7 +122,6 @@
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
     <Compile Include="Assets\Resources\Src\Resource.cs" />
     <Compile Include="Assets\Resources\Src\ResourceList.cs" />
->>>>>>> 6d5f3ee3d9f1a4fbc87018a430b3449a49042b1a
     <Compile Include="Assets\Station\Src\DockingModule.cs" />
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
     <Compile Include="Assets\Engine\Lib\IFixedSizePriorityQueue.cs" />
@@ -163,10 +157,7 @@
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
   </ItemGroup>
-<<<<<<< HEAD
-=======
   <ItemGroup />
->>>>>>> 6d5f3ee3d9f1a4fbc87018a430b3449a49042b1a
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
