@@ -111,6 +111,14 @@
     <Compile Include="Assets\Asteroids\Src\Orbit.cs" />
     <Compile Include="Assets\Billboard.cs" />
     <Compile Include="Assets\Consts.cs" />
+    <Compile Include="Assets\Engine\Lib\FastPriorityQueue.cs" />
+    <Compile Include="Assets\Engine\Lib\FastPriorityQueueNode.cs" />
+    <Compile Include="Assets\Engine\Lib\GenericPriorityQueueNode.cs" />
+    <Compile Include="Assets\Engine\Lib\IFixedSizePriorityQueue.cs" />
+    <Compile Include="Assets\Engine\Lib\IPriorityQueue.cs" />
+    <Compile Include="Assets\Engine\Lib\SimplePriorityQueue.cs" />
+    <Compile Include="Assets\Engine\Lib\StablePriorityQueue.cs" />
+    <Compile Include="Assets\Engine\Lib\StablePriorityQueueNode.cs" />
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
     <Compile Include="Assets\IHateYouMark.cs" />
@@ -131,6 +139,10 @@
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
   </ItemGroup>
+<<<<<<< HEAD
+=======
+  <ItemGroup />
+>>>>>>> f04a895706527873abcc89eaf3698f1cf6c16f17
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
