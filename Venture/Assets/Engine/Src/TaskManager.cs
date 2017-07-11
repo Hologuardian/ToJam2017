@@ -100,14 +100,17 @@ namespace Assets.Engine.Src
         {
             while (running)
             {
-                yield return new WaitForEndOfFrame();
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 stopwatch.Start();
                 while (stopwatch.ElapsedMilliseconds < allocatedTime)
                 {
                     Stopwatch taskTime = Stopwatch.StartNew();
-                    TaskNode node = unityTaskList.Pop();
+
+                    TaskNode node = unityTaskList.CheckPop();
+                    if (node == null)
+                        break;
                     node.task.Invoke();
+
                     if (taskHeuristics.ContainsKey(node.name))
                     {
                         taskHeuristics[node.name].AddTime(taskTime.ElapsedMilliseconds);
@@ -119,6 +122,7 @@ namespace Assets.Engine.Src
                     taskTime.Stop();
                 }
                 stopwatch.Stop();
+                yield return new WaitForEndOfFrame();
             }
         }
 
@@ -126,14 +130,17 @@ namespace Assets.Engine.Src
         {
             while (running)
             {
-                yield return new WaitForFixedUpdate();
                 Stopwatch stopwatch = Stopwatch.StartNew();
                 stopwatch.Start();
                 while (stopwatch.ElapsedMilliseconds < allocatedPhysicsTime)
                 {
                     Stopwatch taskTime = Stopwatch.StartNew();
-                    TaskNode node = physicsTaskList.Pop();
+
+                    TaskNode node = physicsTaskList.CheckPop();
+                    if (node == null)
+                        break;
                     node.task.Invoke();
+
                     if(taskHeuristics.ContainsKey(node.name))
                     {
                         taskHeuristics[node.name].AddTime(taskTime.ElapsedMilliseconds);
@@ -145,6 +152,7 @@ namespace Assets.Engine.Src
                     taskTime.Stop();
                 }
                 stopwatch.Stop();
+                yield return new WaitForFixedUpdate();
             }
         }
 

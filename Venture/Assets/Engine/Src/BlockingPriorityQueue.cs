@@ -20,12 +20,31 @@ namespace Assets.Engine.Src
             }
         }
 
+        /// <summary>
+        /// Unlikely to be thread safe, will return null if object is missing.
+        /// </summary>
+        /// <returns></returns>
+        public T CheckPop()
+        {
+            if (queue.Count > 0)
+            {
+                lock (LockObject)
+                {
+                    return queue.Dequeue();
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Thread safe, will block if queue is empty.
+        /// </summary>
+        /// <returns></returns>
         public T Pop()
         {
             while (queue.Count <= 0) ;
             lock (LockObject)
             {
-                //TODO Heuristic for accepting tasks
                 return queue.Dequeue();
             }
         }
