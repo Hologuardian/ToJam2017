@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FabricationModule : MonoBehaviour
+namespace OldStation
 {
-    public StationModule module;
-
-    // Use this for initialization
-    void Start()
+    public class FabricationModule : MonoBehaviour
     {
-        
-    }
+        public StationModule module;
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Use this for initialization
+        void Start()
+        {
 
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
