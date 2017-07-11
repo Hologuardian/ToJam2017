@@ -5,26 +5,29 @@ using System.Text;
 using System.Collections;
 using Priority_Queue;
 
-public class BlockingPriorityQueue<T> where T : FastPriorityQueueNode
+namespace Assets.Engine.Src
 {
-    public static int MaxItems = 65536;
-    FastPriorityQueue<T> queue = new FastPriorityQueue<T>(MaxItems);
-    Object LockObject;
-    public void Add(T task, float priority)
+    public class BlockingPriorityQueue<T> where T : StablePriorityQueueNode
     {
-        lock(LockObject)
+        public static int MaxItems = 65536;
+        StablePriorityQueue<T> queue = new StablePriorityQueue<T>(MaxItems);
+        Object LockObject;
+        public void Add(T task)
         {
-            queue.Enqueue(task, priority);
+            lock (LockObject)
+            {
+                queue.Enqueue(task, task.Priority);
+            }
         }
-    }
 
-    public T Pop()
-    {
-        while (queue.Count <= 0) ;
-        lock (LockObject)
+        public T Pop()
         {
-            //TODO Heuristic for accepting tasks
-            return queue.Dequeue();
+            while (queue.Count <= 0) ;
+            lock (LockObject)
+            {
+                //TODO Heuristic for accepting tasks
+                return queue.Dequeue();
+            }
         }
     }
 }

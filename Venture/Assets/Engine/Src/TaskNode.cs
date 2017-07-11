@@ -3,13 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Priority_Queue;
-
-public delegate void Task();
-public class TaskNode : FastPriorityQueueNode
+namespace Assets.Engine.Src
 {
-    public TaskNode(Task task)
+    public delegate void Task();
+
+    public class TaskNode : StablePriorityQueueNode
     {
-        this.task = task;
+        public TaskNode()
+        {
+
+        }
+
+        public TaskNode(Task task, string name)
+        {
+            this.task = task;
+            this.name = name;
+        }
+
+        public string name;
+        public Task task;
     }
-    public Task task;
 }
