@@ -90,16 +90,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Assets\Engine\Lib\GenericPriorityQueueNode.cs" />
     <Compile Include="Assets\Engine\Lib\StablePriorityQueueNode.cs" />
     <Compile Include="Assets\Resources\Src\ResourceList.cs" />
     <Compile Include="Assets\Asteroids\Lib\Triangulation\TriangulationCell.cs" />
-=======
     <Compile Include="Assets\AI\Src\AIFlockBehaviour.cs" />
     <Compile Include="Assets\AI\Src\Blackboard.cs" />
     <Compile Include="Assets\AI\Src\BlackboardValue.cs" />
->>>>>>> 26836d8f3f6dd553e7c2a05ae0121737ba7ce3f4
     <Compile Include="Assets\AI\Src\Inventory.cs" />
     <Compile Include="Assets\Asteroids\Lib\Constants.cs" />
     <Compile Include="Assets\Asteroids\Lib\ConvexHull.cs" />
@@ -131,15 +128,12 @@
     <Compile Include="Assets\Engine\Lib\IFixedSizePriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\IPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\SimplePriorityQueue.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\Asteroids\Lib\Vertex.cs" />
     <Compile Include="Assets\Station\Src\Station.cs" />
     <Compile Include="Assets\Station\Src\Submodule.cs" />
     <Compile Include="Assets\Station\Src\VolatileModule.cs" />
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
     <Compile Include="Assets\Asteroids\Lib\Triangulation.cs" />
-=======
->>>>>>> 26836d8f3f6dd553e7c2a05ae0121737ba7ce3f4
     <Compile Include="Assets\Engine\Lib\StablePriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\StablePriorityQueueNode.cs" />
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
@@ -150,7 +144,6 @@
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
     <Compile Include="Assets\Resources\Src\Resource.cs" />
     <Compile Include="Assets\Resources\Src\ResourceList.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
     <Compile Include="Assets\Engine\Lib\IFixedSizePriorityQueue.cs" />
     <Compile Include="Assets\AI\Src\Blackboard.cs" />
@@ -175,7 +168,6 @@
     <Compile Include="Assets\Engine\Lib\GenericPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Src\Memento.cs" />
-=======
     <Compile Include="Assets\Station\Src\DockingModule.cs" />
     <Compile Include="Assets\Station\Src\FabricationModule.cs" />
     <Compile Include="Assets\Station\Src\Hardpoint.cs" />
@@ -184,7 +176,6 @@
     <Compile Include="Assets\Station\Src\Station.cs" />
     <Compile Include="Assets\Station\Src\StationModule.cs" />
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
->>>>>>> 26836d8f3f6dd553e7c2a05ae0121737ba7ce3f4
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Asteroids\StandardVertexColor.shader" />
