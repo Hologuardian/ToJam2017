@@ -14,10 +14,10 @@ namespace Assets.Engine.Src
         public T State { get { return state; } set { state = value; } }
 
         /// <summary>
-        /// Constructs a MementoState that stores the time and value the memento had
+        /// Constructs a MementoState that stores any changes in value, as value, and time of change.
         /// </summary>
-        /// <param name="stamp"></param>
-        /// <param name="state"></param>
+        /// <param name="stamp">The time of the change, in milliseconds since start of program</param>
+        /// <param name="state">The value change</param>
         public MementoState(int stamp, T state)
         {
             this.stamp = stamp;
@@ -34,12 +34,15 @@ namespace Assets.Engine.Src
     {
         private List<MementoState<T>> states = new List<MementoState<T>>();
 
+        public string name;
+
         /// <summary>
         /// Constructs a new Memento
         /// </summary>
-        public Memento()
+        /// <param name="name">The name this Memento will use to define where in the database it backs up to</param>
+        public Memento(string name)
         {
-
+            this.name = name;
         }
 
         public void Set(T t)

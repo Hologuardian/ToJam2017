@@ -3,7 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public enum Size { Tiny = 1, Small = 2, Medium = 3, Large = 4, Huge = 5};
+public enum Size {
+    /// <summary>
+    /// Tiny is the first sizing of game elements with an expected long axis on simple stations at 108m, and is comparable to the ISS in size.
+    /// Accommodation of ~8
+    /// Dimensions of 4x4x4m
+    /// </summary>
+    Tiny = 1,
+    /// <summary>
+    /// Small is the second sizing of game elements  with an expected long axis on simple stations at 400m.
+    /// Accommodation of ~64
+    /// Dimensions of 16x16x16m
+    /// </summary>
+    Small = 2,
+    /// <summary>
+    /// Medium is the third sizing of game elements with an expected long axis on simple stations at 1.6km.
+    /// Accommodation of ~512
+    /// Dimensions of 64x64x64m
+    /// </summary>
+    Medium = 3,
+    /// <summary>
+    /// Large is the fourth sizing of game elements with an expected long axis on simple stations at 6.4km.
+    /// Accommodation of ~4096
+    /// Dimensions of 256x256x256m
+    /// </summary>
+    Large = 4,
+    /// <summary>
+    /// Huge is the final sizing of game elements with an expected long axis on simple stations at 25.6km.
+    /// Accommodation of ~32768
+    /// Dimensions of 1024x1024x1024m
+    /// </summary>
+    Huge = 5};
     
 public static class Consts
 {
