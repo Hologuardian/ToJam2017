@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Unity.Engine;
+using UnityEngine;
 using Assets.Engine.Src;
 
 namespace Assets.Station.Src
 {
-    public class VolatileModule : VolatileObject
+    public abstract class VolatileModule : VolatileObject
     {
         // Properties
         // Ensure proper care is taken to considering which must be Mementos and which can be generic
