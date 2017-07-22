@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Engine.Src;
+using Assets.Station.Src.Requests;
 
 namespace Assets.Station.Src
 {
@@ -57,7 +58,7 @@ namespace Assets.Station.Src
             {
                 return mass;
             }
-            protected set
+            set
             {
                 mass.Set(value);
             }
@@ -72,7 +73,7 @@ namespace Assets.Station.Src
             {
                 return volume;
             }
-            protected set
+            set
             {
                 volume.Set(value);
             }
@@ -87,36 +88,24 @@ namespace Assets.Station.Src
             {
                 return pressurisation;
             }
-            protected set
+            set
             {
                 pressurisation.Set(value);
             }
         }
         private Memento<float> energyProduction;
+        /// <summary>
+        /// The amount of energy this module produces per hour in watt hours (negative in cases of power consumption).
+        /// </summary>
         public float EnergyProduction
         {
             get
             {
                 return energyProduction;
             }
-            protected set
+            set
             {
                 energyProduction.Set(value);
-            }
-        }
-        private Memento<float> energyConsumption;
-        /// <summary>
-        /// The amount of energy this module consumes per hour in watt hours.
-        /// </summary>
-        public float EnergyConsumption
-        {
-            get
-            {
-                return energyConsumption;
-            }
-            protected set
-            {
-                energyConsumption.Set(value);
             }
         }
 
@@ -128,7 +117,6 @@ namespace Assets.Station.Src
             volume = new Memento<float>(Name + ".volume");
             pressurisation = new Memento<float>(Name + ".pressurisation");
             energyProduction = new Memento<float>(Name + ".energyproduction");
-            energyConsumption = new Memento<float>(Name + ".energyconsumption");
         }
 
         // Methods
@@ -143,17 +131,67 @@ namespace Assets.Station.Src
         {
             lock (this)
             {
-                // TODO generic module logic
+                // RESET ----------------------------------------------------------------------------------
+                // Reset all parameters that reset every update
+                EnergyProduction = 0;
+
+                // REQUESTS -------------------------------------------------------------------------------
+                // First, all update requests, as well as a variety of others come from the hardpoints, in this manner one module speaks to the others hardpoints locking them
+                // Since each talks to the others, this allows for 2 way dialogue without causing either to lock the other with direct module to module talk.
+                // To do that we need to get all the hardpoint requests from this object, and take all their requests.
+                foreach (Hardpoint hardpoint in UnityObject.hardpoints)
+                {
+                    // This prevents any race conditions
+                    lock (hardpoint.threaded)
+                    {
+                        // Take all the requests from the hardpoint
+                        foreach (Request request in hardpoint.threaded.requests)
+                        {
+                            requests.Add(request);
+                        }
+
+                        // Clear the hardpoints requests
+                        hardpoint.threaded.requests.Clear();
+                    }
+                }
+
+                // Process all the requests
+                foreach (Request request in requests)
+                {
+                    // Requests must be fast executing pieces of logic
+                    request.Do(this);
+                }
+
+                // MODULE ---------------------------------------------------------------------------------
+                OverridableUpdate();
+
+                // SUBMODULES -----------------------------------------------------------------------------
+
+                // HARDPOINTS -----------------------------------------------------------------------------
                 // First calculate all output values for each hardpoint connection
                 // Second send an update down every hardpoint with the necessary outputs
                 foreach (Hardpoint hardpoint in UnityObject.hardpoints)
                 {
+                    // Each hardpoint connection queues UpdateModuleRequests on the other modules hardpoint
+                    UpdateModuleRequest request = new UpdateModuleRequest();
                     // Calculate the output through each hardpoint
+                    // Electricity
+                    // If the connected module has higher EnergyProduction than this one then don't send power (you are probably recieving power from it anyways)
+                    if (hardpoint.connection.module.threaded.EnergyProduction < EnergyProduction)
+                        request.energyIn = Mathf.Max(EnergyProduction * LineLoss, 0);
+
+                    // Distribution
+
+
+                    // Events
+
+
                     // Queue hardpoint update, with the necessary inputs
-                    
+                    hardpoint.connection.threaded.Request(request);
                 }
 
-                OverridableUpdate();
+                // LASTPASS ------------------------------------------------------------------------------
+                // All the final updates to ensure that user data is correct
             }
         }
 

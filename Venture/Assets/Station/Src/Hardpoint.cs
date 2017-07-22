@@ -9,5 +9,7 @@ namespace Assets.Station.Src
     {
         public Module module;
         public Hardpoint connection;
+
+        public VolatileObject threaded;
     }
 }

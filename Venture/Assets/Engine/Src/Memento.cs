@@ -44,10 +44,19 @@ namespace Assets.Engine.Src
         {
             this.name = name;
         }
-
+        
+        /// <summary>
+        /// Setter
+        /// </summary>
+        /// <param name="t">The new value to set it to</param>
         public void Set(T t)
         {
             states.Add(new MementoState<T>(DateTime.Now.Millisecond, t));
+        }
+
+        public MementoState<T> GetState()
+        {
+            return states[states.Count - 1];
         }
 
         /// <summary>

@@ -10,6 +10,8 @@ namespace Assets.Station.Src
         public Hardpoint[] hardpoints;
         public Submodule[] submodules;
 
+        public VolatileModule threaded;
+
         // Use this for initialization
         void Start()
         {
