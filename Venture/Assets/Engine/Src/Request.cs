@@ -13,6 +13,7 @@ namespace Assets.Engine.Src
     {
         /// <summary>
         /// Do executes request logic (such as setting parameters on the volatile object)
+        /// These must be either fast, or few in number
         /// </summary>
         /// <param name="target">The volatile object this request is Doing on</param>
         public abstract void Do(VolatileObject target);
