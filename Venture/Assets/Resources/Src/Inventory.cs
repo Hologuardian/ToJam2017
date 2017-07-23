@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public static class ResourceList
+namespace Resources
 {
+    public class Inventory
+    {
+    }
 }
