@@ -5,7 +5,41 @@ using System.Text;
 
 namespace Resources
 {
-    public class Inventory
+    public class Inventory : IInventory
     {
+        public ResourceStack AddResource(ResourceStack resource)
+        {
+            throw new NotImplementedException();
+        }
+
+        public float CurrentVolume()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResourceStack[] GetResource(Resource resource)
+        {
+            throw new NotImplementedException();
+        }
+
+        public float MaxVolume()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResourceStack RemoveResource(Resource resource, float volume)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResourceStack[] RemoveResources()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResourceStack[] Resources()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

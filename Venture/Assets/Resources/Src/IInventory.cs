@@ -43,6 +43,14 @@ namespace Resources
         ResourceStack[] GetResource(Resource resource);
 
         /// <summary>
+        /// Removes all resources from the inventory
+        /// </summary>
+        /// <returns>
+        ///  Array of resource stacks
+        /// </returns>
+        ResourceStack[] RemoveResources();
+
+        /// <summary>
         /// Adds a resource stack to the inventory
         /// </summary>
         /// <param name="resource">
