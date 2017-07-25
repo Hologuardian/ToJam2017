@@ -40,15 +40,18 @@ namespace Resources
         /// <returns>
         /// A resource stack of the requested type, resource type returned will be a void resouce if not found
         /// </returns>
-        ResourceStack[] GetResource(Resource resource);
+        ResourceStack GetResource(Resource resource);
 
         /// <summary>
-        /// Removes all resources from the inventory
+        /// Gets a single resorce from the inventory, does not remove it.
         /// </summary>
+        /// <param name="resource">
+        /// resource Type to be removed
+        /// </param>
         /// <returns>
-        ///  Array of resource stacks
+        /// A resource stack of the requested type, resource type returned will be a void resouce if not found
         /// </returns>
-        ResourceStack[] RemoveResources();
+        ResourceStack[] GetResources(Resource[] resources);
 
         /// <summary>
         /// Adds a resource stack to the inventory
@@ -62,6 +65,17 @@ namespace Resources
         ResourceStack AddResource(ResourceStack resource);
 
         /// <summary>
+        /// Adds several resource stacks to the inventory
+        /// </summary>
+        /// <param name="resource">
+        /// Resource stacks to be added
+        /// </param>
+        /// <returns>
+        /// If the inventory is full, any excess resouce that could not be added will be returned
+        /// </returns>
+        ResourceStack[] AddResources(ResourceStack[] resource);
+
+        /// <summary>
         /// Creates a resource stack from inventory's hold
         /// </summary>
         /// <param name="resource">
@@ -72,5 +86,26 @@ namespace Resources
         /// </param>
         /// <returns></returns>
         ResourceStack RemoveResource(Resource resource, float volume);
+
+
+        /// <summary>
+        /// Removes multiple resources from inventory.
+        /// </summary>
+        /// <param name="resources">
+        /// List of resources to remove
+        /// </param>
+        /// <param name="volumes">
+        /// Amounts of each resource to remove
+        /// </param>
+        /// <returns></returns>
+        ResourceStack[] RemoveResources(Resource[] resources, float[] volumes);
+
+        /// <summary>
+        /// Removes all resources from the inventory
+        /// </summary>
+        /// <returns>
+        ///  Array of resource stacks
+        /// </returns>
+        ResourceStack[] RemoveResources();
     }
 }

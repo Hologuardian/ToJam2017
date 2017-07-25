@@ -12,12 +12,22 @@ namespace Resources
             throw new NotImplementedException();
         }
 
+        public ResourceStack[] AddResources(ResourceStack[] resource)
+        {
+            throw new NotImplementedException();
+        }
+
         public float CurrentVolume()
         {
             throw new NotImplementedException();
         }
 
-        public ResourceStack[] GetResource(Resource resource)
+        public ResourceStack GetResource(Resource resource)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResourceStack[] GetResources(Resource[] resources)
         {
             throw new NotImplementedException();
         }
@@ -28,6 +38,11 @@ namespace Resources
         }
 
         public ResourceStack RemoveResource(Resource resource, float volume)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ResourceStack[] RemoveResources(Resource[] resources, float[] volumes)
         {
             throw new NotImplementedException();
         }
