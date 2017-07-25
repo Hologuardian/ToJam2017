@@ -127,7 +127,7 @@
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
     <Compile Include="Assets\Engine\Src\TaskNode.cs" />
     <Compile Include="Assets\Engine\Src\VolatileObject.cs" />
-    <Compile Include="Assets\Engine\TaskHelper.cs" />
+    <Compile Include="Assets\Engine\Src\TaskHelper.cs" />
     <Compile Include="Assets\Resources\Src\IInventory.cs" />
     <Compile Include="Assets\Resources\Src\Inventory.cs" />
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
