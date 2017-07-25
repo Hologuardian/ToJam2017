@@ -138,6 +138,7 @@
     <Compile Include="Assets\Station\Src\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Assets\Station\Src\Station.cs" />
     <Compile Include="Assets\Station\Src\Submodule.cs" />
+    <Compile Include="Assets\Station\Src\VolatileHardpoint.cs" />
     <Compile Include="Assets\Station\Src\VolatileModule.cs" />
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
   </ItemGroup>
