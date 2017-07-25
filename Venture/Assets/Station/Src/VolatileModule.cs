@@ -199,15 +199,13 @@ namespace Assets.Station.Src
 
                     // Distribution
                     // TODO Inventory Distribution
-                    ResourceStack[] filter = hardpoint.threaded.Filter.Resources();
-                    foreach (ResourceStack stack in filter)
-                    {
-                        // TODO Mark this below line has to have an array accessor on a GetResource call which is singular.
-                        if (stack.volume < Inventory.GetResource(stack.type)[0].volume)
-                        {
-                            newRequest.resourcesIn.Add(Inventory.RemoveResource(stack.type, stack.volume));
-                        }
-                    }
+                    //ResourceStack[] filter = hardpoint.threaded.Filter.Resources();
+                    //foreach (ResourceStack stack in filter)
+                    //{
+                    //    float volume = Mathf.Min(stack.volume, Inventory.GetResource(stack.type)[0].volume);
+                    //    newRequest.resourcesIn.Add(new ResourceStack() { type = stack.type, volume = volume });
+                    //}
+                    newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));
 
                     // Queue hardpoint update, with the necessary inputs
                     hardpoint.connection.threaded.Request(request);
