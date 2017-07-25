@@ -58,13 +58,15 @@ namespace Assets.Station.Src
             int i = 0;
             foreach (ResourceStack stack in filterArray)
             {
-                // Otherwise the long way:
                 int j = 0;
                 foreach (ResourceStack incStack in incoming)
                 {
-                    if (incoming[j].volume > 0)
+                    if (incStack.type == stack.type)
                     {
-                        resources[i] = new ResourceStack() { type = stack.type, volume = stack.volume * (stack.volume / filterVolume) };
+                        if (incoming[j].volume > 0)
+                        {
+                            resources[i] = new ResourceStack() { type = stack.type, volume = stack.volume * (stack.volume / filterVolume) };
+                        }
                     }
                     j++;
                 }

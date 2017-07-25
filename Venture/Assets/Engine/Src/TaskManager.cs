@@ -94,6 +94,8 @@ namespace Assets.Engine.Src
             }
             StartCoroutine(ExecuteUnityTasks());
             StartCoroutine(ExecutePhysicsTask());
+
+            TaskHelper.TaskManager = this;
         }
 
         private IEnumerator ExecuteUnityTasks()

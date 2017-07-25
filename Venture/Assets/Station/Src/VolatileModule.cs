@@ -133,7 +133,7 @@ namespace Assets.Station.Src
         /// Distributing Events
         /// Distributing Resources, given input and output hardpoints
         /// </summary>
-        public void Update(Request request)
+        public void Update(UpdateModuleRequest request)
         {
             lock (this)
             {
@@ -143,7 +143,7 @@ namespace Assets.Station.Src
                 // RESET ----------------------------------------------------------------------------------
                 // Reset all parameters that reset every update
                 EnergyProduction = 0;
-                updateSequence = (request as UpdateModuleRequest).sequence;
+                updateSequence = request.sequence;
 
                 // REQUESTS -------------------------------------------------------------------------------
                 // First, all update requests, as well as a variety of others come from the hardpoints, in this manner one module speaks to the other's hardpoints locking them
@@ -170,9 +170,9 @@ namespace Assets.Station.Src
                 }
 
                 // Process all the requests
-                foreach (Request request in requests)
+                foreach (Request req in requests)
                 {
-                    request.Do(this);
+                    req.Do(this);
                 }
 
                 // MODULE ---------------------------------------------------------------------------------
@@ -191,6 +191,9 @@ namespace Assets.Station.Src
                 {
                     // Each hardpoint connection queues UpdateModuleRequests on the other modules hardpoint
                     UpdateModuleRequest newRequest = new UpdateModuleRequest();
+                    newRequest.source = this;
+                    newRequest.sourceHardpoint = hardpoint.threaded;
+
                     // Calculate the output through each hardpoint
                     // Electricity
                     // If the connected module has higher EnergyProduction than this one then don't send power (you are probably recieving power from it anyways)
@@ -198,13 +201,7 @@ namespace Assets.Station.Src
                         newRequest.energyIn = Mathf.Max(EnergyProduction * LineLoss, 0);
 
                     // Distribution
-                    // TODO Inventory Distribution
-                    //ResourceStack[] filter = hardpoint.threaded.Filter.Resources();
-                    //foreach (ResourceStack stack in filter)
-                    //{
-                    //    float volume = Mathf.Min(stack.volume, Inventory.GetResource(stack.type)[0].volume);
-                    //    newRequest.resourcesIn.Add(new ResourceStack() { type = stack.type, volume = volume });
-                    //}
+                    // TODO Distribution based on volume remaining in target module
                     newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));
 
                     // Queue hardpoint update, with the necessary inputs
