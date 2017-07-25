@@ -11,6 +11,10 @@ namespace Assets.Engine.Src
         public enum State
         {
             /// <summary>
+            /// This VolatileObject is in no state
+            /// </summary>
+            None = 0,
+            /// <summary>
             /// This VolatileObject is currently locked
             /// </summary>
             Locked = 1,
@@ -25,7 +29,11 @@ namespace Assets.Engine.Src
             /// <summary>
             /// This VolatileObject is currently affected by the threaded environment
             /// </summary>
-            Threaded = 8
+            Threaded = 8,
+            /// <summary>
+            /// This VolatileObject is currently having properties changed
+            /// </summary>
+            Changing = 16
         };
         public State state;
 
