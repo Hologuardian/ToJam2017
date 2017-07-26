@@ -5,8 +5,18 @@ using System.Text;
 
 namespace Assets.Engine.Src
 {
+    public enum TaskPriority
+    {
+        Highest = 0,
+        High = 1,
+        Medium = 2,
+        Low = 4,
+        Lowest = 16
+    };
+
     public class TaskHelper
     {
         public static TaskManager TaskManager;
+        
     }
 }

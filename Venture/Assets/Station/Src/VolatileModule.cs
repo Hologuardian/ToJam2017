@@ -133,7 +133,7 @@ namespace Assets.Station.Src
         /// Distributing Events
         /// Distributing Resources, given input and output hardpoints
         /// </summary>
-        public void Update(UpdateModuleRequest request)
+        public void Update()
         {
             lock (this)
             {
@@ -143,7 +143,6 @@ namespace Assets.Station.Src
                 // RESET ----------------------------------------------------------------------------------
                 // Reset all parameters that reset every update
                 EnergyProduction = 0;
-                updateSequence = request.sequence;
 
                 // REQUESTS -------------------------------------------------------------------------------
                 // First, all update requests, as well as a variety of others come from the hardpoints, in this manner one module speaks to the other's hardpoints locking them
@@ -205,14 +204,14 @@ namespace Assets.Station.Src
                     newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));
 
                     // Queue hardpoint update, with the necessary inputs
-                    hardpoint.connection.threaded.Request(request);
+                    hardpoint.connection.threaded.Request(newRequest);
 
                     // If the connected hardpoints module has a lower update sequence than this one,
                     if (hardpoint.connection.module.threaded.updateSequence < updateSequence)
                     {
                         hardpoint.connection.module.threaded.updateSequence = updateSequence;
-                        // TODO queue module update (requires working taskmanager)
-                        
+                        // TODO Fix string literal (with localization solution)
+                        TaskHelper.TaskManager.QueueTask(new TaskNode(hardpoint.connection.module.threaded.Update, "moduleUpdate"), (float)TaskPriority.Medium);
                     }
                 }
 
