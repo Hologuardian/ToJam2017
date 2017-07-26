@@ -51,7 +51,10 @@ namespace Assets.Engine.Src
         /// <param name="t">The new value to set it to</param>
         public void Set(T t)
         {
-            states.Add(new MementoState<T>(DateTime.Now.Millisecond, t));
+            lock (this)
+            {
+                states.Add(new MementoState<T>(DateTime.Now.Millisecond, t));
+            }
         }
 
         /// <summary>
@@ -60,13 +63,19 @@ namespace Assets.Engine.Src
         /// <param name="t"></param>
         public void Change(T t)
         {
-            states[states.Count - 1].Stamp = DateTime.Now.Millisecond;
-            states[states.Count - 1].State = t;
+            lock (this)
+            {
+                states[states.Count - 1].Stamp = DateTime.Now.Millisecond;
+                states[states.Count - 1].State = t;
+            }
         }
 
         public MementoState<T> GetState()
         {
-            return states[states.Count - 1];
+            lock (this)
+            {
+                return states[states.Count - 1];
+            }
         }
 
         /// <summary>
@@ -75,7 +84,10 @@ namespace Assets.Engine.Src
         /// <param name="t">The Memento being treated as a property</param>
         public static implicit operator T (Memento<T> t)
         {
-            return t.states[t.states.Count-1];
+            lock (t)
+            {
+                return t.states[t.states.Count - 1];
+            }
         }
     }
 }

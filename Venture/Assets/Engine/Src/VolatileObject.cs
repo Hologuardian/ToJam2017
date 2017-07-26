@@ -37,11 +37,13 @@ namespace Assets.Engine.Src
         };
         public State state;
 
-        public List<Request> requests;
+        private List<Request> requests;
+
+        public int RequestCount { get { lock (requests) { return requests.Count; } } }
 
         public void Request(Request request)
         {
-            lock(this)
+            lock(requests)
             {
                 requests.Add(request);
             }
@@ -49,11 +51,19 @@ namespace Assets.Engine.Src
 
         public Request Pop()
         {
-            lock(this)
+            lock(requests)
             {
                 Request temp = requests[0];
                 requests.RemoveAt(0);
                 return temp;
+            }
+        }
+
+        public void Clear()
+        {
+            lock(requests)
+            {
+                requests.Clear();
             }
         }
 

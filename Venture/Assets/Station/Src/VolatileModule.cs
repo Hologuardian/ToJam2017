@@ -91,10 +91,10 @@ namespace Assets.Station.Src
         /// </summary>
         public void Update()
         {
-            lock (this)
-            {
+            //lock (this)
+            //{
                 // This VolatileObject is currently locked by the threaded environment, and its properties are being accessed
-                state = State.Locked | State.Threaded | State.Accessed;
+                //state = State.Locked | State.Threaded | State.Accessed;
 
                 // RESET ----------------------------------------------------------------------------------
                 // Reset all parameters that reset every update
@@ -107,27 +107,27 @@ namespace Assets.Station.Src
                 foreach (Hardpoint hardpoint in UnityObject.hardpoints)
                 {
                     // This prevents any race conditions
-                    lock (hardpoint.threaded)
-                    {
-                        hardpoint.threaded.state = State.Locked | State.Threaded | State.Accessed;
+                    //lock (hardpoint.threaded)
+                    //{
+                        //hardpoint.threaded.state = State.Locked | State.Threaded | State.Accessed;
                         // Take all the requests from the hardpoint
-                        for (int i = 0; i < hardpoint.threaded.requests.Count; i++)
+                        for (int i = 0; i < hardpoint.threaded.RequestCount; i++)
                         {
                             hardpoint.threaded.Pop().Do(this);
                         }
 
                         // Clear the hardpoints requests
-                        hardpoint.threaded.requests.Clear();
+                        hardpoint.threaded.Clear();
 
                         // Reset the changes
-                        hardpoint.threaded.state = State.None;
-                    }
+                        //hardpoint.threaded.state = State.None;
+                    //}
                 }
 
                 // Process all the requests
-                foreach (Request req in requests)
+                for (int i = 0; i < RequestCount; i++)
                 {
-                    req.Do(this);
+                    Pop().Do(this);
                 }
 
                 // MODULE ---------------------------------------------------------------------------------
@@ -166,7 +166,7 @@ namespace Assets.Station.Src
                     if (hardpoint.connection.module.threaded.updateSequence < updateSequence)
                     {
                         hardpoint.connection.module.threaded.updateSequence = updateSequence;
-                        // TODO Fix string literal (with localization solution)
+                        // TODO Fix string literal
                         TaskHelper.TaskManager.QueueTask(new TaskNode(hardpoint.connection.module.threaded.Update, "moduleUpdate"), (float)TaskPriority.Medium);
                     }
                 }
@@ -174,8 +174,8 @@ namespace Assets.Station.Src
                 // LASTPASS ------------------------------------------------------------------------------
                 // All the final updates to ensure that user data is correct
 
-                state = State.None;
-            }
+                //state = State.None;
+            //}
         }
 
         /// <summary>
