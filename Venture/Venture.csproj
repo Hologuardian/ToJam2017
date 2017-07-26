@@ -128,6 +128,7 @@
     <Compile Include="Assets\Engine\Src\TaskNode.cs" />
     <Compile Include="Assets\Engine\Src\VolatileObject.cs" />
     <Compile Include="Assets\Engine\Src\TaskHelper.cs" />
+    <Compile Include="Assets\Prepare\Src\Event.cs" />
     <Compile Include="Assets\Resources\Src\IInventory.cs" />
     <Compile Include="Assets\Resources\Src\Inventory.cs" />
     <Compile Include="Assets\Resources\Src\Recipe.cs" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Engine\Src\Requests\" />
+    <Folder Include="Assets\Prepare\Src\Events\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
