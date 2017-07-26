@@ -54,6 +54,16 @@ namespace Assets.Engine.Src
             states.Add(new MementoState<T>(DateTime.Now.Millisecond, t));
         }
 
+        /// <summary>
+        /// Changes the current state, including a new timestamp and value
+        /// </summary>
+        /// <param name="t"></param>
+        public void Change(T t)
+        {
+            states[states.Count - 1].Stamp = DateTime.Now.Millisecond;
+            states[states.Count - 1].State = t;
+        }
+
         public MementoState<T> GetState()
         {
             return states[states.Count - 1];

@@ -54,75 +54,31 @@ namespace Assets.Station.Src
         public IInventory Inventory;
 
         // Mementos
-        private Memento<float> mass;
         /// <summary>
         /// The current mass of this module, after accounting for inventory.
         /// </summary>
-        public float Mass
-        {
-            get
-            {
-                return mass;
-            }
-            set
-            {
-                mass.Set(value);
-            }
-        }
-        private Memento<float> volume;
+        public Memento<float> Mass;
         /// <summary>
         /// The current volume of this module remaining, after accounting for inventory.
         /// </summary>
-        public float Volume
-        {
-            get
-            {
-                return volume;
-            }
-            set
-            {
-                volume.Set(value);
-            }
-        }
-        private Memento<float> pressurisation;
+        public Memento<float> Volume;
         /// <summary>
         /// The current pressurisation of this module, in pascals.
         /// </summary>
-        public float Pressurisation
-        {
-            get
-            {
-                return pressurisation;
-            }
-            set
-            {
-                pressurisation.Set(value);
-            }
-        }
-        private Memento<float> energyProduction;
+        public Memento<float> Pressurisation;
         /// <summary>
         /// The amount of energy this module produces per hour in watt hours (negative in cases of power consumption).
         /// </summary>
-        public float EnergyProduction
-        {
-            get
-            {
-                return energyProduction;
-            }
-            set
-            {
-                energyProduction.Set(value);
-            }
-        }
+        public Memento<float> EnergyProduction;
 
         public VolatileModule(string name)
         {
             Name = name;
 
-            mass = new Memento<float>(Name + ".mass");
-            volume = new Memento<float>(Name + ".volume");
-            pressurisation = new Memento<float>(Name + ".pressurisation");
-            energyProduction = new Memento<float>(Name + ".energyproduction");
+            Mass = new Memento<float>(Name + ".mass");
+            Volume = new Memento<float>(Name + ".volume");
+            Pressurisation = new Memento<float>(Name + ".pressurisation");
+            EnergyProduction = new Memento<float>(Name + ".energyproduction");
         }
 
         // Methods
@@ -142,7 +98,7 @@ namespace Assets.Station.Src
 
                 // RESET ----------------------------------------------------------------------------------
                 // Reset all parameters that reset every update
-                EnergyProduction = 0;
+                EnergyProduction.Set(0);
 
                 // REQUESTS -------------------------------------------------------------------------------
                 // First, all update requests, as well as a variety of others come from the hardpoints, in this manner one module speaks to the other's hardpoints locking them

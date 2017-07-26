@@ -42,7 +42,7 @@ namespace Assets.Station.Src.Requests
             VolatileModule module = target as VolatileModule;
 
             // Electricity
-            module.EnergyProduction = module.EnergyProduction + energyIn;
+            module.EnergyProduction.Change(module.EnergyProduction + energyIn);
 
             // Distribution
             // Set up the resourcesOut list

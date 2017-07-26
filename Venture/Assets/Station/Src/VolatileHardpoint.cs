@@ -35,9 +35,8 @@ namespace Assets.Station.Src
             int i = 0;
             foreach (ResourceStack stack in filterArray)
             {
-                // TODO Mark a call like this would be marvelous if (incoming.HasResource(stack.type))
                 // Otherwise the long way:
-                if (incoming.GetResource(stack.type) != null || incoming.GetResource(stack.type)[0].volume > 0)
+                if (incoming.GetResource(stack.type).volume > 0)
                 {
                     resources[i] = new ResourceStack() { type = stack.type, volume = stack.volume * (stack.volume / filterVolume) };
                 }
