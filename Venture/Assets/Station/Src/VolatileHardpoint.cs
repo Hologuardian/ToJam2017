@@ -10,6 +10,7 @@ namespace Assets.Station.Src
     public class VolatileHardpoint : VolatileObject
     {
         private IInventory filter;
+        private ResourceStack[] filterArray;
         public IInventory Filter
         {
             get
@@ -22,7 +23,6 @@ namespace Assets.Station.Src
                 filterArray = filter.Resources();
             }
         }
-        private ResourceStack[] filterArray;
 
         public ResourceStack[] FilterInventory (IInventory incoming)
         {

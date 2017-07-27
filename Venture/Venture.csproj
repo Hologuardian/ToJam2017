@@ -128,6 +128,7 @@
     <Compile Include="Assets\Engine\Src\TaskNode.cs" />
     <Compile Include="Assets\Engine\Src\VolatileObject.cs" />
     <Compile Include="Assets\Engine\Src\TaskHelper.cs" />
+    <Compile Include="Assets\Globals.cs" />
     <Compile Include="Assets\Prepare\Src\Event.cs" />
     <Compile Include="Assets\Resources\Src\IInventory.cs" />
     <Compile Include="Assets\Resources\Src\Inventory.cs" />
@@ -137,6 +138,8 @@
     <Compile Include="Assets\Station\Src\Hardpoint.cs" />
     <Compile Include="Assets\Station\Src\Module.cs" />
     <Compile Include="Assets\Engine\Src\Request.cs" />
+    <Compile Include="Assets\Station\Src\Modules\CommandModule.cs" />
+    <Compile Include="Assets\Station\Src\Modules\VolatileCommandModule.cs" />
     <Compile Include="Assets\Station\Src\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Assets\Station\Src\Station.cs" />
     <Compile Include="Assets\Station\Src\Submodule.cs" />

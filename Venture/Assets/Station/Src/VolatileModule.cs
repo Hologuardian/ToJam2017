@@ -93,56 +93,55 @@ namespace Assets.Station.Src
         {
             //lock (this)
             //{
-                // This VolatileObject is currently locked by the threaded environment, and its properties are being accessed
-                //state = State.Locked | State.Threaded | State.Accessed;
+            // This VolatileObject is currently locked by the threaded environment, and its properties are being accessed
+            //state = State.Locked | State.Threaded | State.Accessed;
 
-                // RESET ----------------------------------------------------------------------------------
-                // Reset all parameters that reset every update
-                EnergyProduction.Set(0);
+            // RESET ----------------------------------------------------------------------------------
+            // Reset all parameters that reset every update
+            EnergyProduction.Set(0);
 
-                // REQUESTS -------------------------------------------------------------------------------
-                // First, all update requests, as well as a variety of others come from the hardpoints, in this manner one module speaks to the other's hardpoints locking them
-                // Since each talks to the other's, this allows for 2 way dialogue without causing either to lock the other with direct module to module access.
-                // To do that we need to get all the hardpoint requests from this object, and ensure this module has them in its requests.
-                foreach (Hardpoint hardpoint in UnityObject.hardpoints)
+            // REQUESTS -------------------------------------------------------------------------------
+            foreach (Hardpoint hardpoint in UnityObject.hardpoints)
+            {
+                // This prevents any race conditions
+                //lock (hardpoint.threaded)
+                //{
+                //hardpoint.threaded.state = State.Locked | State.Threaded | State.Accessed;
+                // Take all the requests from the hardpoint
+                for (int i = 0; i < hardpoint.threaded.RequestCount; i++)
                 {
-                    // This prevents any race conditions
-                    //lock (hardpoint.threaded)
-                    //{
-                        //hardpoint.threaded.state = State.Locked | State.Threaded | State.Accessed;
-                        // Take all the requests from the hardpoint
-                        for (int i = 0; i < hardpoint.threaded.RequestCount; i++)
-                        {
-                            hardpoint.threaded.Pop().Do(this);
-                        }
-
-                        // Clear the hardpoints requests
-                        hardpoint.threaded.Clear();
-
-                        // Reset the changes
-                        //hardpoint.threaded.state = State.None;
-                    //}
+                    hardpoint.threaded.Pop().Do(this);
                 }
 
-                // Process all the requests
-                for (int i = 0; i < RequestCount; i++)
-                {
-                    Pop().Do(this);
-                }
+                // Clear the hardpoints requests
+                hardpoint.threaded.Clear();
 
-                // MODULE ---------------------------------------------------------------------------------
-                OverridableUpdate();
+                // Reset the changes
+                //hardpoint.threaded.state = State.None;
+                //}
+            }
 
-                // SUBMODULES -----------------------------------------------------------------------------
-                foreach(Submodule sub in UnityObject.submodules)
-                {
-                    // TODO Submodule Update
-                }
+            // Process all the requests
+            for (int i = 0; i < RequestCount; i++)
+            {
+                Pop().Do(this);
+            }
 
-                // HARDPOINTS -----------------------------------------------------------------------------
-                // First calculate all output values for each hardpoint connection
-                // Second send an update down every hardpoint with the necessary outputs
-                foreach (Hardpoint hardpoint in UnityObject.hardpoints)
+            // MODULE ---------------------------------------------------------------------------------
+            OverridableUpdate();
+
+            // SUBMODULES -----------------------------------------------------------------------------
+            foreach (Submodule sub in UnityObject.submodules)
+            {
+                // TODO Submodule Update
+            }
+
+            // HARDPOINTS -----------------------------------------------------------------------------
+            // First calculate all output values for each hardpoint connection
+            // Second send an update down every hardpoint with the necessary outputs
+            foreach (Hardpoint hardpoint in UnityObject.hardpoints)
+            {
+                if (hardpoint.connection != null)
                 {
                     // Each hardpoint connection queues UpdateModuleRequests on the other modules hardpoint
                     UpdateModuleRequest newRequest = new UpdateModuleRequest();
@@ -156,7 +155,6 @@ namespace Assets.Station.Src
                         newRequest.energyIn = Mathf.Max(EnergyProduction * LineLoss, 0);
 
                     // Distribution
-                    // TODO Distribution based on volume remaining in target module
                     newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));
 
                     // Queue hardpoint update, with the necessary inputs
@@ -170,16 +168,17 @@ namespace Assets.Station.Src
                         TaskHelper.TaskManager.QueueTask(new TaskNode(hardpoint.connection.module.threaded.Update, "moduleUpdate"), (float)TaskPriority.Medium);
                     }
                 }
+            }
 
-                // LASTPASS ------------------------------------------------------------------------------
-                // All the final updates to ensure that user data is correct
+            // LASTPASS ------------------------------------------------------------------------------
+            // All the final updates to ensure that user data is correct
 
-                //state = State.None;
+            //state = State.None;
             //}
         }
 
         /// <summary>
-        /// This method is the overridable method used to give OverridableUpdate child classes logic, while gauranteeing thread safety, as Update locks this before calling OverridableUpdate
+        /// This method is the overridable method used to give OverridableUpdate child classes logic
         /// </summary>
         public abstract void OverridableUpdate();
     }
