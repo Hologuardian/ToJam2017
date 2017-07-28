@@ -24,9 +24,11 @@ namespace Assets.Station.Src.Requests
         public VolatileHardpoint sourceHardpoint;
 
         /// <summary>
-        /// The amount of energy being sent in watt/hours to the module
+        /// The amount of energy being sent in watthours to the module
         /// </summary>
         public float energyIn = 0;
+        public float structuralIntegrityIn = 0;
+        public float pressurisationIn = 0; 
         /// <summary>
         /// The resource stacks being sent to the module
         /// </summary>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Engine.Src;
+using Assets.General.Src;
 using Assets.Station.Src.Requests;
 using Resources;
 
@@ -19,9 +20,11 @@ namespace Assets.Station.Src
         /// </summary>
         public string Name { get; protected set; }
         /// <summary>
-        /// The nonvolatile representation of this module in Unity, this should be accessed carefully, as it will not be locked at anytime, and could be the source of race conditions, especially with Unity.
-        /// If you want to do anything to this object you should queue a unity task to do just that, the next time Unity is able.
+        /// The nonvolatile representation of this module in Unity.
         /// </summary>
+        /// <remark>
+        /// This should be accessed carefully, as it will not be locked at anytime, and could be the source of race conditions, especially with Unity. If you want to do anything to this object you should queue a unity task to do just that, the next time Unity is able.
+        /// </remark>
         public Module UnityObject { get; protected set; }
         /// <summary>
         /// All modules come in 1 of 5 sizes, these sizes are cubes with specific dimensions used in pathfinding, and in space partitioning.
@@ -33,52 +36,58 @@ namespace Assets.Station.Src
         /// </summary>
         public Vector3 Dimensions { get; protected set; }
         /// <summary>
-        /// The mass of this module, before any inventory.
+        /// The mass of this module, with Maximum as the mass before inventory.
         /// </summary>
-        public float TrueMass { get; protected set; }
+        public Statistic Mass;
         /// <summary>
-        /// The volume this module has for inventory.
+        /// The volume this module has for inventory, with Maximum being the maximum volume of the inventory.
         /// </summary>
-        public float MaximumVolume { get; protected set; }
+        public Statistic Volume;
         /// <summary>
-        /// The maximum pressurisation this module can maintain before suffering structural damage.
+        /// The amount of power this module produces per hour in watt hours (negative in cases of power consumption).
         /// </summary>
-        public float MaximumPressurisation { get; protected set; }
+        public Memento<float> EnergyProduction;
         /// <summary>
         /// The percentage of incoming power that is kept in travel across this module.
         /// </summary>
-        public float LineLoss { get; protected set; }
+        public float EnergyLoss { get; protected set; }
+        /// <summary>
+        /// Structural Integrity is the measure of damage this module has received, and is a factor in causing negative events when lower than Maximum.
+        /// </summary>
+        public Statistic StructuralIntegrity;
+        /// <summary>
+        /// The current pressurisation of this module, in pascals.
+        /// </summary>
+        public Statistic Pressurisation;
+        /// <summary>
+        /// The current number of occupants this module has.
+        /// </summary>
+        public Statistic Occupants;
+        /// <summary>
+        /// The inventory of costs necessary to build this module.
+        /// Also used for repairs.
+        /// </summary>
+        public IInventory CostOfConstruction;
+        /// <summary>
+        /// The resource costs to run this module.
+        /// This inventory has its amounts set by any module behaviours.
+        /// </summary>
+        public IInventory CostOfOperation;
         /// <summary>
         /// The inventory interface of this module.
         /// </summary>
         public IInventory Inventory;
 
-        // Mementos
-        /// <summary>
-        /// The current mass of this module, after accounting for inventory.
-        /// </summary>
-        public Memento<float> Mass;
-        /// <summary>
-        /// The current volume of this module remaining, after accounting for inventory.
-        /// </summary>
-        public Memento<float> Volume;
-        /// <summary>
-        /// The current pressurisation of this module, in pascals.
-        /// </summary>
-        public Memento<float> Pressurisation;
-        /// <summary>
-        /// The amount of energy this module produces per hour in watt hours (negative in cases of power consumption).
-        /// </summary>
-        public Memento<float> EnergyProduction;
-
         public VolatileModule(string name)
         {
             Name = name;
 
-            Mass = new Memento<float>(Name + ".mass");
-            Volume = new Memento<float>(Name + ".volume");
-            Pressurisation = new Memento<float>(Name + ".pressurisation");
+            Mass = new Statistic(Name + ".mass", 1, 0);
+            Volume = new Statistic(Name + ".volume", 1, 0);
             EnergyProduction = new Memento<float>(Name + ".energyproduction");
+            StructuralIntegrity = new Statistic(Name + ".structuralIntegrity", 1, 0);
+            Pressurisation = new Statistic(Name + ".pressurisation", 1, 0);
+            Occupants = new Statistic(Name + ".occupants", 1, 0);
         }
 
         // Methods
@@ -150,9 +159,9 @@ namespace Assets.Station.Src
 
                     // Calculate the output through each hardpoint
                     // Electricity
-                    // If the connected module has higher EnergyProduction than this one then don't send power (you are probably recieving power from it anyways)
+                    // If the connected module has higher PowerProduction than this one then don't send power (you are probably recieving power from it anyways)
                     if (hardpoint.connection.module.threaded.EnergyProduction < EnergyProduction)
-                        newRequest.energyIn = Mathf.Max(EnergyProduction * LineLoss, 0);
+                        newRequest.energyIn = Mathf.Max(EnergyProduction * EnergyLoss, 0);
 
                     // Distribution
                     newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));

@@ -49,7 +49,7 @@ namespace Assets.Engine.Src
         /// Setter
         /// </summary>
         /// <param name="t">The new value to set it to</param>
-        public void Set(T t)
+        public virtual void Set(T t)
         {
             lock (this)
             {
@@ -61,7 +61,7 @@ namespace Assets.Engine.Src
         /// Changes the current state, including a new timestamp and value
         /// </summary>
         /// <param name="t"></param>
-        public void Change(T t)
+        public virtual void Change(T t)
         {
             lock (this)
             {
