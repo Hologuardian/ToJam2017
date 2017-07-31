@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Assets.General.Src.SI
 {
+    #region Factors
     public enum Factor
     {
         yocto = -24,
@@ -30,12 +31,18 @@ namespace Assets.General.Src.SI
         zetta = 21,
         yotta = 24
     };
+    #endregion
 
     public abstract class SIUnit
     {
         public abstract string Name();
         public abstract string Symbol();
         public float Value { get; set; }
+
+        public virtual SIUnit[] Decompose()
+        {
+            return new SIUnit[] { this };
+        }
 
         public int GetFactor()
         {
@@ -50,6 +57,7 @@ namespace Assets.General.Src.SI
             return Value * Mathf.Pow(10, GetFactor());
         }
 
+        #region Symbols
         public string PrefixSymbol()
         {
             int factorInt = GetFactor();
@@ -140,6 +148,12 @@ namespace Assets.General.Src.SI
             }
 
             return "";
+        }
+        #endregion
+
+        public static implicit operator float(SIUnit unit)
+        {
+            return unit.Value;
         }
 
         public static implicit operator string(SIUnit unit)

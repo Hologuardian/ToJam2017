@@ -9,7 +9,7 @@ namespace Assets.General.Src.SI
     {
         public override string Name()
         {
-            return "Mole";
+            return "mole";
         }
 
         public override string Symbol()

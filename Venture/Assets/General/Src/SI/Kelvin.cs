@@ -9,7 +9,7 @@ namespace Assets.General.Src.SI
     {
         public override string Name()
         {
-            return "Kelvin";
+            return "kelvin";
         }
 
         public override string Symbol()

@@ -5,16 +5,21 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Metre : SIUnit
+    public class Hour : SIUnit
     {
         public override string Name()
         {
-            return "metre";
+            return "hour";
         }
 
         public override string Symbol()
         {
-            return "m";
+            return "h";
+        }
+
+        public static implicit operator Second(Hour h)
+        {
+            return new Second() { Value = h * 360.0f };
         }
     }
 }

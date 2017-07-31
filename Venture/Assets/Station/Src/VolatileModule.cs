@@ -5,6 +5,7 @@ using System.Text;
 using UnityEngine;
 using Assets.Engine.Src;
 using Assets.General.Src;
+using Assets.General.Src.SI;
 using Assets.Station.Src.Requests;
 using Resources;
 
@@ -46,7 +47,7 @@ namespace Assets.Station.Src
         /// <summary>
         /// The amount of power this module produces per hour in watt hours (negative in cases of power consumption).
         /// </summary>
-        public Memento<float> EnergyProduction;
+        public Memento<WattHour> EnergyProduction;
         /// <summary>
         /// The percentage of incoming power that is kept in travel across this module.
         /// </summary>

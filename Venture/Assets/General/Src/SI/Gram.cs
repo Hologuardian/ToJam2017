@@ -9,7 +9,7 @@ namespace Assets.General.Src.SI
     {
         public override string Name()
         {
-            return "Gram";
+            return "gram";
         }
 
         public override string Symbol()
