@@ -8,33 +8,18 @@ namespace Assets.General.Src.SI
     public class Watt : SIUnit
     {
         public override string Name()
-        {
-            return "watt";
-        }
+        { return "watt"; }
 
         public override string Symbol()
-        {
-            return "W";
-        }
+        { return "W"; }
 
         public static SIUnit operator *(Watt w, Hour h)
-        {
-            return new WattHour() { Value = w * h, watt = w, hour = h };
-        }
+        { return new WattHour() { Value = w * h }; }
 
         public static SIUnit operator *(Watt w, Second s)
-        {
-            return new WattHour() { Value = w * (Hour)s, watt = w, hour = (Hour)s };
-        }
+        { return new WattHour() { Value = w * (Hour)s }; }
 
-        public static SIUnit operator /(Watt w, Hour h)
-        {
-            return new WattHour() { Value = w / h, watt = w, hour = h };
-        }
-
-        public static SIUnit operator /(Watt w, Second s)
-        {
-            return new WattHour() { Value = w / (Hour)s, watt = w, hour = (Hour)s };
-        }
+        public static implicit operator Watt(float f)
+        { return new Watt() { Value = f }; }
     }
 }

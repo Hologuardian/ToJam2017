@@ -5,15 +5,15 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Metre : SIUnit
+    public class Metre3 : SIUnit
     {
         public override string Name()
-        { return "metre"; }
+        { return "metre³"; }
 
         public override string Symbol()
-        { return "m"; }
+        { return "m³"; }
 
-        public static implicit operator Metre(float f)
-        { return new Metre() { Value = f }; }
+        public static implicit operator Metre3(float f)
+        { return new Metre3() { Value = f }; }
     }
 }

@@ -11,7 +11,40 @@ using Resources;
 
 namespace Assets.Station.Src
 {
-    public abstract class VolatileModule : VolatileObject
+    public struct VolatileModuleState
+    {
+        public int timestamp;
+        public int updateSequence;
+        //UNCHANGING public string name;
+        //UNCHANGING public Module module;
+        //UNCHANGING public Size size;
+        //UNCHANGING public Vector3 dimensions;
+        public Metre3 volume;
+        public WattHour energyProduction;
+        public float energyTransferRate;
+        public float structuralIntegrity;
+        public float structuralIntegrityMax;
+        public Pascal pressurisation;
+        public int occupants;
+        public int occupantsMax;
+
+        public VolatileModuleState(VolatileModule self)
+        {
+            updateSequence = self.updateSequence;
+            volume = self.volume;
+            energyProduction = self.energyProductionTotal;
+            self.energyProductionTotal = 0;
+            energyTransferRate = self.energyTransferRate;
+            structuralIntegrity = self.structuralIntegrity;
+            structuralIntegrityMax = self.structuralIntegrityMax;
+            pressurisation = self.pressurisation;
+            occupants = self.occupants;
+            occupantsMax = self.occupantsMax;
+            timestamp = DateTime.Now.Millisecond;
+        }
+    }
+
+    public abstract class VolatileModule : VolatileObject, IMemento
     {
         // Properties
         // Ensure proper care is taken to considering which must be Mementos and which can be generic
@@ -37,33 +70,57 @@ namespace Assets.Station.Src
         /// </summary>
         public Vector3 Dimensions { get; protected set; }
         /// <summary>
-        /// The mass of this module, with Maximum as the mass before inventory.
+        /// The mass of this module.
         /// </summary>
-        public Statistic Mass;
+        public Gram mass;
         /// <summary>
-        /// The volume this module has for inventory, with Maximum being the maximum volume of the inventory.
+        /// The mass of this module, including inventory.
         /// </summary>
-        public Statistic Volume;
+        public Gram Mass { get { return mass /*TODO Mark I need this: + Inventory.CurrentMass()*/; } }
+        /// <summary>
+        /// The volume this module has for inventory.
+        /// </summary>
+        public Metre3 volume;
+        /// <summary>
+        /// The volume remaining in this module after all items in the inventory have been accounted for
+        /// </summary>
+        public Metre3 Volume { get { return volume - Inventory.CurrentVolume(); } }
         /// <summary>
         /// The amount of power this module produces per hour in watt hours (negative in cases of power consumption).
         /// </summary>
-        public Memento<WattHour> EnergyProduction;
+        public WattHour energyProduction;
+        /// <summary>
+        /// The amount of power this module has produced (or consumed) since its last save state (in sim hourly)
+        /// </summary>
+        public WattHour energyProductionTotal;
         /// <summary>
         /// The percentage of incoming power that is kept in travel across this module.
         /// </summary>
-        public float EnergyLoss { get; protected set; }
+        public float energyTransferRate { get; protected set; }
         /// <summary>
-        /// Structural Integrity is the measure of damage this module has received, and is a factor in causing negative events when lower than Maximum.
+        /// Structural Integrity is the measure of damage this module has received.
         /// </summary>
-        public Statistic StructuralIntegrity;
+        public float structuralIntegrity;
+        /// <summary>
+        /// Defines the maximum amount of structural integrity this module has.
+        /// </summary>
+        public float structuralIntegrityMax;
         /// <summary>
         /// The current pressurisation of this module, in pascals.
         /// </summary>
-        public Statistic Pressurisation;
+        public Pascal pressurisation;
+        /// <summary>
+        /// The maximum pressurisation this module can maintain before suffering structural damage.
+        /// </summary>
+        public Pascal pressurisationMax;
         /// <summary>
         /// The current number of occupants this module has.
         /// </summary>
-        public Statistic Occupants;
+        public int occupants;
+        /// <summary>
+        /// The maximum number of occupants this module can have before suffering structural damage.
+        /// </summary>
+        public int occupantsMax;
         /// <summary>
         /// The inventory of costs necessary to build this module.
         /// Also used for repairs.
@@ -83,12 +140,12 @@ namespace Assets.Station.Src
         {
             Name = name;
 
-            Mass = new Statistic(Name + ".mass", 1, 0);
-            Volume = new Statistic(Name + ".volume", 1, 0);
-            EnergyProduction = new Memento<float>(Name + ".energyproduction");
-            StructuralIntegrity = new Statistic(Name + ".structuralIntegrity", 1, 0);
-            Pressurisation = new Statistic(Name + ".pressurisation", 1, 0);
-            Occupants = new Statistic(Name + ".occupants", 1, 0);
+            //mass = new Statistic(Name + ".mass", 1, 0);
+            //Volume = new Statistic(Name + ".volume", 1, 0);
+            //EnergyProduction = new Memento<WattHour>(Name + ".energyproduction");
+            //StructuralIntegrity = new Statistic(Name + ".structuralIntegrity", 1, 0);
+            //Pressurisation = new Statistic(Name + ".pressurisation", 1, 0);
+            //Occupants = new Statistic(Name + ".occupants", 1, 0);
         }
 
         // Methods
@@ -108,7 +165,8 @@ namespace Assets.Station.Src
 
             // RESET ----------------------------------------------------------------------------------
             // Reset all parameters that reset every update
-            EnergyProduction.Set(0);
+            //EnergyProduction.Set(0);
+            energyProduction = 0;
 
             // REQUESTS -------------------------------------------------------------------------------
             foreach (Hardpoint hardpoint in UnityObject.hardpoints)
@@ -161,8 +219,8 @@ namespace Assets.Station.Src
                     // Calculate the output through each hardpoint
                     // Electricity
                     // If the connected module has higher PowerProduction than this one then don't send power (you are probably recieving power from it anyways)
-                    if (hardpoint.connection.module.threaded.EnergyProduction < EnergyProduction)
-                        newRequest.energyIn = Mathf.Max(EnergyProduction * EnergyLoss, 0);
+                    if (hardpoint.connection.module.threaded.energyProduction < energyProduction)
+                        newRequest.energyIn = Mathf.Max((WattHour)energyProduction * energyTransferRate, 0);
 
                     // Distribution
                     newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));
@@ -182,7 +240,7 @@ namespace Assets.Station.Src
 
             // LASTPASS ------------------------------------------------------------------------------
             // All the final updates to ensure that user data is correct
-
+            
             //state = State.None;
             //}
         }
@@ -191,5 +249,21 @@ namespace Assets.Station.Src
         /// This method is the overridable method used to give OverridableUpdate child classes logic
         /// </summary>
         public abstract void OverridableUpdate();
+
+        // IMemento ----------------------------------------------------------------------------------
+        public void SaveState()
+        {
+            // I need to create a new save state for this volatilemodule
+        }
+
+        public void LoadState()
+        {
+            // I need to load the latest save state for this volatilemodule
+        }
+
+        public void DumpState()
+        {
+            // I need to dump the save states in memory to storage
+        }
     }
 }

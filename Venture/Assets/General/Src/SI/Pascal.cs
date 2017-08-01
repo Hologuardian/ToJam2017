@@ -5,15 +5,15 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Metre : SIUnit
+    public class Pascal : SIUnit
     {
         public override string Name()
-        { return "metre"; }
+        { return "pascal"; }
 
         public override string Symbol()
-        { return "m"; }
+        { return "Pa"; }
 
-        public static implicit operator Metre(float f)
-        { return new Metre() { Value = f }; }
+        public static implicit operator Pascal(float f)
+        { return new Pascal() { Value = f }; }
     }
 }

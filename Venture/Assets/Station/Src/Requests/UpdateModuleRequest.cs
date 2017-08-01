@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Engine.Src;
+using Assets.General.Src.SI;
 using Resources;
 
 namespace Assets.Station.Src.Requests
@@ -26,9 +27,10 @@ namespace Assets.Station.Src.Requests
         /// <summary>
         /// The amount of energy being sent in watthours to the module
         /// </summary>
-        public float energyIn = 0;
+        public WattHour energyIn = 0;
         public float structuralIntegrityIn = 0;
-        public float pressurisationIn = 0; 
+        public Pascal pressurisationIn = 0;
+        public int occupantsIn = 0;
         /// <summary>
         /// The resource stacks being sent to the module
         /// </summary>
@@ -44,7 +46,16 @@ namespace Assets.Station.Src.Requests
             VolatileModule module = target as VolatileModule;
 
             // Electricity
-            module.EnergyProduction.Change(module.EnergyProduction + energyIn);
+            module.energyProduction.Value += energyIn;
+
+            // Integrity
+            module.structuralIntegrity += structuralIntegrityIn;
+
+            // Pressurisation
+            module.pressurisation.Value += pressurisationIn;
+
+            // Occupants
+            module.occupants += occupantsIn;
 
             // Distribution
             // Set up the resourcesOut list

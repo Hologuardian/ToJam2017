@@ -8,13 +8,12 @@ namespace Assets.General.Src.SI
     public class Kelvin : SIUnit
     {
         public override string Name()
-        {
-            return "kelvin";
-        }
+        { return "kelvin"; }
 
         public override string Symbol()
-        {
-            return "K";
-        }
+        { return "K"; }
+
+        public static implicit operator Kelvin(float f)
+        { return new Kelvin() { Value = f }; }
     }
 }

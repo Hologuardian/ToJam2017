@@ -8,13 +8,12 @@ namespace Assets.General.Src.SI
     public class Gram : SIUnit
     {
         public override string Name()
-        {
-            return "gram";
-        }
+        { return "gram"; }
 
         public override string Symbol()
-        {
-            return "g";
-        }
+        { return "g"; }
+
+        public static implicit operator Gram(float f)
+        { return new Gram() { Value = f }; }
     }
 }

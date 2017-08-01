@@ -5,43 +5,22 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
+    /// <summary>
+    /// The WattHour symbol Wh is a derived SI unit formed when multiplying Watts by any measure of time
+    /// The WattHour is always expressed in # of Watts per 1 hour.
+    /// </summary>
     public class WattHour : SIUnit
     {
-        public Watt watt;
-        public Hour hour;
-
         public override string Name()
-        {
-            return "watthour";
-        }
+        { return "watthour"; }
 
         public override string Symbol()
-        {
-            return "Wh";
-        }
+        { return "Wh"; }
 
-        public override SIUnit[] Decompose()
-        {
-            return new SIUnit[] { watt, hour };
-        }
+        public static Watt operator /(WattHour Wh, Hour h)
+        { return new Watt() { Value = Wh / h }; }
 
-        public static WattHour operator *(WattHour a, WattHour b)
-        {
-            return new WattHour()
-            {
-                watt = new Watt() { Value = a.watt * b.watt },
-                hour = new Hour() { Value = a.hour * b.hour },
-                Value = a.Value * b.Value };
-        }
-
-        public static implicit operator Watt(WattHour Wh)
-        {
-            return Wh.watt;
-        }
-
-        public static implicit operator Hour(WattHour Wh)
-        {
-            return Wh.hour;
-        }
+        public static implicit operator WattHour(float f)
+        { return new WattHour { Value = f }; }
     }
 }

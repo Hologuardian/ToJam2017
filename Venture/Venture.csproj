@@ -123,6 +123,7 @@
     <Compile Include="Assets\Engine\Lib\StablePriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\StablePriorityQueueNode.cs" />
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
+    <Compile Include="Assets\Engine\Src\IMemento.cs" />
     <Compile Include="Assets\Engine\Src\Memento.cs" />
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
     <Compile Include="Assets\Engine\Src\TaskNode.cs" />
@@ -131,8 +132,11 @@
     <Compile Include="Assets\General\Src\SI\Gram.cs" />
     <Compile Include="Assets\General\Src\SI\Hour.cs" />
     <Compile Include="Assets\General\Src\SI\Kelvin.cs" />
+    <Compile Include="Assets\General\Src\SI\Metre3.cs" />
+    <Compile Include="Assets\General\Src\SI\Metre2.cs" />
     <Compile Include="Assets\General\Src\SI\Metre.cs" />
     <Compile Include="Assets\General\Src\SI\Mole.cs" />
+    <Compile Include="Assets\General\Src\SI\Pascal.cs" />
     <Compile Include="Assets\General\Src\SI\Second.cs" />
     <Compile Include="Assets\General\Src\SI\SIUnit.cs" />
     <Compile Include="Assets\General\Src\SI\Watt.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="Assets\Engine\Src\Request.cs" />
     <Compile Include="Assets\Station\Src\Modules\CommandModule.cs" />
     <Compile Include="Assets\Station\Src\Modules\VolatileCommandModule.cs" />
+    <Compile Include="Assets\Station\Src\Requests\SaveRequest.cs" />
     <Compile Include="Assets\Station\Src\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Assets\Station\Src\Station.cs" />
     <Compile Include="Assets\Station\Src\Submodule.cs" />
