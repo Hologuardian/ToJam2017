@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.General.Src.SI;
 
-namespace Resources
+namespace Assets.Resources.Src
 {
     [Serializable]
     public class Recipe

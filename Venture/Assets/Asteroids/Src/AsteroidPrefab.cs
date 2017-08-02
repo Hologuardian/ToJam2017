@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Assets.Resources.Src;
 
 public class AsteroidPrefab : MonoBehaviour {
     public Size asteroidSize;

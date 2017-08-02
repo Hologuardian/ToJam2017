@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.General.Src.SI;
 
-namespace Resources
+namespace Assets.Resources.Src
 {
     public class Inventory : IInventory
     {
@@ -53,6 +54,11 @@ namespace Resources
         }
 
         public ResourceStack[] Resources()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Gram TotalMass()
         {
             throw new NotImplementedException();
         }

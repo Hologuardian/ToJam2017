@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.General.Src.SI;
 
-namespace Resources
+namespace Assets.Resources.Src
 {
     public struct ResourceStack
     {
         public Resource type;
-        public float volume;
+        public Metre volume;
     }
 }
