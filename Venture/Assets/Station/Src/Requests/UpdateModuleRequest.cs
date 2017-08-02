@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using Assets.Engine.Src;
 using Assets.General.Src.SI;
-using Resources;
+using Assets.Resources.Src;
 
 namespace Assets.Station.Src.Requests
 {

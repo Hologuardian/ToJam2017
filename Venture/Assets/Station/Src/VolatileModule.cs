@@ -6,8 +6,8 @@ using UnityEngine;
 using Assets.Engine.Src;
 using Assets.General.Src;
 using Assets.General.Src.SI;
+using Assets.Resources.Src;
 using Assets.Station.Src.Requests;
-using Resources;
 
 namespace Assets.Station.Src
 {
