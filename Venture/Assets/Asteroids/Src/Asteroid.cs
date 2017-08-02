@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Assets.Resources.Src;
 public class Asteroid : MonoBehaviour
 {
     public Size size;

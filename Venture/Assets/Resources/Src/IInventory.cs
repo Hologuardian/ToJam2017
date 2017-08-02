@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.General.Src.SI;
 
-namespace Resources
+namespace Assets.Resources.Src
 {
     public interface IInventory
     {
@@ -107,5 +108,13 @@ namespace Resources
         ///  Array of resource stacks
         /// </returns>
         ResourceStack[] RemoveResources();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        /// 
+        /// </returns>
+        Gram TotalMass();
     }
 }
