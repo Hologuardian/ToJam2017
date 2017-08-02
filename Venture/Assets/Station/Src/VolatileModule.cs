@@ -25,6 +25,7 @@ namespace Assets.Station.Src
         public float structuralIntegrity;
         public float structuralIntegrityMax;
         public Pascal pressurisation;
+        public Pascal pressurisationDesired;
         public int occupants;
         public int occupantsMax;
 
@@ -38,8 +39,13 @@ namespace Assets.Station.Src
             structuralIntegrity = self.structuralIntegrity;
             structuralIntegrityMax = self.structuralIntegrityMax;
             pressurisation = self.pressurisation;
+            pressurisationDesired = self.pressurisationDesired;
             occupants = self.occupants;
             occupantsMax = self.occupantsMax;
+            // TODO Inventory SaveState()
+            // if (self.pressurisation > 0) { self.pressurisationGasses.SaveState(); }
+            // self.Inventory.SaveState();
+            // self.CostOfOperation.SaveState();
             timestamp = DateTime.Now.Millisecond;
         }
     }
@@ -47,7 +53,7 @@ namespace Assets.Station.Src
     public abstract class VolatileModule : VolatileObject, IMemento
     {
         // Properties
-        // Ensure proper care is taken to considering which must be Mementos and which can be generic
+        private List<VolatileModuleState> states = new List<VolatileModuleState>();
         public int updateSequence = 0;
         /// <summary>
         /// All modules have a name, this is the name of their table in the database, and their unique name in game data
@@ -110,6 +116,14 @@ namespace Assets.Station.Src
         /// </summary>
         public Pascal pressurisation;
         /// <summary>
+        /// The desired pressurisation of this module.
+        /// </summary>
+        public Pascal pressurisationDesired;
+        /// <summary>
+        /// The desired resources to fill the module with (gaseous).
+        /// </summary>
+        public IInventory pressurisationGasses;
+        /// <summary>
         /// The maximum pressurisation this module can maintain before suffering structural damage.
         /// </summary>
         public Pascal pressurisationMax;
@@ -139,13 +153,6 @@ namespace Assets.Station.Src
         public VolatileModule(string name)
         {
             Name = name;
-
-            //mass = new Statistic(Name + ".mass", 1, 0);
-            //Volume = new Statistic(Name + ".volume", 1, 0);
-            //EnergyProduction = new Memento<WattHour>(Name + ".energyproduction");
-            //StructuralIntegrity = new Statistic(Name + ".structuralIntegrity", 1, 0);
-            //Pressurisation = new Statistic(Name + ".pressurisation", 1, 0);
-            //Occupants = new Statistic(Name + ".occupants", 1, 0);
         }
 
         // Methods
@@ -158,23 +165,14 @@ namespace Assets.Station.Src
         /// </summary>
         public void Update()
         {
-            //lock (this)
-            //{
-            // This VolatileObject is currently locked by the threaded environment, and its properties are being accessed
-            //state = State.Locked | State.Threaded | State.Accessed;
-
             // RESET ----------------------------------------------------------------------------------
             // Reset all parameters that reset every update
-            //EnergyProduction.Set(0);
+            energyProductionTotal.Value += energyProduction;
             energyProduction = 0;
 
             // REQUESTS -------------------------------------------------------------------------------
             foreach (Hardpoint hardpoint in UnityObject.hardpoints)
             {
-                // This prevents any race conditions
-                //lock (hardpoint.threaded)
-                //{
-                //hardpoint.threaded.state = State.Locked | State.Threaded | State.Accessed;
                 // Take all the requests from the hardpoint
                 for (int i = 0; i < hardpoint.threaded.RequestCount; i++)
                 {
@@ -183,10 +181,6 @@ namespace Assets.Station.Src
 
                 // Clear the hardpoints requests
                 hardpoint.threaded.Clear();
-
-                // Reset the changes
-                //hardpoint.threaded.state = State.None;
-                //}
             }
 
             // Process all the requests
@@ -218,12 +212,31 @@ namespace Assets.Station.Src
 
                     // Calculate the output through each hardpoint
                     // Electricity
-                    // If the connected module has higher PowerProduction than this one then don't send power (you are probably recieving power from it anyways)
+                    // If the connected module has lower energy production than this one then send power
                     if (hardpoint.connection.module.threaded.energyProduction < energyProduction)
-                        newRequest.energyIn = Mathf.Max((WattHour)energyProduction * energyTransferRate, 0);
+                        newRequest.energyIn = Mathf.Max(energyProduction * energyTransferRate, 0);
 
+                    // Integrity
+                    // TODO (Late) Implement technology that allows modules to repair each other via connections alone.
+                    //if (hardpoint.connection.module.threaded.structuralIntegrity < hardpoint.connection.module.threaded.structuralIntegrityMax && structuralIntegrity >= structuralIntegrityMax)
+                    //    newRequest.structuralIntegrityIn = Mathf.Max(SOME_VARIABLE_FOR_REPAIR_FIELD_STRENTH * structuralIntegrity, SOME_VARIABLE_FOR_MAXIMUM_REPAIR_STRENGTH);
+
+                    // Pressurisation
+                    // TODO determine logic to convert Mark's highly pressurised gases to standard pressures, like 101.325kPa (1 atm).
+                    // P = nRT/V
+                    // Where:
+                    // P = pressure in atm.
+                    // n = moles of gas
+                    // R = ideal gas constant (0.08206)
+                    // T = temperature in kelvin
+                    // V = volume in litres
+                    // If this module has a pressurisation greater than or equal to its desired pressurisation
+                    // If connected module has a pressurisation less than its desired pressurisation
+                    // Send some gas
+                    
                     // Distribution
-                    newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));
+                    if ((hardpoint.threaded.direction & VolatileHardpoint.Direction.Output) != VolatileHardpoint.Direction.None)
+                        newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));
 
                     // Queue hardpoint update, with the necessary inputs
                     hardpoint.connection.threaded.Request(newRequest);
@@ -240,9 +253,6 @@ namespace Assets.Station.Src
 
             // LASTPASS ------------------------------------------------------------------------------
             // All the final updates to ensure that user data is correct
-            
-            //state = State.None;
-            //}
         }
 
         /// <summary>
@@ -251,17 +261,18 @@ namespace Assets.Station.Src
         public abstract void OverridableUpdate();
 
         // IMemento ----------------------------------------------------------------------------------
-        public void SaveState()
+        public virtual void SaveState()
         {
             // I need to create a new save state for this volatilemodule
+            states.Add(new VolatileModuleState(this));
         }
 
-        public void LoadState()
+        public virtual void LoadState()
         {
             // I need to load the latest save state for this volatilemodule
         }
 
-        public void DumpState()
+        public virtual void DumpState()
         {
             // I need to dump the save states in memory to storage
         }

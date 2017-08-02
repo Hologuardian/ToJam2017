@@ -30,7 +30,6 @@ namespace Assets.Station.Src.Requests
         public WattHour energyIn = 0;
         public float structuralIntegrityIn = 0;
         public Pascal pressurisationIn = 0;
-        public int occupantsIn = 0;
         /// <summary>
         /// The resource stacks being sent to the module
         /// </summary>
@@ -53,9 +52,6 @@ namespace Assets.Station.Src.Requests
 
             // Pressurisation
             module.pressurisation.Value += pressurisationIn;
-
-            // Occupants
-            module.occupants += occupantsIn;
 
             // Distribution
             // Set up the resourcesOut list

@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -125,16 +123,17 @@
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Src\IMemento.cs" />
     <Compile Include="Assets\Engine\Src\Memento.cs" />
+    <Compile Include="Assets\Engine\Src\Request.cs" />
+    <Compile Include="Assets\Engine\Src\TaskHelper.cs" />
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
     <Compile Include="Assets\Engine\Src\TaskNode.cs" />
     <Compile Include="Assets\Engine\Src\VolatileObject.cs" />
-    <Compile Include="Assets\Engine\Src\TaskHelper.cs" />
     <Compile Include="Assets\General\Src\SI\Gram.cs" />
     <Compile Include="Assets\General\Src\SI\Hour.cs" />
     <Compile Include="Assets\General\Src\SI\Kelvin.cs" />
-    <Compile Include="Assets\General\Src\SI\Metre3.cs" />
-    <Compile Include="Assets\General\Src\SI\Metre2.cs" />
     <Compile Include="Assets\General\Src\SI\Metre.cs" />
+    <Compile Include="Assets\General\Src\SI\Metre2.cs" />
+    <Compile Include="Assets\General\Src\SI\Metre3.cs" />
     <Compile Include="Assets\General\Src\SI\Mole.cs" />
     <Compile Include="Assets\General\Src\SI\Pascal.cs" />
     <Compile Include="Assets\General\Src\SI\Second.cs" />
@@ -151,25 +150,21 @@
     <Compile Include="Assets\Resources\Src\ResourceStack.cs" />
     <Compile Include="Assets\Station\Src\Hardpoint.cs" />
     <Compile Include="Assets\Station\Src\Module.cs" />
-    <Compile Include="Assets\Engine\Src\Request.cs" />
     <Compile Include="Assets\Station\Src\Modules\CommandModule.cs" />
     <Compile Include="Assets\Station\Src\Modules\VolatileCommandModule.cs" />
-    <Compile Include="Assets\Station\Src\Requests\SaveRequest.cs" />
+    <Compile Include="Assets\Station\Src\Modules\VolatileRingModule.cs" />
     <Compile Include="Assets\Station\Src\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Assets\Station\Src\Station.cs" />
     <Compile Include="Assets\Station\Src\Submodule.cs" />
     <Compile Include="Assets\Station\Src\VolatileHardpoint.cs" />
     <Compile Include="Assets\Station\Src\VolatileModule.cs" />
+    <Compile Include="Assets\Station\Src\VolatileSubmodule.cs" />
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Asteroids\StandardVertexColor.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\Engine\Src\Requests\" />
-    <Folder Include="Assets\Prepare\Src\Events\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

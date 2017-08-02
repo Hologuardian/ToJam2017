@@ -9,6 +9,10 @@ namespace Assets.Station.Src
 {
     public class VolatileHardpoint : VolatileObject
     {
+        [Flags]
+        public enum Direction { None = 0, Input = 1, Output = 2 };
+        public Direction direction = Direction.Input | Direction.Output;
+
         private IInventory filter;
         private ResourceStack[] filterArray;
         public IInventory Filter
