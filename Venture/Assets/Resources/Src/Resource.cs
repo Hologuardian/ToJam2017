@@ -80,12 +80,12 @@ namespace Assets.Resources.Src
             Name = Consts.Tellurium,
             Value = 0.0f,
             MolarMass = 127.60f,
-            Density = 0.0f },
+            Density = 0.0f },// TODO Density = 0.0f
         new Resource() {
             Name = Consts.Bismuth,
             Value = 0.0f,
             MolarMass = 208.98f,
-            Density = 0.0f },
+            Density = 0.0f },// TODO Density = 0.0f
         new Resource() {
             Name = Consts.Osmium,
             Value = 0.0f,
@@ -160,7 +160,7 @@ namespace Assets.Resources.Src
             Name = Consts.Beryllium,
             Value = 0.0f,
             MolarMass = 9.012f,
-            Density = 0 },
+            Density = 0 },//TODO Density = 0.0f
         new Resource() {
             Name = Consts.Molybdenum,
             Value = 0.0f,

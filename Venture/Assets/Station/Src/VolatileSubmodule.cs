@@ -6,7 +6,8 @@ using Assets.Engine.Src;
 
 namespace Assets.Station.Src
 {
-    public class VolatileSubmodule : VolatileObject
+    public abstract class VolatileSubmodule : VolatileObject
     {
+        public abstract void Update();
     }
 }

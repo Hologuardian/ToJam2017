@@ -222,18 +222,31 @@ namespace Assets.Station.Src
                     //    newRequest.structuralIntegrityIn = Mathf.Max(SOME_VARIABLE_FOR_REPAIR_FIELD_STRENTH * structuralIntegrity, SOME_VARIABLE_FOR_MAXIMUM_REPAIR_STRENGTH);
 
                     // Pressurisation
-                    // TODO determine logic to convert Mark's highly pressurised gases to standard pressures, like 101.325kPa (1 atm).
-                    // P = nRT/V
+                    // IDEAL GAS LAW = PV=nRT
                     // Where:
                     // P = pressure in atm.
                     // n = moles of gas
                     // R = ideal gas constant (0.08206)
                     // T = temperature in kelvin
                     // V = volume in litres
+
+                    // TODO determine logic to convert Mark's highly pressurised gases to standard pressures, like 101.325kPa (1 atm).
+                    // Modified Ideal Gas Law to solve for Pressure in Atm
+                    // P = nRT/V
                     // If this module has a pressurisation greater than or equal to its desired pressurisation
                     // If connected module has a pressurisation less than its desired pressurisation
                     // Send some gas
-                    
+
+                    // Okay so this is actually a 2 fold problem.
+                    // Mark has pressurised the gasses to essentially random hundred value bar pressurisations
+                    // Which means I need to determine the volume of gas after depressurisation before I can use it
+                    // Which is done like so:
+                    // V = nRT/P
+                    // Refer to the above pressurisation equation for variables
+                    // And I need to convert Bar to Atmospheres (101.325kPa)
+
+                    // This needs to have Mark's resources using the new SI unit system first though, that way I can just have the conversions occur automatically.
+
                     // Distribution
                     if ((hardpoint.threaded.direction & VolatileHardpoint.Direction.Output) != VolatileHardpoint.Direction.None)
                         newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));

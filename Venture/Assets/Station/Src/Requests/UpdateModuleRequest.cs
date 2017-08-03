@@ -29,7 +29,8 @@ namespace Assets.Station.Src.Requests
         /// </summary>
         public WattHour energyIn = 0;
         public float structuralIntegrityIn = 0;
-        public Pascal pressurisationIn = 0;
+        //public Pascal pressurisationIn = 0;
+        public List<ResourceStack> pressurisationGassesIn = new List<ResourceStack>();
         /// <summary>
         /// The resource stacks being sent to the module
         /// </summary>
@@ -51,7 +52,8 @@ namespace Assets.Station.Src.Requests
             module.structuralIntegrity += structuralIntegrityIn;
 
             // Pressurisation
-            module.pressurisation.Value += pressurisationIn;
+            //module.pressurisation.Value += pressurisationIn;
+            module.pressurisationGasses.AddResources(pressurisationGassesIn.ToArray());
 
             // Distribution
             // Set up the resourcesOut list
