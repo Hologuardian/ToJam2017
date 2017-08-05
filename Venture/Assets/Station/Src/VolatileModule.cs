@@ -65,7 +65,7 @@ namespace Assets.Station.Src
         /// <remark>
         /// This should be accessed carefully, as it will not be locked at anytime, and could be the source of race conditions, especially with Unity. If you want to do anything to this object you should queue a unity task to do just that, the next time Unity is able.
         /// </remark>
-        public Module UnityObject { get; protected set; }
+        public Module unityObject { get; protected set; }
         /// <summary>
         /// All modules come in 1 of 5 sizes, these sizes are cubes with specific dimensions used in pathfinding, and in space partitioning.
         /// As well these sizes define what tier of station technology this module is.
@@ -120,7 +120,7 @@ namespace Assets.Station.Src
         /// </summary>
         public Pascal pressurisationDesired;
         /// <summary>
-        /// The desired resources to fill the module with (gaseous).
+        /// The resources to fill the module with (gaseous).
         /// </summary>
         public IInventory pressurisationGasses;
         /// <summary>
@@ -167,11 +167,11 @@ namespace Assets.Station.Src
         {
             // RESET ----------------------------------------------------------------------------------
             // Reset all parameters that reset every update
-            energyProductionTotal.Value += energyProduction;
+            energyProductionTotal += energyProduction;
             energyProduction = 0;
 
             // REQUESTS -------------------------------------------------------------------------------
-            foreach (Hardpoint hardpoint in UnityObject.hardpoints)
+            foreach (Hardpoint hardpoint in unityObject.hardpoints)
             {
                 // Take all the requests from the hardpoint
                 for (int i = 0; i < hardpoint.threaded.RequestCount; i++)
@@ -193,15 +193,23 @@ namespace Assets.Station.Src
             OverridableUpdate();
 
             // SUBMODULES -----------------------------------------------------------------------------
-            foreach (Submodule sub in UnityObject.submodules)
+            foreach (Submodule sub in unityObject.submodules)
             {
                 // TODO Submodule Update
+            }
+
+            // This establishes the number of hardpoints requiring power output.
+            int hardpointsNeedingPower = 0;
+            foreach(Hardpoint hardpoint in unityObject.hardpoints)
+            {
+                if (hardpoint.connection.module.threaded.energyProduction < energyProduction)
+                    hardpointsNeedingPower++;
             }
 
             // HARDPOINTS -----------------------------------------------------------------------------
             // First calculate all output values for each hardpoint connection
             // Second send an update down every hardpoint with the necessary outputs
-            foreach (Hardpoint hardpoint in UnityObject.hardpoints)
+            foreach (Hardpoint hardpoint in unityObject.hardpoints)
             {
                 if (hardpoint.connection != null)
                 {
@@ -213,8 +221,9 @@ namespace Assets.Station.Src
                     // Calculate the output through each hardpoint
                     // Electricity
                     // If the connected module has lower energy production than this one then send power
+                    // Using the previously calculated hardpointsNeedingPower we can ensure that all the hardpoints in need get some
                     if (hardpoint.connection.module.threaded.energyProduction < energyProduction)
-                        newRequest.energyIn = Mathf.Max(energyProduction * energyTransferRate, 0);
+                        newRequest.energyIn = Mathf.Max((float)(energyProduction / hardpointsNeedingPower) * energyTransferRate, 0);
 
                     // Integrity
                     // TODO (Late) Implement technology that allows modules to repair each other via connections alone.
@@ -230,7 +239,6 @@ namespace Assets.Station.Src
                     // T = temperature in kelvin
                     // V = volume in litres
 
-                    // TODO determine logic to convert Mark's highly pressurised gases to standard pressures, like 101.325kPa (1 atm).
                     // Modified Ideal Gas Law to solve for Pressure in Atm
                     // P = nRT/V
                     // If this module has a pressurisation greater than or equal to its desired pressurisation
@@ -238,18 +246,57 @@ namespace Assets.Station.Src
                     // Send some gas
 
                     // Okay so this is actually a 2 fold problem.
-                    // Mark has pressurised the gasses to essentially random hundred value bar pressurisations
+                    // Mark has pressurised the gasses to essentially random hundred to thousand bar pressurisations
                     // Which means I need to determine the volume of gas after depressurisation before I can use it
                     // Which is done like so:
                     // V = nRT/P
                     // Refer to the above pressurisation equation for variables
-                    // And I need to convert Bar to Atmospheres (101.325kPa)
 
                     // This needs to have Mark's resources using the new SI unit system first though, that way I can just have the conversions occur automatically.
 
                     // Distribution
+                    // Need to take into account the number of output hardpoints that want to output the same resourcestacks, as they need to split the current amount between them, if between them they would take more than there is
                     if ((hardpoint.threaded.direction & VolatileHardpoint.Direction.Output) != VolatileHardpoint.Direction.None)
-                        newRequest.resourcesIn.AddRange(hardpoint.threaded.FilterInventory(Inventory));
+                    {
+                        // Get all the desired resources by filtering the module inventory through the hardpoint inventory, returning only those that both inventories have in common
+                        ResourceStack[] desiredResources = hardpoint.threaded.FilterInventory(Inventory);
+                        // A temporary array of values indicating the total number of hardpoints desiring the resource in desiredResources at the same index
+                        int[] desiredHardpoints = new int[desiredResources.Length];
+                        
+                        // Iterate across the hardpoints
+                        foreach(Hardpoint other in unityObject.hardpoints)
+                        {
+                            if ((other.threaded.direction & VolatileHardpoint.Direction.Output) != VolatileHardpoint.Direction.None)
+                            {
+                                // Iterate across the desiredResources
+                                for (int i = 0; i < desiredResources.Length; i++)
+                                {
+                                    // If the hardpoint wants the desiredResource increment the index of desiredHardpoints matching the index of desiredResource
+                                    if (other.threaded.Filter.GetResource(desiredResources[i].type).volume == 0)
+                                    {
+                                        desiredHardpoints[i]++;
+                                    }
+                                }
+                            }
+                        }
+
+                        // The reason for this section of logic is to ensure that no one resource stack desired is taking more from this module than it has
+                        // And than the module the resources are going to can take (TODO)
+                        // Iterate across the desiredResources
+                        for (int i = 0; i < desiredResources.Length; i++)
+                        {
+                            // Get the ResourceStack in question from the Inventory
+                            ResourceStack invResource = Inventory.GetResource(desiredResources[i].type);
+
+                            // If the total amount desired is greater than the volume of the amount this module has
+                            if (desiredResources[i].volume * desiredHardpoints[i] > invResource.volume)
+                                // Set the amount desired to the total volume this module has divided by the number of hardpoints wanting it
+                                desiredResources[i].volume = invResource.volume / desiredHardpoints[i];
+                            
+                            // TODO Module Distribution based on the remaining space in the module this resource is being sent to
+                            newRequest.resourcesIn.Add(desiredResources[i]);
+                        }
+                    }
 
                     // Queue hardpoint update, with the necessary inputs
                     hardpoint.connection.threaded.Request(newRequest);

@@ -17,6 +17,12 @@ namespace Assets.General.Src.SI
         public override string Symbol()
         { return "Wh"; }
 
+        public static WattHour operator +(WattHour a, WattHour b)
+        { return new WattHour() { Value = a + b }; }
+
+        public static WattHour operator -(WattHour a, WattHour b)
+        { return new WattHour() { Value = a - b }; }
+
         public static Watt operator /(WattHour Wh, Hour h)
         { return new Watt() { Value = Wh / h }; }
 

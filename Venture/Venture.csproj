@@ -130,9 +130,13 @@
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
     <Compile Include="Assets\Engine\Src\TaskNode.cs" />
     <Compile Include="Assets\Engine\Src\VolatileObject.cs" />
+    <Compile Include="Assets\General\Src\SI\Atmosphere.cs" />
+    <Compile Include="Assets\General\Src\SI\Bar.cs" />
     <Compile Include="Assets\General\Src\SI\Gram.cs" />
     <Compile Include="Assets\General\Src\SI\Hour.cs" />
     <Compile Include="Assets\General\Src\SI\Kelvin.cs" />
+    <Compile Include="Assets\General\Src\SI\Kilogram.cs" />
+    <Compile Include="Assets\General\Src\SI\KilogramMetre3.cs" />
     <Compile Include="Assets\General\Src\SI\Metre.cs" />
     <Compile Include="Assets\General\Src\SI\Metre2.cs" />
     <Compile Include="Assets\General\Src\SI\Metre3.cs" />
