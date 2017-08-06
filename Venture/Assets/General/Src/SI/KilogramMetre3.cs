@@ -8,7 +8,7 @@ namespace Assets.General.Src.SI
     public class KilogramMetre3 : SIUnit
     {
         public override string Name()
-        { return "kilogram per metre³"; }
+        { return "kilogram per cubed metre"; }
 
         public override string Symbol()
         { return "kg/m³"; }

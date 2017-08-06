@@ -13,6 +13,12 @@ namespace Assets.General.Src.SI
         public override string Symbol()
         { return "g"; }
 
+        public static Gram operator +(Gram a, Gram b)
+        { return new Gram() { Value = a + b }; }
+
+        public static Gram operator -(Gram a, Gram b)
+        { return new Gram() { Value = a - b }; }
+
         public static implicit operator Gram(float f)
         { return new Gram() { Value = f }; }
     }

@@ -82,7 +82,7 @@ namespace Assets.Station.Src
         /// <summary>
         /// The mass of this module, including inventory.
         /// </summary>
-        public Gram Mass { get { return mass /*TODO Mark I need this: + Inventory.CurrentMass()*/; } }
+        public Gram Mass { get { return mass + Inventory.TotalMass(); } }
         /// <summary>
         /// The volume this module has for inventory.
         /// </summary>
@@ -199,7 +199,7 @@ namespace Assets.Station.Src
             }
 
             // This establishes the number of hardpoints requiring power output.
-            int hardpointsNeedingPower = 0;
+            float hardpointsNeedingPower = 0;
             foreach(Hardpoint hardpoint in unityObject.hardpoints)
             {
                 if (hardpoint.connection.module.threaded.energyProduction < energyProduction)
@@ -223,7 +223,7 @@ namespace Assets.Station.Src
                     // If the connected module has lower energy production than this one then send power
                     // Using the previously calculated hardpointsNeedingPower we can ensure that all the hardpoints in need get some
                     if (hardpoint.connection.module.threaded.energyProduction < energyProduction)
-                        newRequest.energyIn = Mathf.Max((float)(energyProduction / hardpointsNeedingPower) * energyTransferRate, 0);
+                        newRequest.energyIn = Mathf.Max((energyProduction / hardpointsNeedingPower) * energyTransferRate, 0);
 
                     // Integrity
                     // TODO (Late) Implement technology that allows modules to repair each other via connections alone.
@@ -282,6 +282,13 @@ namespace Assets.Station.Src
 
                         // The reason for this section of logic is to ensure that no one resource stack desired is taking more from this module than it has
                         // And than the module the resources are going to can take (TODO)
+                        float desiredVolume = 0;
+
+                        foreach (ResourceStack stack in desiredResources)
+                        {
+                            desiredVolume += stack.volume;
+                        }
+
                         // Iterate across the desiredResources
                         for (int i = 0; i < desiredResources.Length; i++)
                         {
@@ -290,10 +297,21 @@ namespace Assets.Station.Src
 
                             // If the total amount desired is greater than the volume of the amount this module has
                             if (desiredResources[i].volume * desiredHardpoints[i] > invResource.volume)
+                            {
+                                desiredVolume -= desiredResources[i].volume;
                                 // Set the amount desired to the total volume this module has divided by the number of hardpoints wanting it
                                 desiredResources[i].volume = invResource.volume / desiredHardpoints[i];
+                                desiredVolume += desiredResources[i].volume;
+                            }
                             
-                            // TODO Module Distribution based on the remaining space in the module this resource is being sent to
+                            // Module Distribution based on the remaining space in the module this resource is being sent to
+                            if (desiredVolume > hardpoint.connection.module.threaded.Volume)
+                            {
+                                // The logic here is that instead of attempting to send the desired amount of everything, we instead only send the percentage of that stuff as a total of all the stuff being sent
+                                // And send only that percentage of the volume remaining in the module, that way whatever amounts we wanted to distribute, we maintain the percentage volume, but fill the module, instead of having whatever filled it first, fill it first.
+                                // The only issue with this system, is that ultimately it doesn't take into account other pending, or will be pending by module update, requests, and they will therefore still have a first come first serve bases between several modules inputing on one module
+                                desiredResources[i].volume = (desiredResources[i].volume / desiredVolume) * hardpoint.connection.module.threaded.Volume;
+                            }
                             newRequest.resourcesIn.Add(desiredResources[i]);
                         }
                     }

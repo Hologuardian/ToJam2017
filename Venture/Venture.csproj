@@ -134,6 +134,7 @@
     <Compile Include="Assets\General\Src\SI\Bar.cs" />
     <Compile Include="Assets\General\Src\SI\Gram.cs" />
     <Compile Include="Assets\General\Src\SI\Hour.cs" />
+    <Compile Include="Assets\General\Src\SI\Joule.cs" />
     <Compile Include="Assets\General\Src\SI\Kelvin.cs" />
     <Compile Include="Assets\General\Src\SI\Kilogram.cs" />
     <Compile Include="Assets\General\Src\SI\KilogramMetre3.cs" />

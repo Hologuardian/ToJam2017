@@ -13,11 +13,11 @@ namespace Assets.General.Src.SI
         public override string Symbol()
         { return "W"; }
 
-        public static SIUnit operator *(Watt w, Hour h)
+        public static WattHour operator *(Watt w, Hour h)
         { return new WattHour() { Value = w * h }; }
 
-        public static SIUnit operator *(Watt w, Second s)
-        { return new WattHour() { Value = w * (Hour)s }; }
+        public static Joule operator *(Watt w, Second s)
+        { return new Joule() { Value = w * s }; }
 
         public static implicit operator Watt(float f)
         { return new Watt() { Value = f }; }

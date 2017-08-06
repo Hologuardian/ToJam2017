@@ -8,7 +8,7 @@ namespace Assets.General.Src.SI
     public class Metre2 : SIUnit
     {
         public override string Name()
-        { return "metre²"; }
+        { return "squared metre"; }
 
         public override string Symbol()
         { return "m²"; }

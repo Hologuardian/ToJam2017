@@ -7,28 +7,107 @@ using UnityEngine;
 namespace Assets.General.Src.SI
 {
     #region Factors
+    /// <summary>
+    /// https://en.wikipedia.org/wiki/Orders_of_magnitude_(energy)
+    /// </summary>
     public enum Factor
     {
+        /// <summary>
+        /// The scale of a subatomic particle's mass
+        /// https://en.wikipedia.org/wiki/Yocto-
+        /// </summary>
         yocto = -24,
+        /// <summary>
+        /// The scale of electric charge in a single electron
+        /// As well zeptomoles measure hundreds of particles
+        /// https://en.wikipedia.org/wiki/Zepto-
+        /// </summary>
         zepto = -21,
+        /// <summary>
+        /// The weight of HIV-1 virus is measured as 1000ag
+        /// https://en.wikipedia.org/wiki/Atto-
+        /// </summary>
         atto = -18,
+        /// <summary>
+        /// The weight of HIV-1 virus is measures as 1fg
+        /// A proton has a diameter of about 1.6-1.7 femtometres
+        /// https://en.wikipedia.org/wiki/Femto-
+        /// </summary>
         femto = -15,
+        /// <summary>
+        /// The radius of atoms range from 25 picometres (hydrogen) to 260 picometers (caesium).
+        /// One picolight-year is about nine kilometres
+        /// https://en.wikipedia.org/wiki/Pico-
+        /// </summary>
         pico = -12,
+        /// <summary>
+        /// The scale of atoms, and computer circuitry
+        /// https://en.wikipedia.org/wiki/Nano-
+        /// </summary>
         nano = -9,
+        /// <summary>
+        /// The scale of bacteria and cells
+        /// https://en.wikipedia.org/wiki/Micro-
+        /// </summary>
         micro = -6,
+        /// <summary>
+        /// The scale of crystaline structures
+        /// https://en.wikipedia.org/wiki/Milli-
+        /// </summary>
         milli = -3,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Centi-
+        /// </summary>
         centi = -2,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Deci-
+        /// </summary>
         deci = -1,
+        /// <summary>
+        /// 
+        /// </summary>
         none = 0,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Deca-
+        /// </summary>
         deca = 1,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Hecto-
+        /// </summary>
         hecto = 2,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Kilo-
+        /// </summary>
         kilo = 3,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Mega-
+        /// </summary>
         mega = 6,
+        /// <summary>
+        /// Clock rate of a cpu 3GHz
+        /// Bandwidth of a network link 1Gbit/s
+        /// https://en.wikipedia.org/wiki/Giga-
+        /// </summary>
         giga = 9,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Tera-
+        /// </summary>
         tera = 12,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Peta-
+        /// </summary>
         peta = 15,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Exa-
+        /// </summary>
         exa = 18,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Zetta-
+        /// </summary>
         zetta = 21,
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Yotta-
+        /// </summary>
         yotta = 24
     };
     #endregion

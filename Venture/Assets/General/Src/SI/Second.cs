@@ -14,7 +14,7 @@ namespace Assets.General.Src.SI
         { return "s"; }
 
         public static implicit operator Hour(Second s)
-        { return new Hour() { Value = s / 360.0f }; }
+        { return new Hour() { Value = s / 3600.0f }; }
 
         public static implicit operator Second(float f)
         { return new Second() { Value = f }; }
