@@ -15,7 +15,7 @@ namespace Assets.Station.Src.Modules
 
         public override void OverridableUpdate()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override void SaveState()

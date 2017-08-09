@@ -516,7 +516,7 @@ namespace Assets.Resources.Src
             products = new List<Resource>()
             {
             new Resource(Resource.Find(Consts.Titanium)).Mols(1000000),
-            new Resource(Resource.Find(Consts.Magnisum_Chloride)).Mols(2000000)
+            new Resource(Resource.Find(Consts.Magnesium_Chloride)).Mols(2000000)
             },
             time = 1,
             powerCost = 0.0f,

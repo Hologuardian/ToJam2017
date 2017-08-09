@@ -11,6 +11,6 @@ namespace Assets.Station.Src
         public Module module;
         public Hardpoint connection;
 
-        public VolatileHardpoint threaded;
+        public VolatileHardpoint volatileHardpoint;
     }
 }

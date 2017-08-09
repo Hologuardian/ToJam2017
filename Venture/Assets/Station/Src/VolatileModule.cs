@@ -42,7 +42,7 @@ namespace Assets.Station.Src
             pressurisationDesired = self.pressurisationDesired;
             occupants = self.occupants;
             occupantsMax = self.occupantsMax;
-            // TODO Inventory SaveState()
+            // TODO IInventory SaveState()
             // if (self.pressurisation > 0) { self.pressurisationGasses.SaveState(); }
             // self.Inventory.SaveState();
             // self.CostOfOperation.SaveState();
@@ -103,6 +103,14 @@ namespace Assets.Station.Src
         /// The percentage of incoming power that is kept in travel across this module.
         /// </summary>
         public float energyTransferRate { get; protected set; }
+        /// <summary>
+        /// The temperature in degrees kelvin of this module.
+        /// </summary>
+        public Kelvin temperature;
+        /// <summary>
+        /// The maximum temperature this module can maintain before suffering structural damage.
+        /// </summary>
+        public Kelvin temperatureMax;
         /// <summary>
         /// Structural Integrity is the measure of damage this module has received.
         /// </summary>
@@ -174,13 +182,10 @@ namespace Assets.Station.Src
             foreach (Hardpoint hardpoint in unityObject.hardpoints)
             {
                 // Take all the requests from the hardpoint
-                for (int i = 0; i < hardpoint.threaded.RequestCount; i++)
+                for (int i = 0; i < hardpoint.volatileHardpoint.RequestCount; i++)
                 {
-                    hardpoint.threaded.Pop().Do(this);
+                    hardpoint.volatileHardpoint.Pop().Do(this);
                 }
-
-                // Clear the hardpoints requests
-                hardpoint.threaded.Clear();
             }
 
             // Process all the requests
@@ -189,20 +194,37 @@ namespace Assets.Station.Src
                 Pop().Do(this);
             }
 
+            // Pressurisation
+            // IDEAL GAS LAW = PV=nRT
+            // Where:
+            // P = pressure in atm.
+            // n = moles of gas
+            // R = ideal gas constant (0.08206)
+            // T = temperature in kelvin
+            // V = volume in litres
+            // Pressurisation is the sum of all the pressurisation forces of each gas, at the same temperature, and in the same volume, added together.
+            // Which can be further simplified to say that pressurisation is equal to the sum of the moles of gas present.
+            Mole molesOfGas = 0;
+            foreach (ResourceStack gas in pressurisationGasses.Resources())
+            {
+                molesOfGas += gas.type.MolarMass * gas.volume;
+            }
+            pressurisation = (molesOfGas * 0.08206f * temperature) / Volume;
+
             // MODULE ---------------------------------------------------------------------------------
             OverridableUpdate();
 
             // SUBMODULES -----------------------------------------------------------------------------
             foreach (Submodule sub in unityObject.submodules)
             {
-                // TODO Submodule Update
+                sub.volatileSubmodule.Update();
             }
 
             // This establishes the number of hardpoints requiring power output.
             float hardpointsNeedingPower = 0;
             foreach(Hardpoint hardpoint in unityObject.hardpoints)
             {
-                if (hardpoint.connection.module.threaded.energyProduction < energyProduction)
+                if (hardpoint.connection.module.volatileObject.energyProduction < energyProduction)
                     hardpointsNeedingPower++;
             }
 
@@ -216,13 +238,13 @@ namespace Assets.Station.Src
                     // Each hardpoint connection queues UpdateModuleRequests on the other modules hardpoint
                     UpdateModuleRequest newRequest = new UpdateModuleRequest();
                     newRequest.source = this;
-                    newRequest.sourceHardpoint = hardpoint.threaded;
+                    newRequest.sourceHardpoint = hardpoint.volatileHardpoint;
 
                     // Calculate the output through each hardpoint
                     // Electricity
                     // If the connected module has lower energy production than this one then send power
                     // Using the previously calculated hardpointsNeedingPower we can ensure that all the hardpoints in need get some
-                    if (hardpoint.connection.module.threaded.energyProduction < energyProduction)
+                    if (hardpoint.connection.module.volatileObject.energyProduction < energyProduction)
                         newRequest.energyIn = Mathf.Max((energyProduction / hardpointsNeedingPower) * energyTransferRate, 0);
 
                     // Integrity
@@ -231,48 +253,39 @@ namespace Assets.Station.Src
                     //    newRequest.structuralIntegrityIn = Mathf.Max(SOME_VARIABLE_FOR_REPAIR_FIELD_STRENTH * structuralIntegrity, SOME_VARIABLE_FOR_MAXIMUM_REPAIR_STRENGTH);
 
                     // Pressurisation
-                    // IDEAL GAS LAW = PV=nRT
-                    // Where:
-                    // P = pressure in atm.
-                    // n = moles of gas
-                    // R = ideal gas constant (0.08206)
-                    // T = temperature in kelvin
-                    // V = volume in litres
-
-                    // Modified Ideal Gas Law to solve for Pressure in Atm
-                    // P = nRT/V
-                    // If this module has a pressurisation greater than or equal to its desired pressurisation
-                    // If connected module has a pressurisation less than its desired pressurisation
-                    // Send some gas
-
-                    // Okay so this is actually a 2 fold problem.
-                    // Mark has pressurised the gasses to essentially random hundred to thousand bar pressurisations
-                    // Which means I need to determine the volume of gas after depressurisation before I can use it
-                    // Which is done like so:
-                    // V = nRT/P
-                    // Refer to the above pressurisation equation for variables
-
-                    // This needs to have Mark's resources using the new SI unit system first though, that way I can just have the conversions occur automatically.
+                    // If this module has the resources necessary to increase the pressurisation of the connected module, it should send some, either from its pressurisationGasses inventory (first)
+                    // Or from its inventory proper (second).
+                    if (hardpoint.connection.module.volatileObject.pressurisation < hardpoint.connection.module.volatileObject.pressurisationDesired)
+                    {
+                        // If this module is more pressurised than it should be, take from the pressurisationGasses
+                        if (pressurisation > pressurisationDesired)
+                        {
+                            // Calculate how much volume we can take based on the pressure from the pressurisationGasses inventory
+                        }
+                        // Take the rest if any more is necessary, from inventory, if it has any                    
+                    }
 
                     // Distribution
                     // Need to take into account the number of output hardpoints that want to output the same resourcestacks, as they need to split the current amount between them, if between them they would take more than there is
-                    if ((hardpoint.threaded.direction & VolatileHardpoint.Direction.Output) != VolatileHardpoint.Direction.None)
+                    if ((hardpoint.volatileHardpoint.direction & VolatileHardpoint.Direction.Output) != VolatileHardpoint.Direction.None)
                     {
                         // Get all the desired resources by filtering the module inventory through the hardpoint inventory, returning only those that both inventories have in common
-                        ResourceStack[] desiredResources = hardpoint.threaded.FilterInventory(Inventory);
+                        ResourceStack[] desiredResources = hardpoint.volatileHardpoint.FilterInventory(Inventory);
                         // A temporary array of values indicating the total number of hardpoints desiring the resource in desiredResources at the same index
                         int[] desiredHardpoints = new int[desiredResources.Length];
                         
+                        // This will fill desiredHardpoints with the number of hardpoints desiring each resource in desiredResources, so as to evenly distribute between all hardpoints
+                        // As is the case whenever the total amount desired by hardpoints exceeds the amount remaining in this module.
                         // Iterate across the hardpoints
                         foreach(Hardpoint other in unityObject.hardpoints)
                         {
-                            if ((other.threaded.direction & VolatileHardpoint.Direction.Output) != VolatileHardpoint.Direction.None)
+                            if ((other.volatileHardpoint.direction & VolatileHardpoint.Direction.Output) != VolatileHardpoint.Direction.None)
                             {
                                 // Iterate across the desiredResources
                                 for (int i = 0; i < desiredResources.Length; i++)
                                 {
                                     // If the hardpoint wants the desiredResource increment the index of desiredHardpoints matching the index of desiredResource
-                                    if (other.threaded.Filter.GetResource(desiredResources[i].type).volume == 0)
+                                    if (other.volatileHardpoint.Filter.GetResource(desiredResources[i].type).volume == 0)
                                     {
                                         desiredHardpoints[i]++;
                                     }
@@ -281,7 +294,7 @@ namespace Assets.Station.Src
                         }
 
                         // The reason for this section of logic is to ensure that no one resource stack desired is taking more from this module than it has
-                        // And than the module the resources are going to can take (TODO)
+                        // And than the module the resources are going to can take
                         float desiredVolume = 0;
 
                         foreach (ResourceStack stack in desiredResources)
@@ -305,26 +318,27 @@ namespace Assets.Station.Src
                             }
                             
                             // Module Distribution based on the remaining space in the module this resource is being sent to
-                            if (desiredVolume > hardpoint.connection.module.threaded.Volume)
+                            if (desiredVolume > hardpoint.connection.module.volatileObject.Volume)
                             {
                                 // The logic here is that instead of attempting to send the desired amount of everything, we instead only send the percentage of that stuff as a total of all the stuff being sent
                                 // And send only that percentage of the volume remaining in the module, that way whatever amounts we wanted to distribute, we maintain the percentage volume, but fill the module, instead of having whatever filled it first, fill it first.
                                 // The only issue with this system, is that ultimately it doesn't take into account other pending, or will be pending by module update, requests, and they will therefore still have a first come first serve bases between several modules inputing on one module
-                                desiredResources[i].volume = (desiredResources[i].volume / desiredVolume) * hardpoint.connection.module.threaded.Volume;
+                                desiredResources[i].volume = (desiredResources[i].volume / desiredVolume) * hardpoint.connection.module.volatileObject.Volume;
                             }
                             newRequest.resourcesIn.Add(desiredResources[i]);
                         }
                     }
 
                     // Queue hardpoint update, with the necessary inputs
-                    hardpoint.connection.threaded.Request(newRequest);
+                    hardpoint.connection.volatileHardpoint.Request(newRequest);
 
-                    // If the connected hardpoints module has a lower update sequence than this one,
-                    if (hardpoint.connection.module.threaded.updateSequence < updateSequence)
+                    // If the connected hardpoints module has a lower update sequence than this one
+                    // Queue an update of the module (this is the basis of the whole sequenced update system)
+                    if (hardpoint.connection.module.volatileObject.updateSequence < updateSequence)
                     {
-                        hardpoint.connection.module.threaded.updateSequence = updateSequence;
+                        hardpoint.connection.module.volatileObject.updateSequence = updateSequence;
                         // TODO Fix string literal
-                        TaskHelper.TaskManager.QueueTask(new TaskNode(hardpoint.connection.module.threaded.Update, "moduleUpdate"), (float)TaskPriority.Medium);
+                        TaskHelper.TaskManager.QueueTask(new TaskNode(hardpoint.connection.module.volatileObject.Update, "moduleUpdate"), (float)TaskPriority.Medium);
                     }
                 }
             }

@@ -96,7 +96,7 @@ public static class Consts
     public const string Sulfur_Dioxide = "Sulfur Dioxide";
     public const string Iron3_Oxide = "Iron(III) Oxide";
     public const string Titanium_Tetrachloride = "Titanium Tetrachloride";
-    public const string Magnisum_Chloride = "Magnisum Chloride";
+    public const string Magnesium_Chloride = "Magnesium Chloride";
     public const string Molybdate = "Molybdate";
     public const string Gallium_Arsenide = "Gallium Arsenide";
     public const string Silicon_Germanium = "Silicon-Germanium";

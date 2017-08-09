@@ -305,7 +305,7 @@ namespace Assets.Resources.Src
             MolarMass = 189.68f,
             Density = 1730.0f },
         new Resource() {
-            Name = Consts.Magnisum_Chloride,
+            Name = Consts.Magnesium_Chloride,
             Value = 0.0f,
             MolarMass = 35.453f,
             Density = 2320.0f },

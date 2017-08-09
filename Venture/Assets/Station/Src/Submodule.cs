@@ -9,5 +9,6 @@ namespace Assets.Station.Src
     public class Submodule : MonoBehaviour
     {
         public Module module;
+        public VolatileSubmodule volatileSubmodule;
     }
 }

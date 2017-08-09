@@ -31,7 +31,7 @@ namespace Assets.Station.Src.Modules
             if (clockCurrent > clockSpeedInv * Globals.SimulationSpeed)
             {
                 clockCurrent -= clockSpeedInv * Globals.SimulationSpeed;
-                TaskHelper.TaskManager.QueueTask(new TaskNode(self.threaded.Update, "moduleUpdate"), (float)TaskPriority.Medium);
+                TaskHelper.TaskManager.QueueTask(new TaskNode(self.volatileObject.Update, "moduleUpdate"), (float)TaskPriority.Medium);
             }
         }
     }
