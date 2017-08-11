@@ -130,6 +130,9 @@
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
     <Compile Include="Assets\Engine\Src\TaskNode.cs" />
     <Compile Include="Assets\Engine\Src\VolatileObject.cs" />
+    <Compile Include="Assets\General\Src\IConnections.cs" />
+    <Compile Include="Assets\General\Src\IEnergySupply.cs" />
+    <Compile Include="Assets\General\Src\IPressurisable.cs" />
     <Compile Include="Assets\General\Src\SI\Atmosphere.cs" />
     <Compile Include="Assets\General\Src\SI\Bar.cs" />
     <Compile Include="Assets\General\Src\SI\Celsius.cs" />
@@ -164,6 +167,8 @@
     <Compile Include="Assets\Station\Src\Requests\UpdateModuleRequest.cs" />
     <Compile Include="Assets\Station\Src\Station.cs" />
     <Compile Include="Assets\Station\Src\Submodule.cs" />
+    <Compile Include="Assets\Station\Src\UpdateDecorator.cs" />
+    <Compile Include="Assets\Station\Src\Updates\PressurisationUpdate.cs" />
     <Compile Include="Assets\Station\Src\VolatileHardpoint.cs" />
     <Compile Include="Assets\Station\Src\VolatileModule.cs" />
     <Compile Include="Assets\Station\Src\VolatileRingmodule.cs" />

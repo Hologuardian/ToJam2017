@@ -194,23 +194,6 @@ namespace Assets.Station.Src
                 Pop().Do(this);
             }
 
-            // Pressurisation
-            // IDEAL GAS LAW = PV=nRT
-            // Where:
-            // P = pressure in atm.
-            // n = moles of gas
-            // R = ideal gas constant (0.08206)
-            // T = temperature in kelvin
-            // V = volume in litres
-            // Pressurisation is the sum of all the pressurisation forces of each gas, at the same temperature, and in the same volume, added together.
-            // Which can be further simplified to say that pressurisation is equal to the sum of the moles of gas present.
-            Mole molesOfGas = 0;
-            foreach (ResourceStack gas in pressurisationGasses.Resources())
-            {
-                molesOfGas += gas.type.MolarMass * gas.volume;
-            }
-            pressurisation = (molesOfGas * 0.08206f * temperature) / Volume;
-
             // MODULE ---------------------------------------------------------------------------------
             OverridableUpdate();
 
@@ -348,7 +331,7 @@ namespace Assets.Station.Src
         }
 
         /// <summary>
-        /// This method is the overridable method used to give OverridableUpdate child classes logic
+        /// This method is the overridable method used to give child classes logic
         /// </summary>
         public abstract void OverridableUpdate();
 
