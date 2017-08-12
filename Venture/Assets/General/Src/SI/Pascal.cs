@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Pascal : SIUnit
     {
         public override string Name()
-        { return "pascal"; }
+        { return Literals.SI.Name.Pascal; }
 
         public override string Symbol()
-        { return "Pa"; }
+        { return Literals.SI.Symbol.Pascal; }
 
         public static implicit operator Pascal(float f)
         { return new Pascal() { Value = f }; }

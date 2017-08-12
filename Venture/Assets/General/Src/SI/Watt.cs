@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Watt : SIUnit
     {
         public override string Name()
-        { return "watt"; }
+        { return Literals.SI.Name.Watt; }
 
         public override string Symbol()
-        { return "W"; }
+        { return Literals.SI.Symbol.Watt; }
 
         public static WattHour operator *(Watt w, Hour h)
         { return new WattHour() { Value = w * h }; }

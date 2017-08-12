@@ -192,6 +192,13 @@ public static class Consts
     }
 
     ///////////////////////////////////////////////////////////////////////////////
+    //      MATH
+    public static class Math
+    {
+        public const float IdealGasConstant = 0.08206f;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////
     //      STATION
     public static class Station
     {

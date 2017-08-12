@@ -21,6 +21,7 @@ namespace Assets.Station.Src.Updates
         ResourceStack[] resources;
         Metre3 volume;
         Mole molesOfGas;
+        Mole molesofGasDesired;
 
         public PressurisationUpdate(VolatileObject obj) : base(obj)
         {
@@ -39,18 +40,20 @@ namespace Assets.Station.Src.Updates
             temperature = pressurisable.Temperature();
             inventory = pressurisable.Inventory();
             volume = inventory.MaxVolume();
+            molesOfGas = pressurisable.Moles();
+            molesofGasDesired = pressurisable.MolesDesired();
         }
 
-        public Mole Moles()
-        {
-            resources = inventory.Resources();
-            molesOfGas = 0;
-            foreach (ResourceStack gas in resources)
-            {
-                molesOfGas += gas.type.MolarMass * gas.volume;
-            }
-            return molesOfGas;
-        }
+        //public Mole Moles()
+        //{
+        //    resources = inventory.Resources();
+        //    molesOfGas = 0;
+        //    foreach (ResourceStack gas in resources)
+        //    {
+        //        molesOfGas += gas.type.MolarMass * gas.volume;
+        //    }
+        //    return molesOfGas;
+        //}
 
         public Pascal Pressure()
         {
@@ -63,7 +66,7 @@ namespace Assets.Station.Src.Updates
             // V = volume in litres
             // Pressurisation is the sum of all the pressurisation forces of each gas, at the same temperature, and in the same volume, added together.
             // Which can be further simplified to say that the total pressure can be calculated by using the sum of all gases moles in the Ideal Gas Law.
-            return (Moles() * 0.08206f * temperature) / volume;
+            return (pressurisable.Moles() * 0.08206f * temperature) / volume;
         }
 
         public override void Update()
@@ -90,43 +93,59 @@ namespace Assets.Station.Src.Updates
                 volumes[i] = (percentMoles[i] * desiredMoles) / resources[i].type.MolarMass;
                 resourceTypes[i] = resources[i].type;
             }
-            // And determine possible sources of the desired atmosphere
-            // With a primary blind search for IPressurisable
-            IInventory[] inventories = new IInventory[connections.Length];
-            int lengthActual = 0;
-            foreach (IConnections connection in connections)
+            // RESOURCE ACQUISITION
+            // If pressure is less than the desired pressure, we need to perform logic to determine sources of more atmosphere
+            if (pressure < desiredPressure)
             {
-                IPressurisable pressurisableConnected = connection.Self() as IPressurisable;
-                if (pressurisableConnected != null)
+                IInventory[] inventories = new IInventory[connections.Length];
+                int lengthActual = 0;
+
+                // Primary blind search for IPressurisable
+                for (int i = 0; i < connections.Length; i++)
                 {
-                    if (pressurisableConnected.Pressure() > pressurisableConnected.DesiredPressure() && pressure < desiredPressure)
+                    IPressurisable pressurisableConnected = connections[i].Self() as IPressurisable;
+                    if (pressurisableConnected != null)
                     {
-                        float[] volumesPerConnection = new float[volumes.Length];
-
-                        for (int i = 0; i < volumesPerConnection.Length; i++)
+                        // Determine possible sources of the desired atmosphere
+                        if (pressurisableConnected.Pressure() > pressurisableConnected.DesiredPressure())
                         {
-                            volumesPerConnection[i] = Mathf.Max(volumes[i] / connections.Length);// TODO Pressurisation need some logic for getting amount of volume I can take maximum per resource from this pressure, pressurisableConnected.().GetResource(resourceTypes[i]).volume);
-                        }
+                            float[] volumesPerConnection = new float[volumes.Length];
 
-                        // Take the resources needed
-                        inventory.AddResources(pressurisableConnected.Inventory().RemoveResources(resourceTypes, volumesPerConnection));
-                        pressure = Pressure();
+                            for (int j = 0; j < volumesPerConnection.Length; j++)
+                            {
+                                // Calculate how many moles excess the connected object has (divided by number of connections, to guarantee sharing)
+                                Mole molesExcess = (pressurisableConnected.Moles() - pressurisableConnected.MolesDesired()) / (pressurisableConnected.Self() as IConnections).Connections().Length;
+                                // Calculate volume to take of specific resource
+                                Metre3 volumeToTake = (molesExcess * percentMoles[j]) / resources[j].type.MolarMass;
+                                // Update volumesPerConnection to reflect the newly calculated volume
+                                // TODO Pressurisation only allowing certain amounts to transfer based on volume of hardpoint's pressurisable space
+                                volumesPerConnection[j] = Mathf.Min(volumes[j] / this.connections.Length, volumeToTake);
+                            }
+
+                            // TODO Pressurisation Resource Acquisition (Just Take? Or Keep to Requests)
+                            //inventory.AddResources(pressurisableConnected.Inventory().RemoveResources(resourceTypes, volumesPerConnection));
+                            //pressure = Pressure();
+
+                            // If IInventories as well as all other interfaces used in updates are thread safe, 
+                        }
+                    }
+
+                    IInventory inventoryConnected = connections[i].Self() as IInventory;
+                    if (inventoryConnected != null)
+                    {
+                        inventories[lengthActual] = inventoryConnected;
+                        lengthActual++;
                     }
                 }
-                IInventory inventoryConnected = connection.Self() as IInventory;
-                if (inventoryConnected != null)
-                {
-                    inventories[lengthActual] = inventoryConnected;
-                    lengthActual++;
-                }
-            }
-            // If the pressure we will have when we get what we have requested is still too low after only taking from adjacent overcapacity modules
-            if (pressureToBe < desiredPressure)
-            {
-                // The search moves into adjacent inventories, in an array we made at the same time we guessed our way through the entire list
-                for (int i = 0; i < lengthActual; i++)
-                {
 
+                // If the pressure we will have when we get what we have requested is still too low after only taking from adjacent overcapacity modules
+                if (pressureToBe < desiredPressure)
+                {
+                    // The search moves into adjacent inventories, in an array we made at the same time we guessed our way through the entire list
+                    for (int i = 0; i < lengthActual; i++)
+                    {
+
+                    }
                 }
             }
         }

@@ -12,10 +12,10 @@ namespace Assets.General.Src.SI
     public class WattHour : SIUnit
     {
         public override string Name()
-        { return "watthour"; }
+        { return Literals.SI.Name.WattHour; }
 
         public override string Symbol()
-        { return "Wh"; }
+        { return Literals.SI.Symbol.WattHour; }
 
         public static WattHour operator +(WattHour a, WattHour b)
         { return new WattHour() { Value = a + b }; }

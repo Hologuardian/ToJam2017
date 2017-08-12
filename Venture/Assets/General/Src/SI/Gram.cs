@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Gram : SIUnit
     {
         public override string Name()
-        { return "gram"; }
+        { return Literals.SI.Name.Gram; }
 
         public override string Symbol()
-        { return "g"; }
+        { return Literals.SI.Symbol.Gram; }
 
         public static Gram operator +(Gram a, Gram b)
         { return new Gram() { Value = a + b }; }

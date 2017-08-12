@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Kilogram : SIUnit
     {
         public override string Name()
-        { return "kilogram"; }
+        { return Literals.SI.Name.Kilogram; }
 
         public override string Symbol()
-        { return "kg"; }
+        { return Literals.SI.Symbol.Kilogram; }
 
         public static implicit operator Kilogram(float f)
         { return new Kilogram() { Value = f }; }

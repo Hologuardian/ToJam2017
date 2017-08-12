@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Metre3 : SIUnit
     {
         public override string Name()
-        { return "cubed metre"; }
+        { return Literals.SI.Name.Metre3; }
 
         public override string Symbol()
-        { return "m³"; }
+        { return Literals.SI.Symbol.Metre3; }
 
         public static implicit operator Metre3(float f)
         { return new Metre3() { Value = f }; }

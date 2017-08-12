@@ -8,12 +8,15 @@ namespace Assets.General.Src.SI
     public class Mole : SIUnit
     {
         public override string Name()
-        { return "mole"; }
+        { return Literals.SI.Name.Mole; }
 
         public override string Symbol()
-        { return "mol"; }
+        { return Literals.SI.Symbol.Mole; }
 
         public static implicit operator Mole(float f)
         { return new Mole() { Value = f }; }
+
+        public static KilogramMole operator /(Kilogram kg, Mole mol)
+        { return new KilogramMole() { Value = kg / mol }; }
     }
 }

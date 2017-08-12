@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Celsius : SIUnit
     {
         public override string Name()
-        { return "celsius"; }
+        { return Literals.SI.Name.Celsius; }
 
         public override string Symbol()
-        { return "°C"; }
+        { return Literals.SI.Symbol.Celsius; }
 
         public static implicit operator Celsius(float f)
         { return new Celsius() { Value = f }; }

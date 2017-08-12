@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Engine.Src;
 
-namespace Assets.General.Src
+namespace Assets.Systems.Src.Connections
 {
     /// <summary>
     /// IConnections is the interface responsible for defining the behaviour of all connectable objects, such that they can form connections between each other in a map like data structure.
@@ -24,7 +24,7 @@ namespace Assets.General.Src
         /// <summary>
         /// Adds an IConnection to this IConnection as a connection.
         /// </summary>
-        /// <param name="connection">The IConnection to add as a connectoon.</param>
+        /// <param name="connection">The IConnection to add as a connection.</param>
         void Add(IConnections connection);
         /// <summary>
         /// Removes an IConnection from this IConnection.

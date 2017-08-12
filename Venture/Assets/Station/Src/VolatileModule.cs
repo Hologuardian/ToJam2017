@@ -320,8 +320,7 @@ namespace Assets.Station.Src
                     if (hardpoint.connection.module.volatileObject.updateSequence < updateSequence)
                     {
                         hardpoint.connection.module.volatileObject.updateSequence = updateSequence;
-                        // TODO Fix string literal
-                        TaskHelper.TaskManager.QueueTask(new TaskNode(hardpoint.connection.module.volatileObject.Update, "moduleUpdate"), (float)TaskPriority.Medium);
+                        TaskHelper.TaskManager.QueueTask(new TaskNode(hardpoint.connection.module.volatileObject.Update, Literals.Tasks.UpdateModule), (float)TaskPriority.Medium);
                     }
                 }
             }

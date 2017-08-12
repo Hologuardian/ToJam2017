@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Second : SIUnit
     {
         public override string Name()
-        { return "second"; }
+        { return Literals.SI.Name.Second; }
 
         public override string Symbol()
-        { return "s"; }
+        { return Literals.SI.Symbol.Second; }
 
         public static implicit operator Hour(Second s)
         { return new Hour() { Value = s / 3600.0f }; }

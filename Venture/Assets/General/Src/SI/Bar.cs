@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Bar : SIUnit
     {
         public override string Name()
-        { return "bar"; }
+        { return Literals.SI.Name.Bar; }
 
         public override string Symbol()
-        { return "bar"; }
+        { return Literals.SI.Symbol.Bar; }
 
         public static implicit operator Bar(float f)
         { return new Bar() { Value = f }; }

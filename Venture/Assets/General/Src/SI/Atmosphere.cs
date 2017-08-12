@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Atmosphere : SIUnit
     {
         public override string Name()
-        { return "atmosphere"; }
+        { return Literals.SI.Name.Atmosphere; }
 
         public override string Symbol()
-        { return "atm"; }
+        { return Literals.SI.Symbol.Atmosphere; }
 
         public static implicit operator Atmosphere(float f)
         { return new Atmosphere() { Value = f }; }

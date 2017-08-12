@@ -8,10 +8,10 @@ namespace Assets.General.Src.SI
     public class Joule : SIUnit
     {
         public override string Name()
-        { return "joule"; }
+        { return Literals.SI.Name.Joule; }
 
         public override string Symbol()
-        { return "J"; }
+        { return Literals.SI.Symbol.Joule; }
 
         public static implicit operator Joule(float f)
         { return new Joule() { Value = f }; }
