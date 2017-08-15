@@ -13,8 +13,6 @@ namespace Assets.Systems.Src
     {
         private string name = "";
         public string Name { get { return name; } set { name = value; Dirty = true; } }
-        private bool dirty = false;
-        public bool Dirty { get { return dirty; } set { dirty = value; } }
 
         public State(string name)
         {

@@ -13,46 +13,46 @@ namespace Assets.General.Src.SI
     public enum Factor
     {
         /// <summary>
-        /// The scale of a subatomic particle's mass
-        /// https://en.wikipedia.org/wiki/Yocto-
+        /// The scale of a subatomic particle's mass.
+        /// <para>https://en.wikipedia.org/wiki/Yocto-</para>
         /// </summary>
         yocto = -24,
         /// <summary>
-        /// The scale of electric charge in a single electron
-        /// As well zeptomoles measure hundreds of particles
-        /// https://en.wikipedia.org/wiki/Zepto-
+        /// The scale of electric charge in a single electron.
+        /// <para>As well zeptomoles measure hundreds of particles.</para>
+        /// <para>https://en.wikipedia.org/wiki/Zepto-</para>
         /// </summary>
         zepto = -21,
         /// <summary>
-        /// The weight of HIV-1 virus is measured as 1000ag
-        /// https://en.wikipedia.org/wiki/Atto-
+        /// The weight of HIV-1 virus is measured as 1000ag.
+        /// <para>https://en.wikipedia.org/wiki/Atto-</para>
         /// </summary>
         atto = -18,
         /// <summary>
-        /// The weight of HIV-1 virus is measures as 1fg
-        /// A proton has a diameter of about 1.6-1.7 femtometres
-        /// https://en.wikipedia.org/wiki/Femto-
+        /// The weight of HIV-1 virus is measures as 1fg.
+        /// <para>A proton has a diameter of about 1.6-1.7 femtometres.</para>
+        /// <para>https://en.wikipedia.org/wiki/Femto-</para>
         /// </summary>
         femto = -15,
         /// <summary>
         /// The radius of atoms range from 25 picometres (hydrogen) to 260 picometers (caesium).
-        /// One picolight-year is about nine kilometres
-        /// https://en.wikipedia.org/wiki/Pico-
+        /// <para>One picolight-year is about nine kilometres.</para>
+        /// <para>https://en.wikipedia.org/wiki/Pico-</para>
         /// </summary>
         pico = -12,
         /// <summary>
-        /// The scale of atoms, and computer circuitry
-        /// https://en.wikipedia.org/wiki/Nano-
+        /// The scale of atoms, and computer circuitry.
+        /// <para>https://en.wikipedia.org/wiki/Nano-</para>
         /// </summary>
         nano = -9,
         /// <summary>
-        /// The scale of bacteria and cells
-        /// https://en.wikipedia.org/wiki/Micro-
+        /// The scale of bacteria and cells.
+        /// <para>https://en.wikipedia.org/wiki/Micro-</para>
         /// </summary>
         micro = -6,
         /// <summary>
-        /// The scale of crystaline structures
-        /// https://en.wikipedia.org/wiki/Milli-
+        /// The scale of crystaline structures.
+        /// <para>https://en.wikipedia.org/wiki/Milli-</para>
         /// </summary>
         milli = -3,
         /// <summary>
@@ -84,9 +84,9 @@ namespace Assets.General.Src.SI
         /// </summary>
         mega = 6,
         /// <summary>
-        /// Clock rate of a cpu 3GHz
-        /// Bandwidth of a network link 1Gbit/s
-        /// https://en.wikipedia.org/wiki/Giga-
+        /// Clock rate of a cpu 3GHz.
+        /// <para>Bandwidth of a network link 1Gbit/s.</para>
+        /// <para>https://en.wikipedia.org/wiki/Giga-</para>
         /// </summary>
         giga = 9,
         /// <summary>

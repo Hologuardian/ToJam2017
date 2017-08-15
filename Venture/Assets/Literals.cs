@@ -35,7 +35,7 @@ namespace Assets
                 public static string Metre2 = "squared metre";
                 public static string Metre3 = "cubed metre";
                 public static string Mole = "mole";
-                public static string KilogramMole = "molar mass";
+                public static string GramMole = "molar mass";
                 public static string Pascal = "pascal";
                 public static string Second = "second";
                 public static string Watt = "watt";
@@ -45,26 +45,55 @@ namespace Assets
 
             public class Symbol
             {
+                public static string Kelvin = "K";
+                public static string Gram = "g";
+                public static string Second = "s";
+                public static string Joule = "J";
+                public static string Mole = "mol";
+                public static string Metre = "m";
+
                 public static string Atmosphere = "atm";
                 public static string Bar = "bar";
+
                 public static string Celsius = "°C";
-                public static string Gram = "g";
+                
                 public static string Hour = "h";
-                public static string Joule = "J";
-                public static string Kelvin = "K";
+                
                 public static string Kilogram = "Kg";
                 public static string KilogramMetre2 = Kilogram + "/" + Metre2;
                 public static string KilogramMetre3 = Kilogram + "/" + Metre3;
-                public static string Metre = "m";
+                
                 public static string Metre2 = "m²";
                 public static string Metre3 = "m³";
-                public static string KilogramMole = "M";
-                public static string Mole = "mol";
+                                
                 public static string Pascal = "Pa";
-                public static string Second = "s";
+
+                public static string GramMole = "M";
+
                 public static string Watt = "W";
                 public static string WattHour = Watt + Hour;
                 public static string WattSecond = Watt + Second;
+
+                public static string Yocto = "y";
+                public static string Zepto = "z";
+                public static string Atto = "a";
+                public static string Femto = "f";
+                public static string Pico = "p";
+                public static string Nano = "n";
+                public static string Micro = "μ";
+                public static string Milli = "m";
+                public static string Centi = "c";
+                public static string Deci = "d";
+                public static string Deca = "da";
+                public static string Hecto = "h";
+                public static string Kilo = "k";
+                public static string Mega = "M";
+                public static string Giga = "G";
+                public static string Tera = "T";
+                public static string Peta = "P";
+                public static string Exa = "E";
+                public static string Zetta = "Z";
+                public static string Yotta = "Y";
             }
         }
     }
