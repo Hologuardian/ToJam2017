@@ -567,7 +567,7 @@ namespace Assets.Resources.Src
             this.value = 0;
             this.MolarMass = 0.0f;
         }
-        public Resource(string Name, Gram AtomicMass, KilogramMetre3 Density, float Value, GramMole MolarMass)
+        public Resource(string Name, Gram AtomicMass, KilogramPerMetre3 Density, float Value, GramPerMole MolarMass)
         {
             this.Name = Name;
             this.Density = Density;
@@ -609,7 +609,7 @@ namespace Assets.Resources.Src
         /// <summary>
         /// How dense this item is
         /// </summary>
-        public KilogramMetre3 Density
+        public KilogramPerMetre3 Density
         {
             get { return density; }
             set { density = value; }
@@ -617,7 +617,7 @@ namespace Assets.Resources.Src
         /// <summary>
         /// How much each m3 of this item is worth
         /// </summary>
-        public float Value
+        public Credit Value
         {
             get { return value; }
             set { this.value = value; }
@@ -625,7 +625,7 @@ namespace Assets.Resources.Src
         /// <summary>
         /// How much one Mol of this item weighs, used for chemistry equations
         /// </summary>
-        public GramMole MolarMass
+        public GramPerMole MolarMass
         {
             get { return molarMass; }
             set { this.molarMass = value; }
@@ -638,21 +638,20 @@ namespace Assets.Resources.Src
             get { return atomicMass; }
             set { this.atomicMass = value; }
         }
-        //TODO Change currency to SI units
         /// <summary>
         /// How much this stack is worth
         /// </summary>
-        public float GrossValue()
+        public Credit GrossValue()
         {
             throw new NotImplementedException();
         }
         
         [SerializeField]
-        private KilogramMetre3 density;
+        private KilogramPerMetre3 density;
         [SerializeField]
         private float value;
         [SerializeField]
-        private GramMole molarMass;
+        private GramPerMole molarMass;
         [SerializeField]
         private Gram atomicMass;
     }

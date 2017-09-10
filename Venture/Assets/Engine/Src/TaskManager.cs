@@ -90,6 +90,7 @@ namespace Assets.Engine.Src
             for (int i = 0; i < ThreadLimit; i++)
             {
                 Thread t = new Thread(Execute);
+                t.Start();
                 threadPool.Add(t);
             }
             StartCoroutine(ExecuteUnityTasks());
