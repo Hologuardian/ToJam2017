@@ -7,9 +7,6 @@ namespace Assets.Systems.Src
 {
     public class System
     {
-        public static Dictionary<Type, ISystem> Systems = new Dictionary<Type, ISystem>()
-        {
 
-        };
     }
 }

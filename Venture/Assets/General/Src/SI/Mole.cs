@@ -16,7 +16,7 @@ namespace Assets.General.Src.SI
         public static implicit operator Mole(float f)
         { return new Mole() { Value = f }; }
 
-        public static GramMole operator /(Kilogram kg, Mole mol)
-        { return new GramMole() { Value = kg / mol }; }
+        public static GramPerMole operator /(Kilogram kg, Mole mol)
+        { return new GramPerMole() { Value = kg / mol }; }
     }
 }

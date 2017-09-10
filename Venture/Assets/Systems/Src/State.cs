@@ -6,17 +6,17 @@ using System.Text;
 namespace Assets.Systems.Src
 {
     /// <summary>
-    /// State is the root of all state classes, and as such stores all common logic.
-    /// Like Dirty(), though child classes define what makes them dirty at their own discretion.
+    /// State is the root of all state classes
     /// </summary>
     public class State
     {
-        private string name = "";
-        public string Name { get { return name; } set { name = value; Dirty = true; } }
+        public string name = "";
+        public int update = 0;
 
-        public State(string name)
+        public State(string name, int update)
         {
             this.name = name;
+            this.update = update;
         }
     }
 }

@@ -116,6 +116,7 @@ namespace Assets.General.Src.SI
     {
         public abstract string Name();
         public abstract string Symbol();
+
         public float Value { get; set; }
 
         public virtual SIUnit[] Decompose()
@@ -230,7 +231,7 @@ namespace Assets.General.Src.SI
         }
         #endregion
 
-        public static implicit operator float(SIUnit unit)
+        public static explicit operator float(SIUnit unit)
         {
             return unit.Value;
         }

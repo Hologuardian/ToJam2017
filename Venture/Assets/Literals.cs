@@ -24,18 +24,20 @@ namespace Assets
                 public static string Atmosphere = "atmosphere";
                 public static string Bar = "bar";
                 public static string Celsius = "celsius";
+                public static string Credit = "credit";
                 public static string Gram = "gram";
+                public static string GramPerMole = "molar mass";
                 public static string Hour = "hour";
                 public static string Joule = "joule";
                 public static string Kelvin = "kelvin";
                 public static string Kilogram = "kilogram";
-                public static string KilogramMetre2 = Kilogram + " per " + Metre2;
-                public static string KilogramMetre3 = Kilogram + " per " + Metre3;
+                public static string KilogramMetre2 = Kilogram + " " + Metre2;
+                public static string KilogramPerMetre2 = Kilogram + " per " + Metre2;
+                public static string KilogramPerMetre3 = Kilogram + " per " + Metre3;
                 public static string Metre = "metre";
-                public static string Metre2 = "squared metre";
-                public static string Metre3 = "cubed metre";
+                public static string Metre2 = "metre squared";
+                public static string Metre3 = "metre cubed";
                 public static string Mole = "mole";
-                public static string GramMole = "molar mass";
                 public static string Pascal = "pascal";
                 public static string Second = "second";
                 public static string Watt = "watt";
@@ -51,24 +53,26 @@ namespace Assets
                 public static string Joule = "J";
                 public static string Mole = "mol";
                 public static string Metre = "m";
+                public static string Credit = "$";
 
                 public static string Atmosphere = "atm";
                 public static string Bar = "bar";
 
                 public static string Celsius = "°C";
-                
+
                 public static string Hour = "h";
-                
+
                 public static string Kilogram = "Kg";
-                public static string KilogramMetre2 = Kilogram + "/" + Metre2;
-                public static string KilogramMetre3 = Kilogram + "/" + Metre3;
-                
+                public static string KilogramMetre2 = Kilogram + Metre2;
+                public static string KilogramPerMetre2 = Kilogram + "/" + Metre2;
+                public static string KilogramPerMetre3 = Kilogram + "/" + Metre3;
+
                 public static string Metre2 = "m²";
                 public static string Metre3 = "m³";
-                                
+
                 public static string Pascal = "Pa";
 
-                public static string GramMole = "M";
+                public static string GramPerMole = "M";
 
                 public static string Watt = "W";
                 public static string WattHour = Watt + Hour;

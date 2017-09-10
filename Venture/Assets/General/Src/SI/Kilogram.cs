@@ -22,7 +22,7 @@ namespace Assets.General.Src.SI
         public static implicit operator Gram(Kilogram kg)
         { return new Gram() { Value = kg.Value * 1000.0f }; }
 
-        public static KilogramMetre3 operator /(Kilogram kg, Metre3 m)
-        { return new KilogramMetre3() { Value = kg / m }; }
+        public static KilogramPerMetre3 operator /(Kilogram kg, Metre3 m)
+        { return new KilogramPerMetre3() { Value = kg / m }; }
     }
 }

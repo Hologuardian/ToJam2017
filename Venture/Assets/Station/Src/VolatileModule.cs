@@ -8,6 +8,11 @@ using Assets.General.Src;
 using Assets.General.Src.SI;
 using Assets.Resources.Src;
 using Assets.Station.Src.Requests;
+using Assets.Systems.Src;
+using Assets.Systems.Src.Pressure;
+using Assets.Systems.Src.Atmosphere;
+using Assets.Systems.Src.Connection;
+using Assets.Systems.Src.Electricity;
 
 namespace Assets.Station.Src
 {
@@ -50,7 +55,7 @@ namespace Assets.Station.Src
         }
     }
 
-    public abstract class VolatileModule : VolatileObject, IMemento
+    public abstract class VolatileModule : VolatileObject, IMemento, ISubsystem<PressurisationState>, ISubsystem<AtmosphereState>, ISubsystem<ConnectionsState>
     {
         // Properties
         private List<VolatileModuleState> states = new List<VolatileModuleState>();

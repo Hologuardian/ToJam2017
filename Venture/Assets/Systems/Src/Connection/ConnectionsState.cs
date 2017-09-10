@@ -7,17 +7,6 @@ namespace Assets.Systems.Src.Connection
 {
     public class ConnectionsState
     {
-        private List<IConnections> connections = new List<IConnections>();
-        public List<IConnections> Connections
-        {
-            get
-            {
-                return connections;
-            }
-            set
-            {
-                connections = value;
-            }
-        }
+        public List<IConnections> connections = new List<IConnections>();
     }
 }

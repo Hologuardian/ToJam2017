@@ -14,10 +14,10 @@ namespace Assets.General.Src.SI
         { return Literals.SI.Symbol.Gram; }
 
         public static Gram operator +(Gram a, Gram b)
-        { return new Gram() { Value = a + b }; }
+        { return new Gram() { Value = (float)a + (float)b }; }
 
         public static Gram operator -(Gram a, Gram b)
-        { return new Gram() { Value = a - b }; }
+        { return new Gram() { Value = (float)a - (float)b }; }
 
         public static implicit operator Gram(float f)
         { return new Gram() { Value = f }; }
