@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -149,7 +151,6 @@
     <Compile Include="Assets\General\Src\SI\Bar.cs" />
     <Compile Include="Assets\General\Src\SI\Celsius.cs" />
     <Compile Include="Assets\General\Src\SI\Gram.cs" />
-    <Compile Include="Assets\General\Src\SI\GramMole.cs" />
     <Compile Include="Assets\General\Src\SI\Hour.cs" />
     <Compile Include="Assets\General\Src\SI\Joule.cs" />
     <Compile Include="Assets\General\Src\SI\Kelvin.cs" />
@@ -188,10 +189,8 @@
     <Compile Include="Assets\Station\Src\VolatileSubmodule.cs" />
     <Compile Include="Assets\Systems\Src\Atmosphere\AtmosphereState.cs" />
     <Compile Include="Assets\Systems\Src\Atmosphere\Atmospherics.cs" />
-    <Compile Include="Assets\Systems\Src\Atmosphere\IAtmospherics.cs" />
     <Compile Include="Assets\Systems\Src\Connection\Connections.cs" />
     <Compile Include="Assets\Systems\Src\Connection\ConnectionsState.cs" />
-    <Compile Include="Assets\Systems\Src\Connection\IConnections.cs" />
     <Compile Include="Assets\Systems\Src\Electricity\ElectricalGrid.cs" />
     <Compile Include="Assets\Systems\Src\Electricity\EnergyState.cs" />
     <Compile Include="Assets\Systems\Src\Pressure\Pressurisation.cs" />
