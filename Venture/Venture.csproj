@@ -126,15 +126,12 @@
     <Compile Include="Assets\Engine\Lib\SimplePriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\StablePriorityQueue.cs" />
     <Compile Include="Assets\Engine\Lib\StablePriorityQueueNode.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\EnumerationExtensions.cs" />
     <Compile Include="Assets\General\Src\SI\Credit.cs" />
     <Compile Include="Assets\General\Src\SI\GramPerMole.cs" />
     <Compile Include="Assets\General\Src\SI\KilogramMetre2.cs" />
     <Compile Include="Assets\Literals.cs" />
-=======
     <Compile Include="Assets\Engine\Literals.cs" />
->>>>>>> 442ffc614dbb36a07240e558f23a0ac380bcd46f
     <Compile Include="Assets\Engine\Src\BlockingPriorityQueue.cs" />
     <Compile Include="Assets\Engine\Src\IMemento.cs" />
     <Compile Include="Assets\Engine\Src\Memento.cs" />
@@ -143,14 +140,11 @@
     <Compile Include="Assets\Engine\Src\TaskManager.cs" />
     <Compile Include="Assets\Engine\Src\TaskNode.cs" />
     <Compile Include="Assets\Engine\Src\VolatileObject.cs" />
-<<<<<<< HEAD
     <Compile Include="Assets\Systems\Src\Atmosphere\AtmosphereState.cs" />
     <Compile Include="Assets\Systems\Src\Atmosphere\Atmospherics.cs" />
     <Compile Include="Assets\Systems\Src\Connection\Connections.cs" />
     <Compile Include="Assets\Systems\Src\Connection\ConnectionsState.cs" />
-=======
     <Compile Include="Assets\EnumerationExtensions.cs" />
->>>>>>> 442ffc614dbb36a07240e558f23a0ac380bcd46f
     <Compile Include="Assets\General\Src\SI\Atmosphere.cs" />
     <Compile Include="Assets\General\Src\SI\Bar.cs" />
     <Compile Include="Assets\General\Src\SI\Celsius.cs" />
