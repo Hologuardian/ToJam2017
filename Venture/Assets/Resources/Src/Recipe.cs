@@ -11,7 +11,7 @@ namespace Assets.Resources.Src
     {
 
 
-        public Recipe[] RecipeList = {
+        /*public Recipe[] RecipeList = {
         #region Ore Reprocessing
         #region Bauxite Reprocess
         new Recipe() {
@@ -561,7 +561,7 @@ namespace Assets.Resources.Src
         },
         #endregion
         #endregion
-    };
+    };*/
 
         public enum RecipeType
         {
