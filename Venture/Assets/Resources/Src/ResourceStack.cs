@@ -9,6 +9,6 @@ namespace Assets.Resources.Src
     public struct ResourceStack
     {
         public Resource type;
-        public Metre volume;
+        public Metre3 volume;
     }
 }

@@ -8,6 +8,8 @@ namespace Assets.Resources.Src
 {
     public class Inventory : IInventory
     {
+        private Dictionary<Resource, ResourceStack> items;
+
         public ResourceStack AddResource(ResourceStack resource)
         {
             throw new NotImplementedException();

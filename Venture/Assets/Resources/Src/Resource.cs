@@ -567,12 +567,13 @@ namespace Assets.Resources.Src
             this.value = 0;
             this.MolarMass = 0.0f;
         }
-        public Resource(string Name, float Mass, float Density, float Value, float MolarMass)
+        public Resource(string Name, Gram AtomicMass, KilogramMetre3 Density, float Value, GramMole MolarMass)
         {
             this.Name = Name;
             this.Density = Density;
             this.value = Value;
             this.MolarMass = MolarMass;
+            this.AtomicMass = AtomicMass;
         }
         public Resource(Resource resource)
         {
@@ -601,14 +602,14 @@ namespace Assets.Resources.Src
         /// <summary>
         /// How much this stack weighs
         /// </summary>
-        public float Mass(ResourceStack stack)
+        public Gram Mass(ResourceStack stack)
         {
             return stack.volume * Density;
         }
         /// <summary>
         /// How dense this item is
         /// </summary>
-        public float Density
+        public KilogramMetre3 Density
         {
             get { return density; }
             set { density = value; }
@@ -624,11 +625,20 @@ namespace Assets.Resources.Src
         /// <summary>
         /// How much one Mol of this item weighs, used for chemistry equations
         /// </summary>
-        public float MolarMass
+        public GramMole MolarMass
         {
             get { return molarMass; }
             set { this.molarMass = value; }
         }
+        /// <summary>
+        /// The mass of one molecule of this resource.
+        /// </summary>
+        public Gram AtomicMass
+        {
+            get { return atomicMass; }
+            set { this.atomicMass = value; }
+        }
+        //TODO Change currency to SI units
         /// <summary>
         /// How much this stack is worth
         /// </summary>
@@ -638,10 +648,12 @@ namespace Assets.Resources.Src
         }
         
         [SerializeField]
-        private float density;
+        private KilogramMetre3 density;
         [SerializeField]
         private float value;
         [SerializeField]
-        private float molarMass;
+        private GramMole molarMass;
+        [SerializeField]
+        private Gram atomicMass;
     }
 }
