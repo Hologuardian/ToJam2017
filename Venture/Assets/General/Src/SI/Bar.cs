@@ -5,21 +5,43 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Bar : SIUnit
+    public struct Bar : ISIUnit
     {
-        public override string Name()
+        public float value;
+
+        public Bar(float f)
+        { value = f; }
+
+        public string Name()
         { return Literals.SI.Name.Bar; }
 
-        public override string Symbol()
+        public string Symbol()
         { return Literals.SI.Symbol.Bar; }
 
+        public float Value()
+        { return value; }
+
+        public void Value(float f)
+        { value = f; }
+
+        public ISIUnit[] Decompose()
+        {//TODO SIUnit Bar Decompose()
+            return new ISIUnit[] { this };
+        }
+
         public static implicit operator Bar(float f)
-        { return new Bar() { Value = f }; }
+        { return new Bar(f); }
 
         public static implicit operator Bar(Pascal pa)
-        { return new Bar() { Value = pa / 100000 }; }
+        { return new Bar(pa.value / 100000); }
 
         public static implicit operator Pascal(Bar bar)
-        { return new Pascal() { Value = bar * 100000 }; }
+        { return new Pascal(bar.value * 100000); }
+
+        public static explicit operator float(Bar bar)
+        { return bar.value; }
+
+        public static implicit operator string(Bar bar)
+        { return SIUnit.ToString(bar); }
     }
 }

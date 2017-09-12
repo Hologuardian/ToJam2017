@@ -5,15 +5,36 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Pascal : SIUnit
+    public struct Pascal : ISIUnit
     {
-        public override string Name()
+        public float value;
+
+        public Pascal(float f)
+        { value = f; }
+
+        public ISIUnit[] Decompose()
+        { //TODO SIUnit Pascal implement Decompose()
+            return new ISIUnit[] { }; }
+
+        public string Name()
         { return Literals.SI.Name.Pascal; }
 
-        public override string Symbol()
+        public string Symbol()
         { return Literals.SI.Symbol.Pascal; }
 
+        public float Value()
+        { return value; }
+
+        public void Value(float f)
+        { value = f; }
+
         public static implicit operator Pascal(float f)
-        { return new Pascal() { Value = f }; }
+        { return new Pascal(f); }
+
+        public static explicit operator float(Pascal Pa)
+        { return Pa.value; }
+
+        public static implicit operator string(Pascal Pa)
+        { return SIUnit.ToString(Pa); }
     }
 }

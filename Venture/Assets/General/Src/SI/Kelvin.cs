@@ -5,18 +5,38 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Kelvin : SIUnit
+    public struct Kelvin : ISIUnit
     {
-        public override string Name()
+        public float value;
+
+        public Kelvin(float f)
+        { value = f; }
+
+        public ISIUnit[] Decompose()
+        { return new ISIUnit[] { this }; }
+
+        public string Name()
         { return Literals.SI.Name.Kelvin; }
 
-        public override string Symbol()
+        public string Symbol()
         { return Literals.SI.Symbol.Kelvin; }
 
+        public float Value()
+        { return value; }
+
+        public void Value(float f)
+        { value = f; }
+
         public static implicit operator Kelvin(float f)
-        { return new Kelvin() { Value = f }; }
+        { return new Kelvin(f); }
 
         public static implicit operator Kelvin(Celsius c)
-        { return new Kelvin() { Value = (float)c + 273.15f }; }
+        { return new Kelvin((float)c + 273.15f); }
+
+        public static explicit operator float(Kelvin K)
+        { return K.value; }
+
+        public static implicit operator string(Kelvin K)
+        { return SIUnit.ToString(K); }
     }
 }

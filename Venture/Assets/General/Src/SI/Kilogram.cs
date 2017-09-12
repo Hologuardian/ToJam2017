@@ -5,24 +5,38 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Kilogram : SIUnit
+    public struct Kilogram : ISIUnit
     {
-        public override string Name()
+        public float value;
+
+        public Kilogram(float f)
+        { value = f; }
+
+        public string Name()
         { return Literals.SI.Name.Kilogram; }
 
-        public override string Symbol()
+        public string Symbol()
         { return Literals.SI.Symbol.Kilogram; }
 
+        public float Value()
+        { return value; }
+
+        public void Value(float f)
+        { value = f; }
+
+        public ISIUnit[] Decompose()
+        { return new ISIUnit[] { (Gram)this }; }
+
         public static implicit operator Kilogram(float f)
-        { return new Kilogram() { Value = f }; }
+        { return new Kilogram(f); }
 
         public static implicit operator Kilogram(Gram g)
-        { return new Kilogram() { Value = g.Value / 1000.0f }; }
+        { return new Kilogram(g.value / 1000.0f); }
 
         public static implicit operator Gram(Kilogram kg)
-        { return new Gram() { Value = kg.Value * 1000.0f }; }
+        { return new Gram(kg.value * 1000.0f); }
 
         public static KilogramPerMetre3 operator /(Kilogram kg, Metre3 m)
-        { return new KilogramPerMetre3() { Value = kg / m }; }
+        { return new KilogramPerMetre3(kg.value / m.value); }
     }
 }

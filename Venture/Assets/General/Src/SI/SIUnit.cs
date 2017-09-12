@@ -112,35 +112,25 @@ namespace Assets.General.Src.SI
     };
     #endregion
 
-    public abstract class SIUnit
+    public class SIUnit
     {
-        public abstract string Name();
-        public abstract string Symbol();
-
-        public float Value { get; set; }
-
-        public virtual SIUnit[] Decompose()
+        public static int GetFactor(float f)
         {
-            return new SIUnit[] { this };
-        }
-
-        public int GetFactor()
-        {
-            if (Value != 0)
-                return Mathf.FloorToInt(Mathf.Log10(Value));
+            if (f != 0)
+                return Mathf.FloorToInt(Mathf.Log10(f));
             else
                 return 0;
         }
 
-        public float FactorValue()
+        public static float FactorValue(float f)
         {
-            return Value * Mathf.Pow(10, GetFactor());
+            return f * Mathf.Pow(10, GetFactor(f));
         }
 
         #region Symbols
-        public string PrefixSymbol()
+        public static string PrefixSymbol(float f)
         {
-            int factorInt = GetFactor();
+            int factorInt = GetFactor(f);
 
             if (factorInt <= (int)Factor.yocto)
             {
@@ -231,14 +221,23 @@ namespace Assets.General.Src.SI
         }
         #endregion
 
-        public static explicit operator float(SIUnit unit)
+        public static string ToString(ISIUnit unit)
         {
-            return unit.Value;
+            float val = unit.Value();
+            return FactorValue(val) + PrefixSymbol(val) + unit.Symbol();
         }
+    }
 
-        public static implicit operator string(SIUnit unit)
-        {
-            return unit.FactorValue() + unit.PrefixSymbol() + unit.Symbol();
-        }
+    public interface ISIUnit
+    {
+        string Name();
+
+        string Symbol();
+
+        float Value();
+
+        void Value(float f);
+
+        ISIUnit[] Decompose();
     }
 }

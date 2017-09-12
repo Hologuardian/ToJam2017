@@ -5,18 +5,38 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Hour : SIUnit
+    public struct Hour : ISIUnit
     {
-        public override string Name()
+        public float value;
+
+        public Hour(float f)
+        { value = f; }
+
+        public string Name()
         { return Literals.SI.Name.Hour; }
 
-        public override string Symbol()
+        public string Symbol()
         { return Literals.SI.Symbol.Hour; }
 
+        public float Value()
+        { return value; }
+
+        public void Value(float f)
+        { value = f; }
+
+        public ISIUnit[] Decompose()
+        { return new ISIUnit[] { (Second)this }; }
+
         public static implicit operator Second(Hour h)
-        { return new Second() { Value = h * 3600.0f }; }
+        { return new Second(h.value * 3600.0f); }
 
         public static implicit operator Hour(float f)
-        { return new Hour() { Value = f }; }
+        { return new Hour(f); }
+
+        public static explicit operator float(Hour h)
+        { return h.value; }
+
+        public static implicit operator string(Hour h)
+        { return SIUnit.ToString(h); }
     }
 }

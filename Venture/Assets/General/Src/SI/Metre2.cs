@@ -5,15 +5,35 @@ using System.Text;
 
 namespace Assets.General.Src.SI
 {
-    public class Metre2 : SIUnit
+    public struct Metre2 : ISIUnit
     {
-        public override string Name()
+        public float value;
+
+        public Metre2(float f)
+        { value = f; }
+
+        public ISIUnit[] Decompose()
+        { return new ISIUnit[] { this }; }
+
+        public string Name()
         { return Literals.SI.Name.Metre2; }
 
-        public override string Symbol()
+        public string Symbol()
         { return Literals.SI.Symbol.Metre2; }
 
+        public float Value()
+        { return value; }
+
+        public void Value(float f)
+        { value = f; }
+
         public static implicit operator Metre2(float f)
-        { return new Metre2() { Value = f }; }
+        { return new Metre2(f); }
+
+        public static explicit operator float(Metre2 m2)
+        { return m2.value; }
+
+        public static implicit operator string(Metre2 m2)
+        { return SIUnit.ToString(m2); }
     }
 }
