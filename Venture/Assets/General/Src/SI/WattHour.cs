@@ -18,24 +18,24 @@ namespace Assets.General.Src.SI
         { return Literals.SI.Symbol.WattHour; }
 
         public static WattHour operator +(WattHour a, WattHour b)
-        { return new WattHour() { Value = a + b }; }
+        { return new WattHour() { Value = (float)a + (float)b }; }
 
         public static WattHour operator -(WattHour a, WattHour b)
-        { return new WattHour() { Value = a - b }; }
+        { return new WattHour() { Value = (float)a - (float)b }; }
 
         public static WattHour operator *(WattHour a, float f)
-        { return new WattHour() { Value = a * f }; }
+        { return new WattHour() { Value = (float)a * f }; }
 
         public static WattHour operator /(WattHour a, float f)
-        { return new WattHour() { Value = a / f }; }
+        { return new WattHour() { Value = (float)a / f }; }
 
         public static Watt operator /(WattHour Wh, Hour h)
-        { return new Watt() { Value = Wh / h }; }
+        { return new Watt() { Value = (float)Wh / (float)h }; }
 
         public static implicit operator WattHour(float f)
         { return new WattHour { Value = f }; }
 
         public static implicit operator WattHour(Joule j)
-        { return new WattHour { Value = j * 3600.0f }; }
+        { return new WattHour { Value = (float)j * 3600.0f }; }
     }
 }

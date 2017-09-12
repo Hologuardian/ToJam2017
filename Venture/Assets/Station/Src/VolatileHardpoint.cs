@@ -40,7 +40,7 @@ namespace Assets.Station.Src
             foreach (ResourceStack stack in filterArray)
             {
                 // Otherwise the long way:
-                if (incoming.GetResource(stack.type).volume > 0)
+                if ((float)incoming.GetResource(stack.type).volume > 0)
                 {
                     resources[i] = new ResourceStack() { type = stack.type, volume = stack.volume * (stack.volume / filterVolume) };
                 }
@@ -66,7 +66,7 @@ namespace Assets.Station.Src
                 {
                     if (incStack.type == stack.type)
                     {
-                        if (incoming[j].volume > 0)
+                        if ((float)incoming[j].volume > 0)
                         {
                             resources[i] = new ResourceStack() { type = stack.type, volume = stack.volume * (stack.volume / filterVolume) };
                         }

@@ -9,8 +9,8 @@ namespace Assets.Systems.Src.Electricity
 {
     public class EnergyState
     {
-        public IEnergyProducer production;
-        public IEnergyConsumer consumption;
+        public Guid production;
+        public Guid consumption;
 
         public WattHour energy = 0;
         public WattHour energyProduction = 0;

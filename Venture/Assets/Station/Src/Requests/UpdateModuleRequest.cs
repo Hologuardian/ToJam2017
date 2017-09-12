@@ -46,7 +46,7 @@ namespace Assets.Station.Src.Requests
             VolatileModule module = target as VolatileModule;
 
             // Electricity
-            module.energyProduction.Value += energyIn;
+            module.energyProduction += energyIn;
 
             // Integrity
             module.structuralIntegrity += structuralIntegrityIn;

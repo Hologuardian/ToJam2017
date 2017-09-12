@@ -88,7 +88,7 @@ namespace Assets.Systems.Src.Pressure
         /// <param name="subsystem">The pressurisation subsystem requiring update.</param>
         /// <param name="update">The update sequence number (no logic is done at this stage to determine if the subsystem should update or not).</param>
         /// <returns>The state of the pressurisation subsystem after updating.</returns>
-        public static PressurisationState Update(IPressurisation subsystem, int update)
+        public static PressurisationState Update(Guid subsystem, int update)
         {
             PressurisationState lastState = subsystem.State();
             PressurisationState nextState = new PressurisationState(lastState.name, update, subsystem, lastState.atmospherics, lastState.inventory);
@@ -102,7 +102,7 @@ namespace Assets.Systems.Src.Pressure
         /// <param name="inventory">The inventory to bind to the subsystem (this is the inventory that represents the open space within the module).</param>
         /// <param name="atmospherics">The atmospherics subsystem attached to this module.</param>
         /// <param name="rootState">The state this pressurisation subsystem will use to store its current state.</param>
-        public static void Bind(IPressurisation self, IInventory inventory, IAtmospherics atmospherics, PressurisationState rootState)
+        public static void Bind(Guid self, IInventory inventory, Guid atmospherics, PressurisationState rootState)
         {
             rootState.self = self;
             rootState.inventory = inventory;

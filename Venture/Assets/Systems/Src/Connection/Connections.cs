@@ -7,13 +7,13 @@ namespace Assets.Systems.Src.Connection
 {
     public class Connections
     {
-        public static void Connect(IConnections from, IConnections to)
+        public static void Connect(Guid from, Guid to)
         {
             if (!from.State().Connections.Contains(to))
                 from.State().Connections.Add(to);
         }
 
-        public static void Disconnect(IConnections from, IConnections to)
+        public static void Disconnect(Guid from, Guid to)
         {
             if (from.State().Connections.Contains(to))
                 from.State().Connections.Remove(to);

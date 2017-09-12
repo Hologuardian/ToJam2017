@@ -15,9 +15,9 @@ namespace Assets.Systems.Src.Pressure
     /// </summary>
     public class PressurisationState : State
     {
-        public IAtmospherics atmospherics;
+        public Guid atmospherics;
         public IInventory inventory;
-        public IPressurisation self;
+        public Guid self;
 
         public Pascal pressure = 0;
         public Pascal pressureDesired = 0;
@@ -29,7 +29,7 @@ namespace Assets.Systems.Src.Pressure
         public Mole molesOfGasDesired = 0;
         public ResourceComposition[] composition;
 
-        public PressurisationState(string name, int update, IPressurisation self, IAtmospherics atmospherics, IInventory inventory) : base(name, update)
+        public PressurisationState(string name, int update, Guid self, Guid atmospherics, IInventory inventory) : base(name, update)
         {
             this.self = self;
             this.inventory = inventory;

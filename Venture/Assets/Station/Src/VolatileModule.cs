@@ -8,11 +8,6 @@ using Assets.General.Src;
 using Assets.General.Src.SI;
 using Assets.Resources.Src;
 using Assets.Station.Src.Requests;
-using Assets.Systems.Src;
-using Assets.Systems.Src.Pressure;
-using Assets.Systems.Src.Atmosphere;
-using Assets.Systems.Src.Connection;
-using Assets.Systems.Src.Electricity;
 
 namespace Assets.Station.Src
 {
@@ -55,7 +50,7 @@ namespace Assets.Station.Src
         }
     }
 
-    public abstract class VolatileModule : VolatileObject, IMemento, ISubsystem<PressurisationState>, ISubsystem<AtmosphereState>, ISubsystem<ConnectionsState>
+    public abstract class VolatileModule : VolatileObject, IMemento
     {
         // Properties
         private List<VolatileModuleState> states = new List<VolatileModuleState>();
@@ -232,8 +227,8 @@ namespace Assets.Station.Src
                     // Electricity
                     // If the connected module has lower energy production than this one then send power
                     // Using the previously calculated hardpointsNeedingPower we can ensure that all the hardpoints in need get some
-                    if (hardpoint.connection.module.volatileObject.energyProduction < energyProduction)
-                        newRequest.energyIn = Mathf.Max((energyProduction / hardpointsNeedingPower) * energyTransferRate, 0);
+                    if ((float)hardpoint.connection.module.volatileObject.energyProduction < (float)energyProduction)
+                        newRequest.energyIn = Mathf.Max(((float)energyProduction / hardpointsNeedingPower) * energyTransferRate, 0);
 
                     // Integrity
                     // TODO (Late) Implement technology that allows modules to repair each other via connections alone.
@@ -243,10 +238,10 @@ namespace Assets.Station.Src
                     // Pressurisation
                     // If this module has the resources necessary to increase the pressurisation of the connected module, it should send some, either from its pressurisationGasses inventory (first)
                     // Or from its inventory proper (second).
-                    if (hardpoint.connection.module.volatileObject.pressurisation < hardpoint.connection.module.volatileObject.pressurisationDesired)
+                    if ((float)hardpoint.connection.module.volatileObject.pressurisation < (float)hardpoint.connection.module.volatileObject.pressurisationDesired)
                     {
                         // If this module is more pressurised than it should be, take from the pressurisationGasses
-                        if (pressurisation > pressurisationDesired)
+                        if ((float)pressurisation > (float)pressurisationDesired)
                         {
                             // Calculate how much volume we can take based on the pressure from the pressurisationGasses inventory
                         }
@@ -273,7 +268,7 @@ namespace Assets.Station.Src
                                 for (int i = 0; i < desiredResources.Length; i++)
                                 {
                                     // If the hardpoint wants the desiredResource increment the index of desiredHardpoints matching the index of desiredResource
-                                    if (other.volatileHardpoint.Filter.GetResource(desiredResources[i].type).volume == 0)
+                                    if ((float)other.volatileHardpoint.Filter.GetResource(desiredResources[i].type).volume == 0)
                                     {
                                         desiredHardpoints[i]++;
                                     }
@@ -283,7 +278,7 @@ namespace Assets.Station.Src
 
                         // The reason for this section of logic is to ensure that no one resource stack desired is taking more from this module than it has
                         // And than the module the resources are going to can take
-                        float desiredVolume = 0;
+                        Metre3 desiredVolume = 0;
 
                         foreach (ResourceStack stack in desiredResources)
                         {

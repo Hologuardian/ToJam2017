@@ -7,6 +7,6 @@ namespace Assets.Systems.Src.Connection
 {
     public class ConnectionsState
     {
-        public List<IConnections> connections = new List<IConnections>();
+        public List<Guid> connections = new List<Guid>();
     }
 }

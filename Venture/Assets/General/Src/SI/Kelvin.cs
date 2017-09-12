@@ -17,6 +17,6 @@ namespace Assets.General.Src.SI
         { return new Kelvin() { Value = f }; }
 
         public static implicit operator Kelvin(Celsius c)
-        { return new Kelvin() { Value = c + 273.15f }; }
+        { return new Kelvin() { Value = (float)c + 273.15f }; }
     }
 }
