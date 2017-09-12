@@ -14,7 +14,15 @@ namespace Assets.Resources.Src
         /// <returns>
         /// The maximum volume this inventory can hold in m3
         /// </returns>
-        float MaxVolume();
+        Metre3 MaxVolume();
+
+        /// <summary>
+        /// Used to respond the maximum size of the inventory
+        /// </summary>
+        /// <returns>
+        /// The maximum volume this inventory can hold in m3
+        /// </returns>
+        void SetMaxVolume(Metre3 volume);
 
         /// <summary>
         /// 
@@ -22,7 +30,7 @@ namespace Assets.Resources.Src
         /// <returns>
         /// The current volume of total items within the inventory
         /// </returns>
-        float CurrentVolume();
+        Metre3 CurrentVolume();
 
         /// <summary>
         /// Get all resources in the inventory, does not remove them all.
@@ -86,7 +94,7 @@ namespace Assets.Resources.Src
         /// Requested volume to be removed, not garunteed to be this size.
         /// </param>
         /// <returns></returns>
-        ResourceStack RemoveResource(Resource resource, float volume);
+        ResourceStack RemoveResource(Resource resource, Metre3 volume);
 
 
         /// <summary>
@@ -99,7 +107,7 @@ namespace Assets.Resources.Src
         /// Amounts of each resource to remove
         /// </param>
         /// <returns></returns>
-        ResourceStack[] RemoveResources(Resource[] resources, float[] volumes);
+        ResourceStack[] RemoveResources(Resource[] resources, Metre3[] volumes);
 
         /// <summary>
         /// Removes all resources from the inventory

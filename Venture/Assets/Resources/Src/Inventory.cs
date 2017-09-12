@@ -10,9 +10,37 @@ namespace Assets.Resources.Src
     {
         private Dictionary<Resource, ResourceStack> items;
 
+        private Metre3 maxVolume;
+        private Metre3 currentVolume;
+
+        public Inventory(Metre3 MaxVolume)
+        {
+            items = new Dictionary<Resource, ResourceStack>();
+            this.MaxVolume = MaxVolume;
+        }
+
         public ResourceStack AddResource(ResourceStack resource)
         {
-            throw new NotImplementedException();
+            deltaVolume = maxVolume - currentVolume;
+            if (currentVolume + resource.volume <= maxVolume)
+            {
+                if (items.ContainsKey(resource.type))
+                {
+                    items[resource.type].volume += resource.volume;
+                }
+                items.Add(resource.type, resource);
+                return null;
+            }
+            else
+            {
+                if (items.ContainsKey(resource.type))
+                {
+                    items[resource.type].volume += deltaVolume;
+                }
+                items.Add(resource.type, new ResourceStack(resource.type, deltaVolume));
+                resource.volume -= deltaVolume;
+                return resource;
+            }
         }
 
         public ResourceStack[] AddResources(ResourceStack[] resource)
@@ -20,7 +48,7 @@ namespace Assets.Resources.Src
             throw new NotImplementedException();
         }
 
-        public float CurrentVolume()
+        public Metre3 CurrentVolume()
         {
             throw new NotImplementedException();
         }
@@ -35,9 +63,14 @@ namespace Assets.Resources.Src
             throw new NotImplementedException();
         }
 
-        public float MaxVolume()
+        public Metre3 MaxVolume()
         {
-            throw new NotImplementedException();
+            return maxVolume;
+        }
+
+        public Metre3 SetMaxVolume(Metre volume)
+        {
+            maxVolume = volume;
         }
 
         public ResourceStack RemoveResource(Resource resource, float volume)
