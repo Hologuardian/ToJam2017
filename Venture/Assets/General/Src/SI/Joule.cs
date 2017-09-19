@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Joule : ISIUnit
     {
@@ -11,9 +11,6 @@ namespace Assets.General.Src.SI
 
         public Joule(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { this }; }
 
         public string Name()
         { return Literals.SI.Name.Joule; }
@@ -36,7 +33,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Joule j)
         { return j.value; }
 
-        public static implicit operator string(Joule j)
+        public static explicit operator string(Joule j)
         { return SIUnit.ToString(j); }
     }
 }

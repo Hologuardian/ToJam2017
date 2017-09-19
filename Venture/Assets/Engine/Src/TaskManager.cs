@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Assets.Engine.Src
+namespace Assets.Engine
 {
     public struct TaskHeuristic
     {

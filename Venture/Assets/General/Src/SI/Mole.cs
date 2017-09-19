@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Mole : ISIUnit
     {
@@ -24,19 +24,22 @@ namespace Assets.General.Src.SI
         public void Value(float f)
         { value = f; }
 
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { this }; }
-
         public static implicit operator Mole(float f)
         { return new Mole(f); }
 
-        public static GramPerMole operator /(Kilogram kg, Mole mol)
-        { return new GramPerMole(kg.value / mol.value); }
+        public static Mole operator *(Mole mol, float f)
+        { return new Mole(mol.value * f); }
+
+        public static GramPerMole operator /(Gram g, Mole mol)
+        { return new GramPerMole(g.value / mol.value); }
+
+        public static MoleKelvin operator *(Mole mol, Kelvin K)
+        { return new MoleKelvin(mol.value * K.value); }
 
         public static explicit operator float(Mole mol)
         { return mol.value; }
 
-        public static implicit operator string(Mole mol)
+        public static explicit operator string(Mole mol)
         { return SIUnit.ToString(mol); }
     }
 }

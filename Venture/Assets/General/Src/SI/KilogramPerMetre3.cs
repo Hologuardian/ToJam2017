@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct KilogramPerMetre3 : ISIUnit
     {
@@ -11,9 +11,6 @@ namespace Assets.General.Src.SI
 
         public KilogramPerMetre3(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { new Kilogram(value), new Metre3(1.0f) }; }
 
         public string Name()
         { return Literals.SI.Name.KilogramPerMetre3; }
@@ -27,13 +24,19 @@ namespace Assets.General.Src.SI
         public void Value(float f)
         { value = f; }
 
+        public static Kilogram operator *(KilogramPerMetre3 Kgm3, Metre3 m3)
+        { return new Kilogram(Kgm3.value * m3.value); }
+
+        public static Kilogram operator *(Metre3 m3, KilogramPerMetre3 Kgm3)
+        { return new Kilogram(Kgm3.value * m3.value); }
+
         public static implicit operator KilogramPerMetre3(float f)
         { return new KilogramPerMetre3(f); }
 
         public static explicit operator float(KilogramPerMetre3 Kgm3)
         { return Kgm3.value; }
 
-        public static implicit operator string(KilogramPerMetre3 Kgm3)
+        public static explicit operator string(KilogramPerMetre3 Kgm3)
         { return SIUnit.ToString(Kgm3); }
     }
 }

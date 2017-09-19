@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     #region Factors
     /// <summary>
@@ -112,7 +112,7 @@ namespace Assets.General.Src.SI
     };
     #endregion
 
-    public class SIUnit
+    public static class SIUnit
     {
         public static int GetFactor(float f)
         {
@@ -226,18 +226,5 @@ namespace Assets.General.Src.SI
             float val = unit.Value();
             return FactorValue(val) + PrefixSymbol(val) + unit.Symbol();
         }
-    }
-
-    public interface ISIUnit
-    {
-        string Name();
-
-        string Symbol();
-
-        float Value();
-
-        void Value(float f);
-
-        ISIUnit[] Decompose();
     }
 }

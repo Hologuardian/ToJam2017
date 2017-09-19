@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Assets.Engine.Src;
+using Assets.Engine;
 
-namespace Assets.Station.Src.Modules
+namespace Assets.Station.Modules
 {
     public class CommandModule : MonoBehaviour
     {

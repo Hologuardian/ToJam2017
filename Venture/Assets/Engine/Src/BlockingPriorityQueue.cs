@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 using Priority_Queue;
 
-namespace Assets.Engine.Src
+namespace Assets.Engine
 {
     public class BlockingPriorityQueue<T> where T : StablePriorityQueueNode
     {

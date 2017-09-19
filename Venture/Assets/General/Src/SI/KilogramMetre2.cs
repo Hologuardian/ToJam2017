@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct KilogramMetre2 : ISIUnit
     {
@@ -11,9 +11,6 @@ namespace Assets.General.Src.SI
 
         public KilogramMetre2(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { new Kilogram(1.0f), new Metre2(value) }; }
 
         public string Name()
         { return Literals.SI.Name.KilogramMetre2; }

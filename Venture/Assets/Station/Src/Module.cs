@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Engine.Src;
+using Assets.Engine;
 
-namespace Assets.Station.Src
+namespace Assets.Station
 {
     public class Module : MonoBehaviour
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Pascal : ISIUnit
     {
@@ -11,10 +11,6 @@ namespace Assets.General.Src.SI
 
         public Pascal(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { //TODO SIUnit Pascal implement Decompose()
-            return new ISIUnit[] { }; }
 
         public string Name()
         { return Literals.SI.Name.Pascal; }
@@ -34,7 +30,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Pascal Pa)
         { return Pa.value; }
 
-        public static implicit operator string(Pascal Pa)
+        public static explicit operator string(Pascal Pa)
         { return SIUnit.ToString(Pa); }
     }
 }

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Engine.Src;
-using Assets.General.Src.SI;
+using Assets.Engine;
+using Assets.General.SI;
 using Assets.Resources.Src;
-using Assets.Systems.Src.Atmosphere;
+using Assets.Systems.Atmosphere;
 
-namespace Assets.Systems.Src.Pressure
+namespace Assets.Systems.Pressure
 {
     public class Pressurisation
     {
@@ -40,7 +40,7 @@ namespace Assets.Systems.Src.Pressure
         public static void PercentMoles(PressurisationState state)
         {
             // Calculate percent moles
-            state.composition = state.atmospherics.State().composition;
+            state.composition = state.atmospherics.State<AtmosphereState>().composition;
         }
         /// <summary>
         /// Updates the temperature of this state, via the atmospherics temperature.
@@ -49,7 +49,7 @@ namespace Assets.Systems.Src.Pressure
         public static void Temperature(PressurisationState state)
         {
             // Calculate temperature
-            state.temperature = state.atmospherics.State().temperature;
+            state.temperature = state.atmospherics.State<PressurisationState>().temperature;
         }
         /// <summary>
         /// Updates the pressure of this state using the Ideal Gas Law, this requires up to date volume, temperature, and moles of gas information, in the state.
@@ -80,7 +80,7 @@ namespace Assets.Systems.Src.Pressure
         public static void MolesOfGasDesired(PressurisationState state)
         {
             // Calculate moles desired
-            state.molesOfGasDesired = (state.pressureDesired * state.volume) / (Consts.Math.IdealGasConstant * state.temperature) - state.molesOfGas;
+            state.molesOfGasDesired = (state.pressureDesired * state.volume) / (Consts.Math.IdealGasConstant * (float)state.temperature) - state.molesOfGas;
         }
         /// <summary>
         /// Updates a pressurisation subsystem's state, and returns it.
@@ -90,7 +90,7 @@ namespace Assets.Systems.Src.Pressure
         /// <returns>The state of the pressurisation subsystem after updating.</returns>
         public static PressurisationState Update(Guid subsystem, int update)
         {
-            PressurisationState lastState = subsystem.State();
+            PressurisationState lastState = subsystem.State<PressurisationState>();
             PressurisationState nextState = new PressurisationState(lastState.name, update, subsystem, lastState.atmospherics, lastState.inventory);
             Update(nextState);
             return nextState;
@@ -120,7 +120,7 @@ namespace Assets.Systems.Src.Pressure
             // These would be temperature, pressureDesired, volume, and resources
 
             // Get the current state of the atmospherics subsystem, which defines the values desired of the atmosphere.
-            AtmosphereState atmosphere = u.atmospherics.State();
+            AtmosphereState atmosphere = u.atmospherics.State<AtmosphereState>();
             // Then store those values;
             u.temperature = atmosphere.temperature;
             u.pressureDesired = atmosphere.pressure;

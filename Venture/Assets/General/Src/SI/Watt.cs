@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Watt : ISIUnit
     {
@@ -11,9 +11,6 @@ namespace Assets.General.Src.SI
 
         public Watt(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { this }; }
 
         public string Name()
         { return Literals.SI.Name.Watt; }
@@ -39,7 +36,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Watt w)
         { return w.value; }
 
-        public static implicit operator string(Watt w)
+        public static explicit operator string(Watt w)
         { return SIUnit.ToString(w); }
     }
 }

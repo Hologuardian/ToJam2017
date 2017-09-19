@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.General.Src.SI;
+using Assets.General.SI;
 
 namespace Assets.Resources.Src
 {

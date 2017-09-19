@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Second : ISIUnit
     {
@@ -24,9 +24,6 @@ namespace Assets.General.Src.SI
         public void Value(float f)
         { value = f; }
 
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { this }; }
-
         public static implicit operator Hour(Second s)
         { return new Hour(s.value / 3600.0f); }
 
@@ -36,7 +33,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Second s)
         { return s.value; }
 
-        public static implicit operator string(Second s)
-        { return ISIUnit.ToString(s); }
+        public static explicit operator string(Second s)
+        { return SIUnit.ToString(s); }
     }
 }

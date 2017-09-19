@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.General.Src.SI;
+using Assets.General.SI;
 
 namespace Assets.Resources.Src
 {

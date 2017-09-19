@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Engine.Src
+namespace Assets.Engine
 {
     /// <summary>
     /// Request is the formal means of communicating between 2 volatile objects, 

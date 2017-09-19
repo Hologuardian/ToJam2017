@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Kelvin : ISIUnit
     {
@@ -11,9 +11,6 @@ namespace Assets.General.Src.SI
 
         public Kelvin(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { this }; }
 
         public string Name()
         { return Literals.SI.Name.Kelvin; }
@@ -36,7 +33,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Kelvin K)
         { return K.value; }
 
-        public static implicit operator string(Kelvin K)
+        public static explicit operator string(Kelvin K)
         { return SIUnit.ToString(K); }
     }
 }

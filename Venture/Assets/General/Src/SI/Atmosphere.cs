@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Atmosphere : ISIUnit
     {
@@ -24,9 +24,6 @@ namespace Assets.General.Src.SI
         public void Value(float f)
         { value = f; }
 
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { (Pascal)this}; }
-
         public static implicit operator Atmosphere(float f)
         { return new Atmosphere(f); }
 
@@ -45,7 +42,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Atmosphere atm)
         { return atm.value; }
 
-        public static implicit operator string(Atmosphere atm)
+        public static explicit operator string(Atmosphere atm)
         { return SIUnit.ToString(atm); }
     }
 }

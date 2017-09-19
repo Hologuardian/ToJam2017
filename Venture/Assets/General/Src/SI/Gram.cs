@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Gram : ISIUnit
     {
@@ -11,9 +11,6 @@ namespace Assets.General.Src.SI
 
         public Gram(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { this }; }
 
         public string Name()
         { return Literals.SI.Name.Gram; }
@@ -39,7 +36,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Gram g)
         { return g.value; }
 
-        public static implicit operator string(Gram g)
+        public static explicit operator string(Gram g)
         { return SIUnit.ToString(g); }
     }
 }

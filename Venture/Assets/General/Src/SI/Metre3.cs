@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Metre3 : ISIUnit
     {
@@ -11,9 +11,6 @@ namespace Assets.General.Src.SI
 
         public Metre3(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { this }; }
 
         public string Name()
         { return Literals.SI.Name.Metre3; }
@@ -36,7 +33,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Metre3 m3)
         { return m3.value; }
 
-        public static implicit operator string(Metre3 m3)
+        public static explicit operator string(Metre3 m3)
         { return SIUnit.ToString(m3); }
     }
 }

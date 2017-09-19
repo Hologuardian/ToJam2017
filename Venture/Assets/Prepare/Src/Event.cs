@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Engine.Src;
+using Assets.Engine;
 
-namespace Assets.Prepare.Src
+namespace Assets.Prepare
 {
     public enum Severity { Great = 0, Good = 1, Neutral = 2, Bad = 3, Terrible = 4, Catastrophic = 5 };
 

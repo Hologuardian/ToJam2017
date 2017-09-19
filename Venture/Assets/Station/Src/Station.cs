@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Station.Src
+namespace Assets.Station
 {
     public class Station : MonoBehaviour
     {

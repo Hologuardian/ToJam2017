@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     /// <summary>
     /// The WattHour symbol Wh is a derived SI unit formed when multiplying Watts by any measure of time
@@ -27,9 +27,6 @@ namespace Assets.General.Src.SI
 
         public void Value(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { new Watt(value), new Hour(1.0f) }; }
 
         public static WattHour operator +(WattHour a, WattHour b)
         { return new WattHour((float)a + (float)b); }
@@ -55,7 +52,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(WattHour Wh)
         { return Wh.value; }
 
-        public static implicit operator string(WattHour Wh)
-        { return ISIUnit.ToString(Wh); }
+        public static explicit operator string(WattHour Wh)
+        { return SIUnit.ToString(Wh); }
     }
 }

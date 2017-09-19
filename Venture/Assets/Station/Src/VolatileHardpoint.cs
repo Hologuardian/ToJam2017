@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Engine.Src;
+using Assets.Engine;
 using Assets.Resources.Src;
 
-namespace Assets.Station.Src
+namespace Assets.Station
 {
     public class VolatileHardpoint : VolatileObject
     {

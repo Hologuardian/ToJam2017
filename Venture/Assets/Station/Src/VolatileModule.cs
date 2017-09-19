@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Assets.Engine.Src;
+using Assets.Engine;
 using Assets.General.Src;
-using Assets.General.Src.SI;
+using Assets.General.SI;
 using Assets.Resources.Src;
-using Assets.Station.Src.Requests;
+using Assets.Station.Requests;
 
-namespace Assets.Station.Src
+namespace Assets.Station
 {
     public struct VolatileModuleState
     {

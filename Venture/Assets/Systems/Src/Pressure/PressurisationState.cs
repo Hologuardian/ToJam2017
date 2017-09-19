@@ -2,40 +2,61 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Engine.Src;
-using Assets.General.Src.SI;
+using Assets.Engine;
+using Assets.General.SI;
 using Assets.Resources.Src;
-using Assets.Systems.Src.Atmosphere;
-using Assets.Systems.Src.Connection;
+using Assets.Systems.Atmosphere;
+using Assets.Systems.Connection;
 
-namespace Assets.Systems.Src.Pressure
+namespace Assets.Systems.Pressure
 {
     /// <summary>
-    /// This class contains the complete state information of any one IPressurisation system, as a snapshot at that moment in time.
+    /// This struct contains the complete state information of any one IPressurisation system, as a snapshot at that moment in time.
     /// </summary>
-    public class PressurisationState : State
+    public struct PressurisationState : IState
     {
         public Guid atmospherics;
         public IInventory inventory;
         public Guid self;
 
-        public Pascal pressure = 0;
-        public Pascal pressureDesired = 0;
-        public Kelvin temperature = 0;
-        public Metre3 volume = 0;
+        public string name;
+        public int update;
+
+        public Pascal pressure;
+        public Pascal pressureDesired;
+        public Kelvin temperature;
+        public Metre3 volume;
         public ResourceStack[] resources;
         public ResourceStack[] resourcesDesired;
-        public Mole molesOfGas = 0;
-        public Mole molesOfGasDesired = 0;
+        public Mole molesOfGas;
+        public Mole molesOfGasDesired;
         public ResourceComposition[] composition;
 
-        public PressurisationState(string name, int update, Guid self, Guid atmospherics, IInventory inventory) : base(name, update)
+        public PressurisationState(string name, int update, Guid self, Guid atmospherics, IInventory inventory)
         {
+            this.name = name;
+            this.update = update;
+
             this.self = self;
             this.inventory = inventory;
             this.atmospherics = atmospherics;
 
+            pressure = 0;
+            pressureDesired = 0;
+            temperature = 0;
+            volume = 0;
+            resources = null;
+            resourcesDesired = null;
+            molesOfGas = 0;
+            molesOfGasDesired = 0;
+            composition = null;
+
             Pressurisation.Update(this);
+        }
+
+        public object[] Parameters()
+        {
+            return new object[] { name, update, self, atmospherics, inventory, pressure, pressureDesired, temperature, volume, resources, resourcesDesired, molesOfGas, molesOfGasDesired, composition };
         }
     }
 }

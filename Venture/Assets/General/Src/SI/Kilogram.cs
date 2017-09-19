@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Kilogram : ISIUnit
     {
@@ -23,9 +23,6 @@ namespace Assets.General.Src.SI
 
         public void Value(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { (Gram)this }; }
 
         public static implicit operator Kilogram(float f)
         { return new Kilogram(f); }

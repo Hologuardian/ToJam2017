@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Credit : ISIUnit
     {
@@ -24,16 +24,13 @@ namespace Assets.General.Src.SI
         public void Value(float f)
         { value = f; }
 
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { this }; }
-
         public static implicit operator Credit(float f)
         { return new Credit(f); }
 
         public static explicit operator float(Credit c)
         { return c.value; }
 
-        public static implicit operator string(Credit c)
+        public static explicit operator string(Credit c)
         { return SIUnit.ToString(c); }
     }
 }

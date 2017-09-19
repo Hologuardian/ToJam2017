@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.General.Src.SI
+namespace Assets.General.SI
 {
     public struct Celsius : ISIUnit
     {
@@ -11,9 +11,6 @@ namespace Assets.General.Src.SI
 
         public Celsius(float f)
         { value = f; }
-
-        public ISIUnit[] Decompose()
-        { return new ISIUnit[] { (Kelvin)this }; }
 
         public string Name()
         { return Literals.SI.Name.Celsius; }
@@ -36,7 +33,7 @@ namespace Assets.General.Src.SI
         public static explicit operator float(Celsius c)
         { return c.value; }
 
-        public static implicit operator string(Celsius c)
+        public static explicit operator string(Celsius c)
         { return SIUnit.ToString(c); }
     }
 }

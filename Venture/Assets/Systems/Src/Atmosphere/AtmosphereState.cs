@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.General.Src.SI;
+using Assets.General.SI;
 using Assets.Resources.Src;
 
-namespace Assets.Systems.Src.Atmosphere
+namespace Assets.Systems.Atmosphere
 {
     public struct ResourceComposition
     {
@@ -13,20 +13,30 @@ namespace Assets.Systems.Src.Atmosphere
         public float percentage;
     }
 
-    public class AtmosphereState : State
+    public struct AtmosphereState : IState
     {
         public Guid self;
 
-        public Pascal pressure = 0;
-        public Kelvin temperature = 0;
+        public string name;
+        public int update;
+
+        public Pascal pressure;
+        public Kelvin temperature;
         public ResourceComposition[] composition;
 
-        public AtmosphereState(string name, int update, Guid self, ResourceComposition[] composition, Pascal pressure, Kelvin temperature) : base(name, update)
+        public AtmosphereState(string name, int update, Guid self, ResourceComposition[] composition, Pascal pressure, Kelvin temperature)
         {
+            this.name = name;
+            this.update = update;
             this.self = self;
             this.pressure = pressure;
             this.temperature = temperature;
             this.composition = composition;
+        }
+
+        public object[] Parameters()
+        {
+            return new object[] { name, update, self, pressure, temperature, composition };
         }
     }
 }

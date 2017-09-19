@@ -139,7 +139,10 @@
     <Compile Include="Assets\General\Src\SI\Gram.cs" />
     <Compile Include="Assets\General\Src\SI\GramPerMole.cs" />
     <Compile Include="Assets\General\Src\SI\Hour.cs" />
+    <Compile Include="Assets\General\Src\SI\ISIUnit.cs" />
     <Compile Include="Assets\General\Src\SI\Joule.cs" />
+    <Compile Include="Assets\General\Src\SI\JoulePerMole.cs" />
+    <Compile Include="Assets\General\Src\SI\JoulePerMoleKelvin.cs" />
     <Compile Include="Assets\General\Src\SI\Kelvin.cs" />
     <Compile Include="Assets\General\Src\SI\Kilogram.cs" />
     <Compile Include="Assets\General\Src\SI\KilogramMetre2.cs" />
@@ -148,12 +151,14 @@
     <Compile Include="Assets\General\Src\SI\Metre2.cs" />
     <Compile Include="Assets\General\Src\SI\Metre3.cs" />
     <Compile Include="Assets\General\Src\SI\Mole.cs" />
+    <Compile Include="Assets\General\Src\SI\MoleKelvin.cs" />
     <Compile Include="Assets\General\Src\SI\Pascal.cs" />
     <Compile Include="Assets\General\Src\SI\Second.cs" />
     <Compile Include="Assets\General\Src\SI\SIUnit.cs" />
     <Compile Include="Assets\General\Src\SI\Watt.cs" />
     <Compile Include="Assets\General\Src\SI\WattHour.cs" />
     <Compile Include="Assets\Globals.cs" />
+    <Compile Include="Assets\GuidExtensions.cs" />
     <Compile Include="Assets\Literals.cs" />
     <Compile Include="Assets\Prepare\Src\Event.cs" />
     <Compile Include="Assets\Resources\Src\IInventory.cs" />
@@ -179,10 +184,11 @@
     <Compile Include="Assets\Systems\Src\Connection\Connections.cs" />
     <Compile Include="Assets\Systems\Src\Connection\ConnectionsState.cs" />
     <Compile Include="Assets\Systems\Src\Electricity\ElectricalGrid.cs" />
-    <Compile Include="Assets\Systems\Src\Electricity\EnergyState.cs" />
+    <Compile Include="Assets\Systems\Src\Electricity\ElectricalGridState.cs" />
+    <Compile Include="Assets\Systems\Src\GenericState.cs" />
+    <Compile Include="Assets\Systems\Src\IState.cs" />
     <Compile Include="Assets\Systems\Src\Pressure\Pressurisation.cs" />
     <Compile Include="Assets\Systems\Src\Pressure\PressurisationState.cs" />
-    <Compile Include="Assets\Systems\Src\State.cs" />
     <Compile Include="Assets\Systems\Src\System.cs" />
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
   </ItemGroup>
