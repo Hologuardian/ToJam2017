@@ -30,6 +30,9 @@ namespace Assets.General.SI
         public static Kilogram operator *(Metre3 m3, KilogramPerMetre3 Kgm3)
         { return new Kilogram(Kgm3.value * m3.value); }
 
+        public static Metre3 operator *(Kilogram Kg, KilogramPerMetre3 Kgm3)
+        { return new Metre3(Kg.value * Kgm3.value); }
+
         public static implicit operator KilogramPerMetre3(float f)
         { return new KilogramPerMetre3(f); }
 
