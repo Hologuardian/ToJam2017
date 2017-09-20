@@ -36,6 +36,12 @@ namespace Assets.General.SI
         public static MoleKelvin operator *(Mole mol, Kelvin K)
         { return new MoleKelvin(mol.value * K.value); }
 
+        public static Mole operator +(Mole molA, Mole molB)
+        { return new Mole(molA.value + molB.value); }
+
+        public static Mole operator -(Mole molA, Mole molB)
+        { return new Mole(molA.value - molB.value); }
+
         public static explicit operator float(Mole mol)
         { return mol.value; }
 

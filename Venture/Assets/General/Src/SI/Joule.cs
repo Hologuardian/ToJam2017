@@ -30,6 +30,12 @@ namespace Assets.General.SI
         public static implicit operator Joule(WattHour Wh)
         { return new Joule(Wh.value / 3600.0f); }
 
+        public static Joule operator /(Joule j, float f)
+        { return new Joule(j.value / f); }
+
+        public static Pascal operator /(Joule j, Metre3 m3)
+        { return new Pascal(j.value / m3.value); }
+
         public static explicit operator float(Joule j)
         { return j.value; }
 

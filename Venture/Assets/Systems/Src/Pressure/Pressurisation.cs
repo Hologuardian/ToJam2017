@@ -58,7 +58,7 @@ namespace Assets.Systems.Pressure
         public static void Pressure(PressurisationState state)
         {
             // Calculate pressure
-            state.pressure = (state.molesOfGas * Consts.Math.IdealGasConstant * state.temperature) / state.volume;
+            state.pressure = ((state.molesOfGas * state.temperature) * Consts.Math.IdealGasConstant) / state.volume;
         }
         /// <summary>
         /// Updates the resources desired by this pressurisation subsystem in order to achieve the pressure desired by the atmospherics subsystem of this module.
@@ -70,7 +70,7 @@ namespace Assets.Systems.Pressure
             state.resourcesDesired = new ResourceStack[state.resources.Length];
             for (int i = 0; i < state.resources.Length; i++)
             {
-                state.resourcesDesired[i] = new ResourceStack() { type = state.resources[i].type, volume = state.molesOfGasDesired * state.composition[i].percentage / state.resources[i].type.MolarMass};
+                state.resourcesDesired[i] = new ResourceStack() { type = state.resources[i].type, volume = state.molesOfGasDesired * state.composition[i].percentage / state.resources[i].type.MolarMass * state.resources[i].type.Density };
             }
         }
         /// <summary>
@@ -80,7 +80,7 @@ namespace Assets.Systems.Pressure
         public static void MolesOfGasDesired(PressurisationState state)
         {
             // Calculate moles desired
-            state.molesOfGasDesired = (state.pressureDesired * state.volume) / (Consts.Math.IdealGasConstant * (float)state.temperature) - state.molesOfGas;
+            state.molesOfGasDesired = (state.pressureDesired * state.volume) / (Consts.Math.IdealGasConstant * state.temperature) - state.molesOfGas;
         }
         /// <summary>
         /// Updates a pressurisation subsystem's state, and returns it.

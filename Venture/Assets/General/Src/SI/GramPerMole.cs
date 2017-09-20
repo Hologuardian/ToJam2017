@@ -33,6 +33,9 @@ namespace Assets.General.SI
         public static Mole operator /(GramPerMole molar, Gram g)
         { return new Mole(molar.value / g.value); }
 
+        public static Gram operator /(Mole mol, GramPerMole gmol)
+        { return new Gram(mol.value / gmol.value); }
+
         public static implicit operator GramPerMole(float f)
         { return new GramPerMole(f); }
     }

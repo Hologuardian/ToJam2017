@@ -29,5 +29,11 @@ namespace Assets.General.SI
 
         public static explicit operator string(JoulePerMoleKelvin JmolK)
         { return SIUnit.ToString(JmolK); }
+
+        public static JoulePerMole operator *(JoulePerMoleKelvin jmolK, Kelvin K)
+        { return new JoulePerMole(jmolK.value / K.value); }
+        
+        public static Joule operator *(MoleKelvin molK, JoulePerMoleKelvin jmolK)
+        { return new Joule(jmolK.value * molK.value); }
     }
 }

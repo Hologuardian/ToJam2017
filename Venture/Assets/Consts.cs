@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.General.SI;
 
 public enum Size {
     /// <summary>
@@ -195,7 +196,7 @@ public static class Consts
     //      MATH
     public static class Math
     {
-        public const float IdealGasConstant = 0.08206f;
+        public static readonly JoulePerMoleKelvin IdealGasConstant = new JoulePerMoleKelvin(0.08206f);
     }
 
     ///////////////////////////////////////////////////////////////////////////////

@@ -32,5 +32,11 @@ namespace Assets.General.SI
 
         public static implicit operator JoulePerMole(float f)
         { return new JoulePerMole(f); }
+
+        public static Joule operator /(JoulePerMole jmol, Mole mol)
+        { return new Joule(jmol.value / mol.value); }
+
+        public static Mole operator /(Joule j, JoulePerMole jmol)
+        { return new Mole(jmol.value / j.value); }
     }
 }

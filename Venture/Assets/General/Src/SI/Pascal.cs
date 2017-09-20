@@ -32,5 +32,8 @@ namespace Assets.General.SI
 
         public static explicit operator string(Pascal Pa)
         { return SIUnit.ToString(Pa); }
+
+        public static Joule operator *(Pascal Pa, Metre3 m3)
+        { return new Joule(Pa.value * m3.value); }
     }
 }
