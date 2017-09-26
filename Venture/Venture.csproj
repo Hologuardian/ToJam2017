@@ -187,9 +187,11 @@
     <Compile Include="Assets\Systems\Src\Electricity\ElectricalGridState.cs" />
     <Compile Include="Assets\Systems\Src\GenericState.cs" />
     <Compile Include="Assets\Systems\Src\IState.cs" />
+    <Compile Include="Assets\Systems\Src\ISystem.cs" />
     <Compile Include="Assets\Systems\Src\Pressure\Pressurisation.cs" />
     <Compile Include="Assets\Systems\Src\Pressure\PressurisationState.cs" />
-    <Compile Include="Assets\Systems\Src\System.cs" />
+    <Compile Include="Assets\Systems\Src\StateHandler.cs" />
+    <Compile Include="Assets\Systems\Src\Systems.cs" />
     <Compile Include="Assets\UI\Lib\UIInterface.cs" />
   </ItemGroup>
   <ItemGroup>

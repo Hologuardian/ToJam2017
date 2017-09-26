@@ -15,22 +15,17 @@ namespace Assets.Systems.Pressure
     /// </summary>
     public struct PressurisationState : IState
     {
-        public Guid atmospherics;
-        public IInventory inventory;
-        public Guid self;
+        public readonly Guid atmospherics;
+        public readonly IInventory inventory;
+        public readonly Guid self;
 
-        public string name;
-        public int update;
+        public readonly string name;
+        public readonly int update;
 
-        public Pascal pressure;
-        public Pascal pressureDesired;
-        public Kelvin temperature;
-        public Metre3 volume;
-        public ResourceStack[] resources;
-        public ResourceStack[] resourcesDesired;
-        public Mole molesOfGas;
-        public Mole molesOfGasDesired;
-        public ResourceComposition[] composition;
+        public readonly Pascal pressure;
+        public readonly ResourceStack[] resourcesDesired;
+        public readonly Mole molesOfGas;
+        public readonly Mole molesOfGasDesired;
 
         public PressurisationState(string name, int update, Guid self, Guid atmospherics, IInventory inventory)
         {
@@ -42,21 +37,56 @@ namespace Assets.Systems.Pressure
             this.atmospherics = atmospherics;
 
             pressure = 0;
-            pressureDesired = 0;
-            temperature = 0;
-            volume = 0;
-            resources = null;
             resourcesDesired = null;
             molesOfGas = 0;
             molesOfGasDesired = 0;
-            composition = null;
 
             Pressurisation.Update(this);
         }
 
+        public PressurisationState(string name, int update, Guid self, Guid atmospherics, IInventory inventory, Pascal pressure, ResourceStack[] resourcesDesired, Mole molesOfGas, Mole molesOfGasDesired)
+        {
+            this.name = name;
+            this.update = update;
+            this.self = self;
+            this.atmospherics = atmospherics;
+            this.inventory = inventory;
+            this.pressure = pressure;
+            this.resourcesDesired = resourcesDesired;
+            this.molesOfGas = molesOfGas;
+            this.molesOfGasDesired = molesOfGasDesired;
+        }
+
+        public PressurisationState(object[] parameters)
+        {
+            name = (string)parameters[1];
+            update = (int)parameters[2];
+            self = (Guid)parameters[3];
+            atmospherics = (Guid)parameters[4];
+            inventory = (IInventory)parameters[5];
+            pressure = (Pascal)parameters[6];
+            resourcesDesired = (ResourceStack[])parameters[7];
+            molesOfGas = (Mole)parameters[8];
+            molesOfGasDesired = (Mole)parameters[9];
+        }
+
         public object[] Parameters()
         {
-            return new object[] { name, update, self, atmospherics, inventory, pressure, pressureDesired, temperature, volume, resources, resourcesDesired, molesOfGas, molesOfGasDesired, composition };
+            return new object[] { Literals.States.Pressurisation, name, update, self, atmospherics, inventory, pressure, resourcesDesired, molesOfGas, molesOfGasDesired };
+        }
+
+        /// <summary>
+        /// Given that Guid has been extended to allow the returning of states by querying a Guid for a specified state type, it is necessary that in the event of a GenericState return, it can implicitly cast to a PressurisationState
+        /// </summary>
+        /// <param name="state">The GenericState to turn into an empty PressurisationState</param>
+        public static implicit operator PressurisationState(GenericState state)
+        {
+            if (state.parameters.Length == 0)
+                return new PressurisationState("GenericState to PressurisationState", 0, Guid.Empty, Guid.Empty, null);
+            else if ((string)state.parameters[0] == Literals.States.Pressurisation)
+                return new PressurisationState(state.parameters);
+            else
+                return new PressurisationState();
         }
     }
 }

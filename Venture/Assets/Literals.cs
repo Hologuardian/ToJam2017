@@ -10,6 +10,7 @@ namespace Assets
         public class States
         {
             public static string Generic = "genericState";
+            public static string Pressurisation = "pressurisationState";
         }
 
         public class Tasks

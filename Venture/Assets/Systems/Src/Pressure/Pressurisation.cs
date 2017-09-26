@@ -9,136 +9,92 @@ using Assets.Systems.Atmosphere;
 
 namespace Assets.Systems.Pressure
 {
-    public class Pressurisation
+    public class Pressurisation : ISystem
     {
         /// <summary>
-        /// Updates the PressurisationState resources, to reflect the resources in the inventory bound to the state.
+        /// Calculates how many moles of gas are present in an array of resources, which must all be gasses.
         /// </summary>
-        /// <param name="state">The state to update resources on</param>
-        public static void Resources(PressurisationState state)
-        {
-            // Calculate resources
-            state.resources = state.inventory.Resources();
-        }
-        /// <summary>
-        /// Updates the current total moles of gas in this pressurisation system.
-        /// </summary>
-        /// <param name="state">The state to determine moles of gas on</param>
-        public static void MolesOfGas(PressurisationState state)
+        /// <param name="resources">An array of gasses.</param>
+        /// <returns>The number of moles of gas present.</returns>
+        public static Mole MolesOfGas(ResourceStack[] resources)
         {
             // Calculate moles of gas
-            state.molesOfGas = 0;
-            foreach (ResourceStack gas in state.resources)
+            Mole molesOfGas = 0;
+            foreach (ResourceStack gas in resources)
             {
-                state.molesOfGas += gas.type.MolarMass * gas.volume;
+                // TODO this needs to reference the gas mass, not volume
+                molesOfGas += gas.type.MolarMass * gas.volume;
             }
+            return molesOfGas;
         }
         /// <summary>
-        /// Updates the percentage moles of this state, via the atmospherics composition.
+        /// Calculates the atmospheric pressure of gasses in a volume based on temperature and moles of gas present. Uses Ideal Gas Law.
         /// </summary>
-        /// <param name="state">The state to determine composition on</param>
-        public static void PercentMoles(PressurisationState state)
-        {
-            // Calculate percent moles
-            state.composition = state.atmospherics.State<AtmosphereState>().composition;
-        }
-        /// <summary>
-        /// Updates the temperature of this state, via the atmospherics temperature.
-        /// </summary>
-        /// <param name="state">The state to determine temperature on</param>
-        public static void Temperature(PressurisationState state)
-        {
-            // Calculate temperature
-            state.temperature = state.atmospherics.State<PressurisationState>().temperature;
-        }
-        /// <summary>
-        /// Updates the pressure of this state using the Ideal Gas Law, this requires up to date volume, temperature, and moles of gas information, in the state.
-        /// </summary>
-        /// <param name="state">The state to determine the pressure of</param>
-        public static void Pressure(PressurisationState state)
+        /// <param name="molesOfGas">The total number of moles of gas present.</param>
+        /// <param name="temperature">The temperature of the gasses in the volume.</param>
+        /// <param name="volume">The volume the gasses are within.</param>
+        /// <returns>The pressure of the gasses inside the volume at a given temperature.</returns>
+        public static Pascal Pressure(Mole molesOfGas, Kelvin temperature, Metre3 volume)
         {
             // Calculate pressure
-            state.pressure = ((state.molesOfGas * state.temperature) * Consts.Math.IdealGasConstant) / state.volume;
+           return ((molesOfGas * temperature) * Consts.Math.IdealGasConstant) / volume;
         }
         /// <summary>
-        /// Updates the resources desired by this pressurisation subsystem in order to achieve the pressure desired by the atmospherics subsystem of this module.
+        /// Calculates the total number of moles of gas desired on top of the current amount.
         /// </summary>
-        /// <param name="state">The state to determine the required resources on</param>
-        public static void ResourcesDesired(PressurisationState state)
-        {
-            // Calculate resources desired
-            state.resourcesDesired = new ResourceStack[state.resources.Length];
-            for (int i = 0; i < state.resources.Length; i++)
-            {
-                state.resourcesDesired[i] = new ResourceStack() { type = state.resources[i].type, volume = state.molesOfGasDesired * state.composition[i].percentage / state.resources[i].type.MolarMass * state.resources[i].type.Density };
-            }
-        }
-        /// <summary>
-        /// Updates the moles of gas necessary to pressurise this subsystem to the desired pressure, this requires up to date information on volume, temperature, moles of gas, and pressure desired.
-        /// </summary>
-        /// <param name="state">The state to determine the moles of gas desired on.</param>
-        public static void MolesOfGasDesired(PressurisationState state)
+        /// <param name="molesOfGas"></param>
+        /// <param name="pressure"></param>
+        /// <param name="temperature"></param>
+        /// <param name="volume"></param>
+        /// <returns></returns>
+        public static Mole MolesOfGasDesired(Mole molesOfGas, Pascal pressure, Kelvin temperature, Metre3 volume)
         {
             // Calculate moles desired
-            state.molesOfGasDesired = (state.pressureDesired * state.volume) / (Consts.Math.IdealGasConstant * state.temperature) - state.molesOfGas;
+            return (pressure * volume) / (Consts.Math.IdealGasConstant * temperature) - molesOfGas;
         }
-        /// <summary>
-        /// Updates a pressurisation subsystem's state, and returns it.
-        /// </summary>
-        /// <param name="subsystem">The pressurisation subsystem requiring update.</param>
-        /// <param name="update">The update sequence number (no logic is done at this stage to determine if the subsystem should update or not).</param>
-        /// <returns>The state of the pressurisation subsystem after updating.</returns>
-        public static PressurisationState Update(Guid subsystem, int update)
-        {
-            PressurisationState lastState = subsystem.State<PressurisationState>();
-            PressurisationState nextState = new PressurisationState(lastState.name, update, subsystem, lastState.atmospherics, lastState.inventory);
-            Update(nextState);
-            return nextState;
-        }
-        /// <summary>
-        /// Binds the required pressurisation, inventory, atmospherics, and root state to the pressurisation subsystem, ensuring that all future states have all references pre-established for the properties they need.
-        /// </summary>
-        /// <param name="self">The pressurisation subsystem in question.</param>
-        /// <param name="inventory">The inventory to bind to the subsystem (this is the inventory that represents the open space within the module).</param>
-        /// <param name="atmospherics">The atmospherics subsystem attached to this module.</param>
-        /// <param name="rootState">The state this pressurisation subsystem will use to store its current state.</param>
-        public static void Bind(Guid self, IInventory inventory, Guid atmospherics, PressurisationState rootState)
-        {
-            rootState.self = self;
-            rootState.inventory = inventory;
-            rootState.atmospherics = atmospherics;
-        }
-        /// <summary>
-        /// Updates all the properties of a pressurisation state, ensuring they each are true to the state based on those properties they derive from.
-        /// <para>Pressure as an example requires up to date volume, moles of gas, and temperature values, and will therefor update after those values have been determined.</para>
-        /// </summary>
-        /// <param name="u">The state to update.</param>
-        public static void Update(PressurisationState u)
-        {
-            // Start with the very root most properties, and work through the rest
-            // Everything starts with some root dependancies, and external references
-            // These would be temperature, pressureDesired, volume, and resources
 
-            // Get the current state of the atmospherics subsystem, which defines the values desired of the atmosphere.
-            AtmosphereState atmosphere = u.atmospherics.State<AtmosphereState>();
-            // Then store those values;
-            u.temperature = atmosphere.temperature;
-            u.pressureDesired = atmosphere.pressure;
-            // Query resources
-            u.resources = u.inventory.Resources();
-            // Update volume
-            u.volume = u.inventory.MaxVolume();
-            // Calculate moles of gas
-            MolesOfGas(u);
-            // Calculate percent moles
-            PercentMoles(u);
-            // Calculate pressure
-            Pressure(u);
-            // Calculate moles desired
-            MolesOfGasDesired(u);
+        public static ResourceStack[] ResourcesDesired(ResourceStack[] resources, ResourceComposition[] composition, Mole molesOfGasDesired)
+        {
             // Calculate resources desired
-            ResourcesDesired(u);
-            // Done
+            ResourceStack[] resourcesDesired = new ResourceStack[resources.Length];
+            for (int i = 0; i < resources.Length; i++)
+            {
+                resourcesDesired[i] = new ResourceStack() { type = resources[i].type, volume = molesOfGasDesired * composition[i].percentage / resources[i].type.MolarMass * resources[i].type.Density };
+            }
+            return resourcesDesired;
+        }
+
+        public void Handle(Guid target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update()
+        {
+            
+        }
+
+        public IState Update(StateHandler handler)
+        {
+            PressurisationState state = (PressurisationState)handler.State;
+            AtmosphereState atmoState = state.atmospherics.State<AtmosphereState>();
+            ResourceStack[] resources = state.inventory.Resources();
+            ResourceComposition[] composition = atmoState.composition;
+            Mole molesOfGas = MolesOfGas(resources);
+            Pascal pressure = Pressure(molesOfGas, atmoState.temperature, state.inventory.MaxVolume());
+            Mole molesOfGasDesired = MolesOfGasDesired(molesOfGas, pressure, atmoState.temperature, state.inventory.MaxVolume());
+            ResourceStack[] resourcesDesired = ResourcesDesired(resources, composition, molesOfGasDesired);
+            return new PressurisationState(state.name, state.update + 1, state.self, state.atmospherics, state.inventory, pressure, resourcesDesired, molesOfGas, molesOfGasDesired);
+        }
+
+        public IState State(Guid target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dump(StateHandler handler)
+        {
+            throw new NotImplementedException();
         }
     }
 }
