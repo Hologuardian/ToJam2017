@@ -31,17 +31,13 @@ namespace Assets.Systems.Pressure
         {
             this.name = name;
             this.update = update;
-
             this.self = self;
             this.inventory = inventory;
             this.atmospherics = atmospherics;
-
             pressure = 0;
             resourcesDesired = null;
             molesOfGas = 0;
             molesOfGasDesired = 0;
-
-            Pressurisation.Update(this);
         }
 
         public PressurisationState(string name, int update, Guid self, Guid atmospherics, IInventory inventory, Pascal pressure, ResourceStack[] resourcesDesired, Mole molesOfGas, Mole molesOfGasDesired)

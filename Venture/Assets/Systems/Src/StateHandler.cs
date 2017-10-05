@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Systems
 {
-    public delegate void Dump();
+    public delegate void Dump(StateHandler handler);
 
     public class StateHandler
     {
@@ -46,7 +46,7 @@ namespace Assets.Systems
             if (index >= states.Length)
             {
                 index = 0;
-                dump.Invoke();
+                dump.Invoke(this);
             }
         }
     }

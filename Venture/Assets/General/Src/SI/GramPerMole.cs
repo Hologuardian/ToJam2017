@@ -27,8 +27,8 @@ namespace Assets.General.SI
         public static Gram operator *(GramPerMole molar, Mole mol)
         { return new Gram(molar.value * mol.value); }
 
-        public static Mole operator *(GramPerMole molar, Metre3 m3)
-        { return new Mole(molar.value * m3.value); }
+        public static Mole operator *(GramPerMole molar, Gram g)
+        { return new Mole(molar.value * g.value); }
 
         public static Mole operator /(GramPerMole molar, Gram g)
         { return new Mole(molar.value / g.value); }

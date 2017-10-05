@@ -37,6 +37,7 @@ namespace Assets
                 public static string KilogramMetre2 = Kilogram + " " + Metre2;
                 public static string KilogramPerMetre2 = Kilogram + " per " + Metre2;
                 public static string KilogramPerMetre3 = Kilogram + " per " + Metre3;
+                public static string Litre = "litre";
                 public static string Metre = "metre";
                 public static string Metre2 = "metre squared";
                 public static string Metre3 = "metre cubed";
@@ -66,6 +67,7 @@ namespace Assets
                 public static string KilogramMetre2 = Kilogram + Metre2;
                 public static string KilogramPerMetre2 = Kilogram + "/" + Metre2;
                 public static string KilogramPerMetre3 = Kilogram + "/" + Metre3;
+                public static string Litre = "L";
                 public static string Metre = "m";
                 public static string Metre2 = "m²";
                 public static string Metre3 = "m³";

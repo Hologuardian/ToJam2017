@@ -147,6 +147,7 @@
     <Compile Include="Assets\General\Src\SI\Kilogram.cs" />
     <Compile Include="Assets\General\Src\SI\KilogramMetre2.cs" />
     <Compile Include="Assets\General\Src\SI\KilogramPerMetre3.cs" />
+    <Compile Include="Assets\General\Src\SI\Litre.cs" />
     <Compile Include="Assets\General\Src\SI\Metre.cs" />
     <Compile Include="Assets\General\Src\SI\Metre2.cs" />
     <Compile Include="Assets\General\Src\SI\Metre3.cs" />
